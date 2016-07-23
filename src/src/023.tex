@@ -1,0 +1,626 @@
+% 文書の書式・体裁を決定する 
+\section{書式}
+
+\section{クラスとパッケージ}\seclab{class}
+{\LaTeX}は\Z{マークアップ}方式を採用した言語なので\Z{書式}と内容は
+分離されるのが一般的です．そこで\Z{クラス}\pp{\Z{class}}と
+\Z{パッケージ}\pp{\Z{package}}という二つのファイルを使う
+ようになっています．
+
+%さて，クラスやパッケージという用語が出てきましたが，簡単
+%に説明しましょう．昔の話は置いといて\pp{{\LaTeX2.09}}，
+{\LaTeX}では文書の書式を決定するためにクラスというもの
+を宣言します．クラスは\Z{ドキュメントクラス}とか
+\Z{文書クラス}などと呼ばれています．また，便利な機能%
+\zindind{マクロ}{パッケージ}%
+を集めたものを\K{パッケージ}と呼びます．パッケージは\K{マクロパッケージ}
+とか，ただ単に\KY{マクロ}などと呼ばれます．
+
+そうして，{\LaTeX}の原稿\pp{\Z{ソースファイル}}では必ず文
+書の先頭にHOGE
+のような記述をして，文書の書式を大雑把に決定します．
+\begin{usage}
+\documentclass[$\<オプション>,\ldots$]{$\<クラス>$}
+\end{usage}
+%\begin{Syntax}
+%\cmd{documentclass}\opa{オプション$,\ldots$}\pa{クラス}\\ 
+%\cmd{usepackage}\opa{オプション$,\ldots$}\pa{パッケージ}
+%%\cmd{documentclass}\opa{オプション}\pa{クラス}\\ 
+%%\cmd{usepackage}\opa{オプション}\pa{パッケージ}
+%\end{Syntax}
+
+
+%例えば，日本語の小規模の画像を含み，書体の大きさが11ポイントで
+%\Z{2段組}の記事を書こうと思えば
+例えば，本文が日本語で画像を含み，書体の大きさが11ポイントで
+\Z{2段組}の記事を書こうと思えば次のように原稿中で宣言します．
+
+\begin{intext}
+\documentclass[twocolumn,11pt]{jarticle}
+\usepackage[dvips]{color}
+\usepackage[dvips]{graphicx}
+\end{intext}
+
+使用するクラスの中にはオプションが
+存在し，上記のように2段組のために\option{twocolumn}やフォントの
+大きさを指定するために\option{11pt}というオプションを指定します．
+また衝突の起きない限り，複数のパッケージを使う事を
+同時に宣言する事もできます．
+
+\begin{intext}
+\documentclass[twocolumn,11pt]{jarticle}
+\usepackage[dvips]{graphicx,color}
+\end{intext}
+
+クラスとパッケージを明確に区別するために
+クラスの\Z{拡張子}には\exten{cls}を，
+パッケージの拡張子には\exten{sty}を付けるようにします．
+
+\subsection{標準的なクラス}\seclab{01pregame:sec:classes}
+
+\indindz{クラス}{標準的な}%
+{\LaTeX}や{\pLaTeX}の範囲内で提供されている標準的なクラスを
+紹介します．クラスファイルは\Va{classes}{dtx}と
+\Va{classes}{ins}という二つのファイルで配布される事が多い
+ようです．
+
+あるクラスが何からインストールできるのかは，すでにでき
+上がっているクラスファイル\Va{classes}{cls}が存在すれば
+そのファイルの先頭部分に次のような記述があります．
+
+\begin{intext}
+%% This is file `class.cls',
+%% generated with the docstrip utility.
+%% The original source files were:
+%% classes.dtx  (with options: `option')
+\end{intext}
+
+オリジナルのソースファイルは
+オプションに\option{`option'}を指定してファイル名が
+\Va{classes}{dtx}です，と説明してくれていますので
+Unix系OSならば
+%\begin{InTerm}
+%  \type{find /usr/local/share/texmf/ -name classes.dtx}
+%\end{InTerm}
+などでそのファイルを検索できるでしょう．WindowsやMacintosh
+はファイルの検索の機能があると思いますので，そちらを使えば
+良いでしょう．そのようにして検索した場所に\Va{classes}{dtx}や
+\Va{classes}{ins}が存在します．そのファイルがある場所に移動して
+%\begin{InTerm}
+  \type{platex classes.dtx}
+%\end{InTerm}
+とすればそのクラスの仕様書を見る事ができます．さらに
+%\begin{InTerm}
+  \type{platex classes.ins}
+%\end{InTerm}
+とするとそのクラスを導入する事ができます．このような操作をすると
+\Sty{DocStrip}というマクロが適切にファイルを処理します．
+例えばファイル\Fl{classes.ins}をこのように処理すると，
+\Fl{article.cls}，\Fl{report.cls}，\Fl{book.cls}，\Fl{bk10.clo}，
+\Fl{bk11.clo}，\Fl{bk12.clo}，\Fl{size10.clo}，\Fl{size11.clo}，
+\Fl{size12.clo}という九つのファイルが生成されます．
+
+日本語を含まないような文書には欧文専用のクラスが使用できます．
+それぞれどのような文書を作成したいかによって何を用いるかが
+分かれます．標準では以下の欧文用のクラスが使えます．
+\begin{namelist}{xxxx}
+\item[\Cls{article}] 小規模の記事を作成するためのクラス．
+%	\Fl{classes.dtx}や{\COMP}に詳しい仕様が書かれている．
+\item[\Cls{report}]  報告書を作成するためのクラス．
+%	同じく\Fl{classes.dtx}や{\COMP}に詳しい仕様が書かれている．
+\item[\Cls{book}]    書籍を作成するためのクラス．
+%	同じく\Fl{classes.dtx}や{\COMP}に詳しい仕様が書かれている．
+\item[\Cls{slides}]  スライドを作成するためのクラス．
+%	\Fl{slides.dtx}に詳しい仕様が書かれている．
+\item[\Cls{proc}]    \cls{article}をベースに議事録などを%
+	作成するためのクラス．
+%	\Fl{proc.dtx}に詳しい仕様が書かれている．
+\end{namelist}
+以上の\cls{article}，\cls{report}，\cls{book}の三つをまとめて
+\Cls{classes}と呼ぶ事があります．
+
+日本語の文書では，標準で以下のクラスが使えます．
+\begin{namelist}{xxxxx}
+\indindz{クラス}{小規模な文書用の}
+\item[\Cls{jarticle}] 小規模の日本語の記事を作成するためのクラス．
+\indindz{クラス}{報告書用の}
+\item[\Cls{jreport}]  日本語の報告書を作成するためのクラス．
+\indindz{クラス}{書籍用の}
+\item[\Cls{jbook}]    日本語の書籍を作成するためのクラス．
+\item[\Cls{tarticle}] 縦書きの小規模の日本語の記事を作成するためのクラス．
+\item[\Cls{treport}]  縦書きの日本語の報告書を作成するためのクラス．
+\item[\Cls{tbook}]    縦書きの日本語の書籍を作成するためのクラス．
+\end{namelist}
+以上の\cls{jarticle}，\cls{jreport}，\cls{jbook}の三つをまとめて
+\Cls{jclasses}と呼ぶ事があります．
+
+\subsection{クラスオプション}\seclab{classopt}
+ドキュメントクラス\pp{文書クラス}にはもう少し詳細な
+設定を行う事ができます．\cmd{documentclass}の任意引数として
+記述します．多くのクラスファイルでは次の\Z{クラスオプション}が
+使えると思います．
+\begin{description}
+\item[{文字サイズ}{\Optionlist{10pt,11pt,12pt}}] 
+\zindind{文字}{サイズ}%
+\zindind{原稿}{の文字サイズ}%
+原稿で基本となる文字の大きさを決めます．この文字サイズを
+基準としてさまざまなパラメータが設定されます．標準は
+\option{10pt}．
+
+\item[{用紙サイズ}{\Optionlist{a4paper,a5paper,b5paper,letterpaper}}]
+原稿の用紙の大きさを指定します．
+\index{用紙!\zdash のサイズ}%
+\index{用紙!\zdash の大きさ}%
+\zindind{原稿}{の用紙サイズ}%
+和文の場合はこの他に\Optionlist{b4paper,a4j,a5j,b4j,b5j}などです．
+\sty{geometry}パッケージや\cls{jsclasses}を使うと選択の幅が
+広がります．
+
+\item[{用紙方向}{\Option{landscape}}]
+用紙を横置きにします．標準は縦置きです．\index{用紙!\zdash の方向}
+
+\item[\Z{印刷面}{\Optionlist{oneside,twoside}}]
+用紙の片面\pp{\option{oneside}}だけに印刷するか
+それとも両面\pp{\option{twoside}}に印刷するかを指定します．
+\item[\Z{段組}{\Optionlist{onecolumn,twocolumn}}]
+\indindz{段組}{1}\indindz{段組}{2}%
+\Z{1段組}\pp{\option{onecolumn}}にするか\Z{2段組}\pp{\option{twocolumn}}
+にするかを指定します．
+
+\indindz{表題}{独立ページの}\indindz{表題}{同ページの}\indindz{ページ}{表題}
+\item[{表題}{\Optionlist{titlepage,notitlepage}}]
+表題を独立して出力する\pp{\option{titlepage}}か，
+同じページに出力する\pp{\option{notitlepage}}かという表題の
+レイアウトを指定します．
+
+\item[{数式の位置}{\Option{fleqn}}]
+\zindind{数式}{の位置}%	   
+別行数式の位置を左揃えに指定します．標準は中央揃えです．
+	
+\item[{数式番号の位置}{\Option{leqno}}]
+\zindind{数式}{番号の位置}%
+数式番号の位置を左側に指定します．標準は右側です．
+	
+\item[\Z{ドラフト}{\Optionlist{draft,final}}]
+\indindz{原稿}{ドラフト段階の}%
+\indindz{原稿}{執筆段階の}%
+執筆途中で印刷するときに\option{draft}オプションを付けると，
+文書幅の領域をはみ出してしまった箇所に印が付いてくれます．
+原稿が完成したら\option{final}に変更します．標準は\option{final}です．
+
+\item[\Z{左右起し}{\Optionlist{openright,openany}}]
+\cls{(j)report}や\cls{(j)book}において章などの開始ページの
+指定をします．常に奇数ページで起こす\pp{\option{openright}}か，
+どちらからでも起こす\pp{\option{openany}}かを設定します．
+\cls{(j)report}の標準は\option{openany}．
+\cls{(j)book}の標準は\option{openright}．
+\end{description}
+
+
+最近では，\Hito{奥村}{晴彦}が管理している
+\Cls{jsclasses}というクラスファイル群に定評があります\footnote{\webJsclasses}．
+このクラス群を導入すると
+\begin{namelist}{xxxxxx}
+\item[\Cls{jsarticle}]	小規模の日本語の記事を作成するためのクラス．
+\item[\Cls{jsbook}]	日本語の書籍や報告書を作成するためのクラス．
+\item[\Cls{jspf}]	某学会誌用のクラス．
+\end{namelist}
+の三つが使用できます．これらのクラスで指定できる
+クラスオプションが\cls{jclasses}に追加されて
+います\footnote{\cls{(j)classes}で定義されていたいくつかの
+クラスオプションが実装されていません．}．
+以上の\cls{jsarticle}，\cls{jsbook}，\cls{jspf}の三つをまとめて
+\Cls{jsclasses}と呼びます．
+
+\begin{description}
+\item[\Z{文字サイズ}]{\Optionlist%
+   {9pt,10pt,11pt,12pt,14pt,17pt,20pt,21pt,25pt,30pt,36pt,43pt,12Q,14Q}}
+\item[\Z{用紙サイズ}]{\Optionlist%
+   {a4paper,a5paper,a6paper,b5paper,b4paper,a4j,a5j,b4j,b5j,a4var,b5var}}
+\item[言語の指定]{\Option{english}}
+  欧文用の見出しの定義と行送りになります．
+\item[用紙サイズ情報] {\Option{papersize}} 
+  用紙サイズの情報をデバイスドライバに渡すようにします．
+\item[レポート作成] {\Option{report}} 
+  \Z{レポート作成}用に \cmd{chapter} 命令を使う事ができます．
+  \cls{jsbook} では左右起し等に関する設定が変わります．
+\end{description}
+
+
+
+
+
+\subsection{大元の書式を指定する}
+\begin{usage}
+\documentclass[$\<オプション>$]{$\<クラスファイル>$} 
+\end{usage}
+
+\val{クラスファイル}
+
+\C{documentclass} 命令は一つの文書に一度だけ，ファイルの先頭に記述します．
+
+
+\begin{description}
+ \item[article] 
+ \item[report]
+ \item[book]
+ \item[slides]
+\end{description}
+
+\begin{description}
+ \item[jarticle] 
+ \item[jreport]
+ \item[jbook]
+\end{description}
+
+\begin{description}
+ \item[jsarticle] 
+ \item[jsbook]
+\end{description}
+
+jsreport はありませんが，次のように\Option{report}を付ければ片面印刷用に
+書式が設定されます．
+\begin{intext}
+\documentclass[report]{jsbook}
+\end{intext}
+
+
+\subsection{用紙サイズを設定する}
+\begin{usage}
+\documentclass[$\<用紙サイズオプション>$]{$\<クラスファイル>$} 
+\end{usage}
+
+\subsection{デバイスドライバに用紙サイズを渡す}
+
+\begin{usage}
+\AtBeginDvi{\special{papersize=$\<用紙の幅>$,$\<用紙の高さ>$}}
+\end{usage}
+
+\CI{AtBeginDvi}%
+\CI{special}%
+例えばJISのB5 (182\,mm $\times$ 257\,mm) であれば次のようにします．
+\begin{intext}
+\AtBeginDvi{\special{papersize=182mm,257mm}}
+\end{intext}
+原稿の先頭で次のような1行を追加するだけです．
+
+\zindind{ドキュメントクラス}{オプション}%
+\indindz{オプション}{ドキュメントクラス}%
+\Y{jsclasses}ではドキュメントクラスオプションに \Option{papersize}
+を指定するだけで同様の効果を得る事ができます．
+
+\begin{intext}
+\documentclass[papersize]{jsarticle}
+\end{intext}
+
+ただし，後述する\Y{geometry}パッケージと競合する事になります．
+
+
+\subsection{用紙の方向を設定する}
+
+\subsection{両面・片面印刷を設定する}
+
+\subsection{別行数式の位置を左揃えにする}
+
+\subsection{別行数式の番号を左に設定する}
+
+\subsection{左右起しにする}
+
+\subsection{段組みを指定する}
+
+\section{ページの設定}
+
+\section{長さの単位}\index{単位}
+\subsection{\LaTeX での単位の取り決め}
+\latexno{における単位}
+\index{数値の代入}%
+
+\index{=@\str{=}!代入としての\zdash}%
+\index{=@\str{=}}%
+先ほどは何らかの\Z{変数}（\Z{パラメータ}）に数値を代入する時に
+`\verb|\parindent=0pt |'
+という記述がありました．これにはポイント
+\qu{pt}という単位が使われています．
+{\LaTeX}において使用できる\zindind{長さ}{の単位}長さの単位
+\pp{\tabref{latexunit1}}は色々あります．ポイントは%
+\indindz{長さ}{絶対的な}%
+\Z{絶対的な長さ}ではないのでクラスファイルによって変わった
+りプログラムによっても若干の違いがあります．
+\begin{table}[htbp]
+\begin{center}
+\indindz{幅}{Mの字の}%
+\indindz{高さ}{xの字の}%
+\zindind{日本語}{の幅}%
+\caption{{\LaTeX}で使用できる主な単位}\label{tab:latexunit1}
+\begin{tabular}{c*3l}
+\TR
+\Th{単位}& \Th{読み}&  \Th{補足\pp{数値は概算}} & \Th{実際の長さ}\\
+\MR
+in& \Z{インチ}  &1\,in $=$ 25.4\,mm $=$ 72.27\,pt & \demowidth{1truein}\\
+cm& \Z{センチメートル} &1\,cm $=$ 10\,mm $=$ 28.3\,pt    & \demowidth{1truecm}\\
+mm& \Z{ミリメートル}   &1\,mm $=$ 2.83\,pt           & \demowidth{1truemm}\\
+pt& \Z{ポイント}　     &1\,pt $=$ 0.35\,mm           & \demowidth{1truept}\\
+em& Mの字の幅と同じ． &使用中のフォントに依存    & \demowidth{1em}\\
+ex& xの字の高さと同じ．&使用中のフォントに依存  & \demowidth{1ex}\\
+zw& 日本語の一文字の幅．&使用中のフォントに依存   & \demowidth{1zw}\\
+\BR
+\end{tabular}
+\end{center}
+\end{table}
+\hito{奥村}{晴彦}の\cls{jsclasses}ではクラスオプションに
+\Option{10pt}以外のフォントサイズ指定がされている場合は%
+\zindind{紙面}{の拡大縮小}%
+\zindind{単位}{のずれ}%
+紙面の拡大縮小を使っていますので単位がずれます．これには
+各単位に\qu{\str{true}}を付けて長さを指定します．例えば
+\qu{\str{cm}}ならば\qu{\str{truecm}}のようにします．
+%このようにすると \Cmd{magstep}の影響がありません．
+%↑はいらないよなぁ．
+
+
+\subsection{ページ設定のパラメータを知る}
+1段組みの場合のページ設定に関わるパラメータを
+\figref{1段組のページ設定のパラメータ一覧}に示します．
+\begin{figure}[htbp]
+ \begin{center}
+  \includegraphics{layout}
+  \caption{1段組のページ設定のパラメータ一覧}%
+  \figlab{1段組のページ設定のパラメータ一覧}%
+ \end{center}
+\end{figure}
+
+\index{用紙}
+\zindind{ページ}{の余白}
+次はページ全体の\W{余白}に関する長さです．
+\begin{description}
+ \item[\C{voffset}] \zindind{用紙}{の空白}
+ 横組みにおいて用紙の左上の部分に入れる縦方向の余白．
+ この値を0にしてもすでに1インチ分の余白が\LaTeX 側で自動的に挿入されてい
+  ます．
+ 本当に用紙の左上端から使うならば \cmd{voffset}を `\str{-1in}'に設定します．
+
+ \item[\C{hoffset}] 
+ 横組みにおいて用紙の左上の部分に入れる横方向の余白．
+ 縦方向と同じようにすでに1インチ分の余白が挿入されています．
+
+ \item[\C{oddsidemargin}]
+ページが奇数のときに挿入される左側の余白．
+文書クラスオプションに\Option{oneside}を
+使っていると全てのページに \cmd{oddsidemargin}が
+挿入されます．
+
+ \item[\C{evensidemargin}] 
+ページが偶数のときに挿入される左側の余白．
+文書クラスオプションに\Option{twoside}を
+使っているときだけ有効で\Option{oneside}では
+意味がありません．
+\end{description}
+
+ヘッダの設定に関する長さです．
+\begin{description}
+\item[\C{topmargin}] 
+\cmd{voffset}とヘッダの間隔です．
+\item[\C{headheight}]
+ヘッダの高さです．\indindz{高さ}{ヘッダの}%
+\item[\C{headsep}]
+ヘッダと本文領域の間隔です．
+\item[\C{footskip}]
+フッタ下部と本文領域の最下部との間隔です．
+\end{description}
+
+本文領域や傍注領域に関わる長さです．
+\begin{description}
+\item[\C{textheight}]\indindz{高さ}{本文領域の}%
+ 本文領域の高さです．ヘッダやフッタの高さは含まれません．
+ \item[\C{textwidth}]
+ 本文領域の幅です．\indindz{幅}{本文の}%
+ \item[\C{marginparwidth}]
+  傍注の幅です．\indindz{幅}{傍注の}%
+ \item[\C{marginparpush}]
+ 傍注と傍注のあいだの縦方向の長さです．
+ \item[\C{marginparsep}]
+ 傍注と本文領域との間隔です．
+\end{description}
+
+
+\subsection{ページ設定のパラメータを個別に調整する}
+\begin{usage}
+\setlength{パラメータ}{設定値}
+\end{usage}
+\C{setlength}で \cmd{voffset}などの値を例えば 15\,mm に設定するには
+次のようにします．
+\begin{inonly}
+\setlength{\voffset}{15mm}
+\end{inonly}
+
+
+\TeX/\LaTeX における\W{長さ}には伸縮するものと
+しないもの2種類があります．伸縮するものを
+{\W{可変長の長さ}}と呼び，伸縮しないものを\indindz{長さ}{可変長の}
+{\W{固定長の長さ}}と呼びます．\indindz{長さ}{固定長の}
+可変長の長さは{\W{スキップ}}と呼ばれる事が多いようですが，
+本書では可変長の長さと呼びます．
+可変長の長さは{\W{長さ}}，
+{\W{縮み率}}，{\W{伸び率}}の三つの
+属性を持っています．固定長の長さは決まった値しか
+持ちません．可変長の長さは縮み率と伸び率に従って
+バネのように伸縮します．長さの定義には \cmd{newlength}が使えます．
+\begin{usage}
+\newlength{$\<命令>$} 
+\setlength{$\<命令>$}{$\<長さ>$}
+\addtolength{$\<命令>$}{$\<長さ>$}
+\end{usage}
+%\begin{Syntax}
+%\C{newlength}\pa{綴り}\\
+%\C{setlength}\pa{綴り}\pa{長さ} \\
+%\C{addtolength}\pa{綴り}\pa{長さ}
+%\end{Syntax}
+\cmd{setlength}で長さを設定します．\cmd{addtolength}
+では元の長さにさらに長さを足します．\cmd{newlength}
+で定義された長さは可変長にも固定長にもなって良い
+事になっています．まず \cmd{newlength}で新規に
+長さを定義します．次に \cmd{setlength}で
+値を決めます．
+\begin{inout}
+\newlength{\newa}\the\newa\\
+\setlength{\newa}{10mm}\the\newa\\
+\setlength{\newa}{10mm plus 3mm
+   minus 2mm}\the\newa\\
+\addtolength{\newa}{3mm}\the\newa
+\end{inout}
+可変長の長さに値を足しても縮み率と伸び率には
+影響しないのが例の出力から分かるでしょう．
+
+
+\C{setlength}命令で個々のパラメータを調整する事も可能ですが，本書では
+\Hito{梅木}{秀雄}の\Y{geometry}パッケージを用いたページ設定を中心に取り
+上げます．\Y{geometry}を用いると%ユーザは細かい微調整を行わずに所望のレイ
+%アウトを得る事が出来ます．
+行数や余白を直感的に指定する事ができます．
+
+\subsection{現在のページ設定を確認する}
+\begin{usage}
+\usepackage{layout}
+\layout
+\end{usage}
+\Y{layout}パッケージを使うと，現在使用しているクラスファイルの
+ページ設定を確認する事が出来ます．
+\begin{inonly}
+\documentclass[a5j,papersize]{jsarticle}
+\usepackage{layout}
+\begin{document}
+\layout
+\end{document}
+\end{inonly}
+\begin{outonly}
+{\centering\includegraphics[width=.97\linewidth]{package-layout}}
+\end{outonly}
+
+\section{段組の変更}
+
+\subsection{改ページを伴って1段組/2段組みを切り替える}
+\CIS{onecolumn,twocolumn}
+\begin{usage}
+\onecolumn % 1 段組みに変更する
+\twocolumn[$\<段落要素>$] % 2 段組みに変更する
+\end{usage}
+%\begin{Syntax}
+%%\begin{tabular}{ll}
+%% \C{onecolumn}           & \\
+%% \C{twocolumn}\opa{要素} & \\
+%%% \C{columnsep}　         & \pp{2段組のときの段間}\\
+%%% \C{columnseprule}　     & \pp{2段組のときの段間に引く罫線の太さ}
+%%\end{tabular}
+%\end{Syntax}
+1段組みにするためには \cmd{onecolumn}を使い，2段組に
+するには \cmd{twocolumn}を使います．\cmd{twocolumn}
+は改ページをしてから2段組を作成しようとします．
+そのため任意引数に何らかの要素を与えるとその要素を
+ページ上部に1段組で出力します．
+
+
+\subsection{2段組のページレイアウト}
+
+\CIS{columnseprule,columnsep}%
+\begin{description}
+  \item[\C{columnsep}]
+ 2段組以上での段と段の間隔です．
+ \item[\C{columnseprule}]
+ 2段組以上での段と段のあいだに入る罫線です．\indindz{罫線}{2段組での}
+\end{description}
+
+
+\begin{figure}[htbp]
+ \begin{center}
+  \includegraphics{layout-twocolumn}
+  \caption{2段組のページ設定のパラメータ一覧}%
+  \figlab{2段組のページ設定のパラメータ一覧}%
+ \end{center}
+\end{figure}
+
+\subsection{最終ページの下端を揃える}
+\Y{balance}パッケージ
+
+\C{twocolumn}を使って2段組をすると最終ページの
+段の高さが揃わないので，格好悪いでしょう．これは
+\sty{multicol}パッケージで2段組にすると段が揃いますし，
+\Sty{balance}パッケージを使っても可能です．
+
+\subsection{3段組み以上}
+\index{多段組}%
+{\LaTeX}では通常1段組と2段組しか制御できません．
+\zindind{2段組}{のときの段間}\zindind{2段組}{の段間の罫線}%
+
+
+\Person{Frank}{Mittelbach}の作成した\Sty{multicol}を
+使うと最高で10段まで段組できます．自動的に
+段の終わりの最終ページの文章の高さを揃えてくれます．
+星を付けると段の下端を揃えないようにするので，通常は星無しで用いると良い
+でしょう．
+\begin{usage}
+\begin{multicols}{$\<段数>$}
+$\<文章要素>$ 
+\end{multicols} 
+\end{usage}
+%\begin{Syntax}
+%\verb|\begin{multicols|\pa{段数}\\
+%\val{文章内容}\\
+%\verb|\end{multicols}| 
+%\end{Syntax}
+\Env{multicols}環境の場合は改ページされずに同じ
+ページに違う段組を混在できます．余り好ましくない
+事なので多用しないほうが良いでしょう．
+以下のような入力があるとします．
+
+\begin{inout}
+\begin{multicols}{4}
+このパッケージでは10段組まで多段組できますが， 同ページに違う段数の要素
+を組み込むのは余り好ましいことではないので，特別な理由がない限り使うべき
+ではありません．このパッケージでは段の終わりの最終ページの文章を自動で揃
+えるので，従来の組版の規則にも合っています．
+\end{multicols} 
+\end{inout}
+
+%そうすると，次のような出力を得ることができます．
+
+%\begin{multicols}{4}
+%このパッケージでは10段組まで多段組できますが， 
+%同ページに違う段数の要素を組み込むのは余り
+%好ましいことではないので，特別な理由がない限り
+%使うべきではありません．このパッケージでは段の
+%終わりの最終ページの文章を自動で揃えるので，従
+%来の組版の規則にも合っています．
+%\end{multicols} 
+
+%\LaTeXe の標準では \C{onecolumn} と \C{twocolumn} によって 1 段組みと 2
+%段組みを切替える事もできます．
+
+%\begin{intext}
+%\documentclass[twocolumn]{jsarticle}
+%\end{intext}
+
+%これによって全体の段組みを指定する事もできます．しかし， \C{onecolumn} と \C{twocolumn}
+%の両方とも改ページが必須で，ページの途中で段を変更する事もできなければ，
+%2 段組みのときに段の終わりが揃わないなどの制約があります ．
+
+\C*{multicolsep}%
+\begin{intext}
+\multicolsep=1zw % 段の上端/下端の空き
+\end{intext}
+
+\begin{inout}
+\multicolsep=1zw % 段の上端/下端の空き
+\begin{multicols}{4}
+このパッケージでは10段組まで多段組できますが， 同ページに違う段数の要素
+を組み込むのは余り好ましいことではないので，特別な理由がない限り使うべき
+ではありません．このパッケージでは段の終わりの最終ページの文章を自動で揃
+えるので，従来の組版の規則にも合っています．
+\end{multicols} 
+\multicolsep=2zw % 段の上端/下端の空き
+\begin{multicols}{4}
+このパッケージでは10段組まで多段組できますが， 同ページに違う段数の要素
+を組み込むのは余り好ましいことではないので，特別な理由がない限り使うべき
+ではありません．このパッケージでは段の終わりの最終ページの文章を自動で揃
+えるので，従来の組版の規則にも合っています．
+\end{multicols} 
+\end{inout}

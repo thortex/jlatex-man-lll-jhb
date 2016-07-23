@@ -1,0 +1,468 @@
+\makeatletter
+% 副作用の回避
+\fullwidth=\textwidth
+
+% 用紙サイズをデバイスドライバへ
+\def\setpapersize{%
+  \@tempdima\paperwidth
+  \@tempdimb\paperheight
+  \iftombow
+    \advance \@tempdima 2in
+    \advance \@tempdimb 2in
+  \fi
+  \AtBeginDvi{\special{papersize=\the\@tempdima,\the\@tempdimb}}%
+}
+\setpapersize
+
+
+\let \tumefontsize = \small
+\def\tumestyle{\normalfont \tumefontsize \sffamily}
+
+\def\odd@tume{%
+\if@mainmatter
+ \begingroup
+   \setlength\unitlength{1truecm}%
+   \begin{picture}(0,0)%
+     \put(0.7,-\c@chapter){\makebox(0,0)[lc]{{\grayiii \rule{1.1cm}{1cm}}}}%
+     \put(0.8,-\c@chapter){%
+        \makebox(0,0)[lc]{\hbox to1em{\hss\tumestyle\thechapter\hss}}}%
+   \end{picture}%
+ \endgroup
+\fi
+}
+
+\def\even@tume{%
+\if@mainmatter
+ \begingroup
+   \setlength\unitlength{1truecm}%
+   \begin{picture}(0,0)%
+     \put(-0.7,-\c@chapter){\makebox(0,0)[rc]{{\grayiii \rule{1.1cm}{1cm}}}}%
+     \put(-0.8,-\c@chapter){%
+        \makebox(0,0)[rc]{\hbox to1em{\hss\tumestyle\thechapter\hss}}}%
+   \end{picture}%
+ \endgroup
+\fi
+}
+
+\def\header@font@size{\small}
+
+% ページスタイル
+\def\ps@myheadings{%
+  \let\@oddfoot\@empty
+  \let\@evenfoot\@empty
+  \def\@evenhead{%
+    \if@mparswitch \hss \fi
+    \underline{%
+      \hbox to \fullwidth{\even@tume
+        {\header@font@size \autoxspacing
+          \textbf{\thepage}%
+          \hfil\leftmark\hfil}%
+      }%
+    }%
+    \if@mparswitch\else \hss \fi}%
+  \def\@oddhead{%
+    \underline{%
+      \hbox to \fullwidth{%
+        {\header@font@size \autoxspacing \hfil
+          {\if@twoside\rightmark\else\leftmark\fi}\hfil
+          \textbf{\thepage}%
+        }%
+        \odd@tume
+      }%
+    }\hss
+  }%
+  \let\@mkboth\markboth
+  \def\chaptermark##1{\markboth{%
+    \ifnum \c@secnumdepth >\m@ne
+      \if@mainmatter
+        \@chapapp\thechapter\@chappos\hskip1zw
+      \fi
+    \fi
+    ##1}{}}%
+  \def\sectionmark##1{\markright{%
+    \ifnum \c@secnumdepth >\z@ \thesection \hskip1zw\fi
+    ##1}}}%
+
+\pagestyle{myheadings}
+
+\global\let\my@publication\@empty
+\def\mypublication#1{\gdef\my@publication{#1}}
+\newcommand*\printokuduke{%
+ \ifpublishing\else
+  \null \vfill
+  \thispagestyle{empty}%
+  \begin{flushleft}%
+    {\headfont\my@title}%
+  \end{flushleft}%
+  \begin{flushright}%
+    {\copyright} {\my@author} {\@edityear}%
+  \end{flushright}%
+  \hrule \@height .8pt
+  \begin{flushleft}%
+    \begin{tabular}{rl}%
+      \my@publication
+    \end{tabular}%
+  \end{flushleft}%
+  \hrule \@height .8pt
+ \fi
+}%
+
+
+% 版権表示
+\newcommand*\makecopyright{%
+  \thispagestyle{empty}%
+  \null
+  \vfill
+  \begin{center}%
+   Copyright {\copyright} {\@edityear} \@author
+  \end{center}%
+  この文書をフリーソフトウェア財団発行のGNUフリー文書利用許諾契約書
+  （バージョン1.2かそれ以降から一つを選択）が定める条件の下で複製，頒布，
+  あるいは改変することを許可します．変更不可部分，表カバーテキスト，裏カ
+  バーテキストは指定しません．この利用許諾契約書の複製物はGNU \emph{Free
+  Documentation License}（GNUフリー文書利用許諾契約書）という章（付
+  録~\ref{fdl}）に含まれています．\par
+  本書に記載されている企業，団体の名前や製品名などはそれぞれの権利帰属者
+  の商標または商標登録であり所有物です．本書では {\texttrademark} 及
+  び {\textregistered} は明記していません．
+  \clearpage
+}
+
+% 表紙の体裁
+\def\edityear#1{\gdef\@edityear{#1}}
+\def\mytitle#1{%
+  \title{#1}%
+  \def\kana##1{{\normalfont\rmfamily\bfseries\propshape ##1}}%
+  \def\eisu##1{{\normalfont\rmfamily\bfseries ##1}}%
+  \gdef\my@title{#1}%
+}
+\def\myauthor#1{\author{#1}\gdef\my@author{#1}}
+\def\mydate#1{\date{#1}\gdef\my@date{#1}}
+\def\version#1{\gdef\@version{#1}}
+\def\affiliate#1{\gdef\@affiliate{#1}}
+\def\titleimage#1{\gdef\@titleimage{#1}}
+\def\titlefont#1{\gdef\@titlefont{#1}}
+\global \let \my@title \relax
+\global \let \my@author \relax
+\global \let \my@date \relax
+\global \let \@version    \relax
+\global \let \@affiliate  \relax
+\global \let \@titleimage \relax
+\global \let \@titlefont  \relax
+%
+\def\maketitle{%
+ \ifpublishing \else
+ \clearpage
+ \begingroup
+  \thispagestyle{empty}%
+  \parindent = \z@
+  {\hfil\huge \@titlefont \my@title\hfil}%
+  \par \vskip \fboxsep
+  \hrule \@width \linewidth  \@height \fboxrule \@depth \z@
+  \par \vskip \fboxsep
+  {\hrule \@width \linewidth  \@height .5\cvs \@depth \z@}
+  \par \vskip \fboxsep
+  \hrule \@width \linewidth  \@height \fboxrule \@depth \z@
+  \par \vskip .5\cvs
+  \begin{flushright}%
+   {\my@author}\\
+   {第~\@version~版}\\
+   {\my@date}%
+  \end{flushright}%
+  \vfill
+  \begin{center}%
+    \hrule \@width \linewidth  \@height \fboxrule \@depth \z@\par
+    \includegraphics[width=\linewidth]{\@titleimage}\par%
+    \hrule \@width \linewidth  \@height \fboxrule \@depth \z@
+  \end{center}%
+  \vfill
+  \begin{flushleft}%
+    \@affiliate
+  \end{flushleft}%
+ \endgroup
+ \clearpage
+ \fi
+}%
+
+%\fullwidth \textwidth
+%\pagestyle{handbook}
+
+\newenvironment{anumerate}{%
+  \def\theenumi{\Alph{enumi}}%
+  \def\labelenumi{\theenumi.}%
+  \list{\labelenumi}{%
+    \usecounter{enumi}%
+    \setlength\labelwidth{0.8em}%
+    \setlength\labelsep{.5em}%
+    \setlength\leftmargin{1.3em}%
+    \def\makelabel##1{\hss##1}}%
+    }{\endlist}
+
+
+% 目次の体裁
+\def \@toc@chapter@style          {\reset@font \sffamily\bfseries}
+\def \@toc@sec@style              {\reset@font \small\sffamily\bfseries}
+\def \@toc@sec@number@style       {\reset@font \small}
+\def \@toc@subsec@style           {\reset@font \small\sffamily}
+\def \@toc@subsec@number@style    {\reset@font \small}
+\def \@toc@subsubsec@style        {\reset@font \small}
+\def \@toc@subsubsec@number@style {\reset@font \small}
+\def \@toc@par@style              {\reset@font \small}
+\def \@toc@par@number@style       {\reset@font \small}
+\def \@toc@subpar@style           {\reset@font \small}
+\def \@toc@subpar@number@style    {\reset@font \small}
+%
+%\def \@index@style        {\reset@font \footnotesize \narrowbaselines}% 10Q
+%\let \@glossary@style =   \ppc@index@style
+%
+\renewcommand*{\l@section}       {\@dottedtocline{1}%
+  {1zw}{3zw}{\@toc@sec@style}{\@toc@sec@number@style}{-.1\Cvs}}
+\renewcommand*{\l@subsection}    {\@dottedtocline{2}%
+  {2zw}{4.5em}{\@toc@subsec@style}{\@toc@subsec@number@style}{-.2\Cvs}}
+\renewcommand*{\l@subsubsection} {\@dottedtocline{3}%
+  {3zw}{6em}{\@toc@subsubsec@style}{\@toc@subsubsec@number@style}{-.2\Cvs}}
+\renewcommand*{\l@paragraph}     {\@dottedtocline{4}%
+  {5zw}{7.5em}{\@toc@par@style}{\@toc@par@number@style}{-.2\Cvs}}
+\renewcommand*{\l@subparagraph}  {\@dottedtocline{5}%
+  {5zw}{9em}{\@toc@subpar@style}{\@toc@subpar@number@style}{-.2\Cvs}}
+%
+\def\numberline#1{\hb@xt@\@lnumwidth{#1\hfil}\hspace{0pt}}
+%
+% section 以下の目次の体裁
+\def\@dottedtocline#1#2#3#4#5#6#7#8{%
+\ifnum #1>\c@tocdepth \else
+  \vskip #6 \@plus.2\p@
+  {\relax
+   \leftskip #2\relax \rightskip \@tocrmarg \parfillskip -\rightskip
+   \parindent #2\relax\@afterindenttrue
+   \interlinepenalty\@M
+   \leavevmode
+   \@lnumwidth #3\relax
+   \advance\leftskip \@lnumwidth \null\nobreak\hskip -\leftskip
+                     {#4\relax#7}\nobreak
+     {\leaders\hbox{…}\hfill}%
+     \nobreak\hb@xt@\@pnumwidth{\hfil #5\normalcolor #8}\par
+  }%
+\fi
+}
+% 目次中の章見出しの体裁
+\renewcommand\l@chapter[2]{%
+  \ifnum \c@tocdepth >\m@ne
+  \addpenalty{-\@highpenalty}% 泣き別れ
+    \addvspace{.1\Cvs \@plus\p@}
+    \begingroup
+      \parindent\z@
+      \rightskip\@tocrmarg
+      \parfillskip-\rightskip
+      \leavevmode  
+      \@lnumwidth = 4.683zw\relax
+      \advance\leftskip\@lnumwidth \hskip-\leftskip
+      \colorbox[cmyk]{0,0,0,\gray@ii}{%
+        \@tempdima\linewidth \advance\@tempdima-2\fboxsep 
+        \hb@xt@\@tempdima{%
+           \@toc@chapter@style#1\hfill\hb@xt@\@pnumwidth{\hss#2}%
+        }%
+      }%
+        \par\nobreak\vskip6pt
+        \penalty\@highpenalty
+    \endgroup
+  \fi
+}
+
+% 章見出しのすぐ後に，概要を書きます．
+\renewenvironment{abstract}{%
+  \begin{list}{}{%
+    \listparindent=1zw
+    \itemindent=\listparindent
+    \rightmargin=0pt
+    \leftmargin=2zw}\item[]}{\end{list}}
+
+% 章見出しの体裁
+\def\@makechapterhead#1{%
+  \vspace*\Cvs
+  {%
+  \parindent \z@
+  \raggedright
+  \normalfont
+  \@tempdima=\linewidth
+  \advance\@tempdima-2\fboxsep
+    \ifnum \c@secnumdepth >\m@ne
+      \if@mainmatter
+      \colorbox[cmyk]{0,0,0,\gray@iii}{%
+          \hb@xt@\@tempdima{% 
+ 	     \hfil
+             \textcolor[cmyk]{0,0,0,0}{%
+                \LARGE\headfont\@chapapp\thechapter\@chappos}%
+	     \hfil
+          }%
+      }%
+      \par
+      \fi
+    \fi
+      \colorbox[cmyk]{0,0,0,\gray@i}{%
+         \hb@xt@\@tempdima{%
+                \parbox{\@tempdima}{\hfil\huge \headfont #1\hfil}%
+         }%
+      }%
+      \par\nobreak
+      \vskip \Cvs
+  }%
+}
+
+% 星付き章見出しの体裁
+\def\@makeschapterhead#1{%
+  \vspace*\Cvs
+  {%
+  \parindent \z@
+  \raggedright
+  \normalfont
+  \@tempdima=\linewidth
+  \advance\@tempdima-2\fboxsep
+  \colorbox[cmyk]{0,0,0,\gray@i}{%
+     \hb@xt@\@tempdima{%
+            \parbox{\@tempdima}{\hfil\huge \headfont #1\hfil}%
+     }%
+  }%
+  \par\nobreak
+  \vskip \Cvs
+  }%
+}
+
+\renewcommand{\section}{%
+    \@startsection{section}{1}{\z@}%
+    {.5\Cvs \@plus.3\Cdp \@minus.2\Cdp}% 前アキ
+    {.3\Cvs \@plus.3\Cdp}% 後アキ
+    {\normalfont\large\headfont\raggedright}%
+}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
+    {.5\Cvs \@plus.3\Cdp \@minus.2\Cdp}% 前アキ
+    {.1\Cvs \@plus.3\Cdp}% 後アキ
+    {\normalfont\sffamily}%
+}
+
+
+\def\@sect#1#2#3#4#5#6[#7]#8{%
+  \ifnum #2>\c@secnumdepth
+    \let\@svsec\@empty
+  \else
+    \refstepcounter{#1}%
+    \protected@edef\@svsec{\@seccntformat{#1}\relax}%
+  \fi
+  \@tempskipa #5\relax
+  \ifdim \@tempskipa<\z@
+    \def\@svsechd{%
+      #6{\hskip #3\relax
+      \@svsec #8}%
+      \csname #1mark\endcsname{#7}%
+      \addcontentsline{toc}{#1}{%
+        \ifnum #2>\c@secnumdepth \else
+          \protect\numberline{\csname the#1\endcsname}%
+        \fi
+        #7}}% 目次にフルネームを載せるなら #8
+  \else
+    \begingroup
+      \interlinepenalty \@M % 下から移動
+    \ifnum #2=\@ne
+     \ifdim \columnwidth < \textwidth
+         #6{\@hangfrom{\hskip #3\relax\@svsec}#8\@@par}%
+     \else
+         \@tempdima=\textwidth \advance\@tempdima-2\fboxsep
+         \colorbox[cmyk]{0,0,0,\gray@i}%
+           {\hb@xt@\@tempdima{#6{\@hangfrom{\@svsec}#8}\hfil}}\@@par
+     \fi
+    \else
+        \ifnum #2=\tw@
+	{%
+         \fboxsep=.5\fboxsep
+         \@tempdima=\textwidth \advance\@tempdima-2\fboxsep
+         \colorbox[cmyk]{0,0,0,\gray@iii}%
+           {\hb@xt@\@tempdima{%
+              \textcolor[cmyk]{0,0,0,0}{#6{\@hangfrom{\@svsec}#8}}\hfil}}\@@par
+        }%
+        \else
+           #6{\@hangfrom{\hskip #3\relax\@svsec}#8\@@par}%
+        \fi
+    \fi
+    \endgroup
+    \csname #1mark\endcsname{#7}%
+    \addcontentsline{toc}{#1}{%
+      \ifnum #2>\c@secnumdepth \else
+        \protect\numberline{\csname the#1\endcsname}%
+      \fi
+      #7}% 目次にフルネームを載せるならここは #8
+  \fi
+  \@xsect{#5}}
+
+\let \cleardoublepage = \clearpage
+
+\renewenvironment{thebibliography}[1]{%
+  \global\let\presectionname\relax
+  \global\let\postsectionname\relax
+  \chapter{\bibname}\@mkboth{\bibname}{}%
+%  \addcontentsline{toc}{chapter}{\bibname}%
+   \list{\@biblabel{\@arabic\c@enumiv}}%
+        {\settowidth\labelwidth{\@biblabel{#1}}%
+         \leftmargin\labelwidth
+         \advance\leftmargin\labelsep
+         \@openbib@code
+         \usecounter{enumiv}%
+         \let\p@enumiv\@empty
+         \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+   \sloppy
+   \clubpenalty4000
+   \@clubpenalty\clubpenalty
+   \widowpenalty4000%
+   \sfcode`\.\@m}
+  {\def\@noitemerr
+    {\@latex@warning{Empty `thebibliography' environment}}%
+   \endlist}
+
+\renewenvironment{appendix}{%
+   \par \small \relax
+  \setcounter{chapter}{0}%
+  \setcounter{section}{0}%
+  \gdef\@chapapp{\appendixname}%
+  \gdef\@chappos{}%
+  \gdef\thechapter{\@Alph\c@chapter}}{}
+
+\let \table@body@fontsize   = \small
+\let \figure@body@fontsize  = \small
+
+\def\fps@figure {htbp}
+\def\fps@table  {htbp}
+
+\let \orig@table  = \table
+\let \orig@figure = \figure
+
+\def\table{\@ifnextchar[{\my@table}{\my@table[htbp]}}
+\def\figure{\@ifnextchar[{\my@figure}{\my@figure[htbp]}}
+
+\def\my@table[#1]{%
+  \begingroup \table@body@fontsize \tabcolsep = .7\tabcolsep
+    \orig@table[#1]\relax
+}
+\def\my@figure[#1]{
+  \begingroup \figure@body@fontsize 
+    \orig@figure[#1]\relax
+}
+
+\let \orig@end@table  = \endtable
+\let \orig@end@figure = \endfigure
+
+\def\endtable{\orig@end@table   \endgroup}
+\def\endfigure{\orig@end@figure \endgroup}
+
+
+\def\descriptionlabel#1{{\normalfont{\sffamily\bfseries #1}\hfil}}%
+
+\renewenvironment{description}{%
+  \list{}{%
+    \labelwidth=\leftmargin
+    \labelsep=1zw
+    \advance \labelwidth by -\labelsep
+    \let \makelabel=\descriptionlabel}}{\endlist}
+
+\setlength\textfloatsep{10\p@ \@plus 2\p@ \@minus 3\p@}
+
+\makeatother
+\endinput

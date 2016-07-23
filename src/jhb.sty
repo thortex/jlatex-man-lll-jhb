@@ -1,0 +1,37 @@
+\ProvidesPackage{jhb}[2008/05/06 v0.0.5 Thor Watanabe]
+
+% 出版用かどうか（表紙・奥付の有無）
+\newif\ifpublishing
+
+% 必要となるパッケージ
+\input{mcr/required.ltx}
+% 全般の設定
+\input{mcr/setting.ltx}
+% ロゴ・記号
+\input{mcr/symbols.ltx}
+% コマンドの定義
+\input{mcr/command.ltx}
+% レイアウトの調整
+\input{mcr/layout.ltx}
+% URL
+\input{mcr/url.ltx}
+
+\titlefont{\sffamily\bfseries}%  表題の書体
+\titleimage{story-zapfino-crop}% 表紙画像
+\mytitle   {好\kana{き}好\kana{き}\eisu{\LaTeXe}\kana{ハンドブック}編}
+\myauthor  {渡辺 徹}% 著者
+\edityear{2008}% 2007, 2008--2010 のように記述
+\version {0.0.5}% 版
+\mypublication{発行日
+      & 2008/03/19 ver.~0.0.1 配布\\
+      & 2008/03/22 ver.~0.0.2 配布\\
+      & 2008/03/23 ver.~0.0.3 配布\\
+      & 2008/03/30 ver.~0.0.4 配布\\
+      & 2008/05/06 ver.~0.0.5 配布\\
+}
+\mydate    {\today}% 作成日
+\affiliate{Th\'or Watanabe\\% 所属
+  thormac(at)gmail(dot)com\\ % 連絡先
+  \url{http://mytexpert.sourceforge.jp/}% サポートページ
+}
+\endinput

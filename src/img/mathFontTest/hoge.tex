@@ -1,0 +1,61 @@
+%#!platex hoge.tex; dvipdfmx hoge; open hoge.pdf
+\documentclass[dvipdfmx]{jsarticle}
+\pagestyle{empty}
+%\usepackage{type1cm}
+%\usepackage{concmath}
+\usepackage{euler}
+%\usepackage{concrete}
+%\usepackage{cmbright}
+%\usepackage{type1cm}
+%\usepackage{mathptmx}
+%\usepackage{mathpazo}
+%\usepackage{txfonts}
+%\usepackage{pxfonts}
+%\usepackage{eulervm} % non-standard% x
+%\usepackage{fourier}% non-standard% x
+%\usepackage{kerkis,kmath}% non-standard% x
+\begin{document}
+\newcommand*\testmath[3]{%
+  \bgroup
+  \def\rmdefault{#1}%
+  \def\sfdefault{#2}%
+  \def\ttdefault{#3}%
+  \selectfont \normalfont
+%  \sampletext
+  \samplemath
+  \egroup
+}
+\newcommand*\samplemath{%
+  \newcommand*\suminfn{\sum^\infty_{n = 0}}%
+  \newcommand*\dif{\;\mathrm{d}}%
+\begin{eqnarray*}% p. 199
+ f(z) & = & \frac{1}{2\pi i} \oint_C \suminfn 
+            \frac{(z - a)^n}{(z_0 - a)^{n+1}} f(z_0) \dif{z_0} \\
+      & = & \suminfn \frac{(z - a)^n}{n!} \frac{n!}{2\pi i}
+            \oint_C \frac{f(z_0)}{(z_0 - a)^{n + 1}} \dif{z_0}\\
+      & = & \suminfn \frac{(z-a)^n}{n!} f^{(n)}(a)
+\end{eqnarray*}%
+}
+\newcommand*\sampletext{
+  \newcommand*\samplepar{%
+     `I'm afraid I haven't got one,' Alice said in a frightened tone: `there
+     wasn't a ticket-office where I came from.'' And again the chorus of
+     voices went on. `There wasn't room for one where she came from. The land
+     there is worth a thousand pounds an inch!'}
+  {\rmfamily \samplepar}\par
+  {\sffamily \samplepar}\par
+  {\ttfamily \samplepar}\par
+}
+%\twocolumn
+
+\narrowbaselines
+
+\setlength\parindent{0pt}
+
+\testmath{cmr}{cmss}{cmtt}
+%\testmath{ppl}{phv}{pcr}
+%\testmath{ptm}{phv}{pcr}
+%\testmath{txr}{txss}{txtt}
+%\testmath{pxr}{pxss}{pxtt}
+
+\end{document}

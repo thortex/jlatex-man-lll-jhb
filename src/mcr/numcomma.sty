@@ -1,0 +1,118 @@
+\ProvidesPackage{numcomma}[2008/03/21 v0.1b Thor Watanabe]
+
+% 金額表示のカンマの追加・削除が出来たら良いな．
+\def\nc@numdelim{,}
+\def\numDelim#1{\def\nc@numdelim{#1}}
+
+% 小数点記号
+\def\nc@floatdelim{.}
+\def\floatDelim#1{\nc@floatdelim{#1}}
+
+% 一応新設しておこう
+\newcount \@cnt@apcma
+\newcount \@cnt@apcmc
+\newif    \if@nc@float
+
+% カンマを取り除く
+\def\nc@strip@comma#1{%
+  \let \@tempstr \nc@numdelim
+  \expandafter\@tfor \expandafter\member
+     \expandafter:\expandafter=#1\expandafter\do{%
+    % もしカンマなら捨てる、それ以外は表示
+    \ifx\member\@tempstr\else\member\fi
+  }%
+}
+
+\def \nc@append@comma#1{%
+  \let \nc@before@float \@empty
+  \let \nc@after@float  \@empty
+  \@nc@floatfalse
+  % 小数点も考えてよ
+  \expandafter\@tfor \expandafter\member
+     \expandafter:\expandafter=#1\expandafter\do{%
+       \ifx \member \nc@floatdelim 
+          % あ，小数点だよ
+          \@nc@floattrue
+       \fi
+       % 小数点以下は別場所に格納
+       \if@nc@float
+         \edef \nc@after@float  {\nc@after@float\member}%
+       \else
+         % ここだけがカンマを追加する数値だよ
+         \edef \nc@before@float {\nc@before@float\member}%
+       \fi
+  }%
+  \nc@@append@comma\nc@before@float \nc@after@float
+}
+
+% カンマを追加する
+\def \nc@@append@comma#1{%
+  \let \@tempstr \nc@numdelim
+  \let \@temp@reversed \@empty
+  \expandafter\@tfor \expandafter\member
+     \expandafter:\expandafter=#1\expandafter\do{%
+    % まずは全ての要素を逆転させる
+    \edef \@temp@reversed {\member \@temp@reversed}%
+  }%
+  \@cnt@apcma \z@
+  \let \@temp@appended \@empty
+  \expandafter\@tfor \expandafter\member
+     \expandafter:\expandafter=\@temp@reversed \expandafter\do{%
+     % 四つ目の要素の場合は {0000} となっているのを car と cdr で
+     %   \@tempcmda := car (\@temp@appended) [先頭]
+     %   \@tempcmdb := cdr (\@temp@appended) [先頭以外]
+     % にして {[先頭],[先頭以外]}という処理ができるように前処理．
+     % ここで \@temp@appended に \member を追加（\member が空の時も
+     % ある）．
+     %    \@temp@appended := {\member \@tempcmda,\@tempcmdb}
+     \ifnum \@cnt@apcma = 4
+       \edef \@tempcmda {\expandafter \@car \@temp@appended \@nil}%
+       \edef \@tempcmdb {\expandafter \@cdr \@temp@appended \@nil}%
+       \edef \@temp@appended {\member \@tempcmda
+         \nc@numdelim \@tempcmdb}%
+       %o(\the\@cnt@apcma-\@tempcmda:\@tempcmdb)o% for debug
+       % ここでカウンタを次のカンマのために 1 に設定する
+       % この分岐にいる時点で $5i (i = 0, 1, \ldots, k)$ 番目のため．
+       \@cnt@apcma \@ne 
+     \else
+       % 4番目ではない要素の場合はそのまま \member をリストに追加
+       % \@temp@appended := {\member \@temp@appended}
+       \edef \@temp@appended {\member \@temp@appended}%
+     \fi
+     \advance \@cnt@apcma \@ne
+  }%
+  % 最期にリストを表示する
+  \@temp@appended 
+}
+
+% ここからユーザコマンド
+
+% 区切り文字の指定
+\def\defaultNumDelim{\numDelim{,}}
+% 何もなし
+\def\noNumDelim{\numDelim{}}
+% カンマを取り除くコマンド 
+\let \stripComma \nc@strip@comma
+% カンマを追加するコマンド
+\let \appendComma \nc@append@comma
+
+\endinput
+
+% \numDelim{<区切り文字>}
+% 区切り文字を指定する
+
+% \defaultNumDelim
+% 標準の区切り文字に戻す [,]
+
+% \noNumDelim
+% 区切り文字をなくす
+
+% \stripComma{<数字>}
+% カンマを取り除くコマンド 
+
+% \appendComma{<数字>} 
+% カンマを追加するコマンド
+
+% \floatDelim{区切り文字}
+% 小数点の区切り文字を指定する
+

@@ -1,0 +1,24 @@
+% これはただのダミーテキスト．
+% 文字コードを判定するための意味のない文字列．
+% これくらい記述すれば大丈夫かな．
+% Emacs のくせに生意気な．
+% Emacs の分際で自動判別とか．
+% Mac OS X のテキストエディッタの文字コード自動判別はうまくいかないぞ．
+
+\subsection{\sty{amsxtra}で追加されたアクセント記号}
+\begin{table}[htbp]
+%\begin{center}
+ \centering
+ \caption{\Y{amsxtra}で追加された添字アクセント記号}%\tablab{ams:accents}
+\newcommand*\SPC[1]{$A\csname#1\endcsname$ & \C{#1}}
+{\small 上付き添字としてのアクセントですから`\verb|A\sphat|'のように使い
+ます．}\\
+ \begin{tabular}{*6l}
+  \hline
+ \SPC{sphat} & \SPC{spcheck} & \SPC{sptilde} \\
+ \SPC{spdot} & \SPC{spddot} & \SPC{spdddot} \\
+ \SPC{spbreve} \\
+  \hline
+ \end{tabular}
+%\end{center}
+\end{table}

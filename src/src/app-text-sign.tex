@@ -1,0 +1,394 @@
+%#!platex -kanji=utf8 hb.tex
+\section{文字記号}
+
+\begin{table}[htbp]
+ \centering
+ \glossary{"#@\hspace*{-1.2ex}\verb+"\#+}%"
+ \glossary{"_@\hspace*{-1.2ex}\verb+"\_+}%"
+ \glossary{"$@\hspace*{-1.2ex}\verb+"\$+}%"
+ \glossary{"%@\hspace*{-1.2ex}\verb+"\%+}%"
+ \glossary{"{1"}@\hspace*{-1.2ex}\protect\bgroup\verb+"\"{+"}}%
+ \glossary{"{2"}@\hspace*{-1.2ex}"{\verb+"\"}+\protect\egroup}%
+ \glossary{"&@"\hspace*{-1.2ex}"\verb+"\"&+}%"
+ \index{ナンバー}%
+ \index{ドル}%
+ \index{パーセント}%
+ \index{アンパサンド}%
+ \index{波括弧}%
+ \index{チルダ}%
+ \index{ハット}%
+ \index{バックスラッシュ}%
+ \index{縦棒}%
+ \index{小なり}%
+ \index{大なり}
+ \caption{アスキー文字}\tablab{アスキー文字}
+ \begin{tabular}{*{2}{l@{\thickspace}l}}
+  \hline
+  \# & \verb|\#| & \T{textasciitilde}\\
+  \$ & \verb|\$| & \T{textasciicircum}\\
+  \% & \verb|\%| & \T{textbackslash}\\
+  \& & \verb|\&| & \T{textbar}\\
+  \_ & \verb|\_| & \T{textless}\\
+  \{ & \verb|\{| & \T{textgreater}\\
+  \} & \verb|\}| \\  
+  \hline
+ \end{tabular} 
+\end{table}
+
+\LaTeX では10個の半角記号（\W{アスキー文字}）は\W{特殊な文字}として
+解釈されてしまうため，面倒でも\tabref{アスキー文字}のコマンドを
+用いる必要があります．
+\index{"#@\verb+#+}\glossary{"#@\verb+#+}%
+\index{"$@\verb+$+}\glossary{"$@\verb+$+}%
+\index{"&@\verb+&+}\glossary{"&@\verb+&+}%
+\index{"\@\verb+\+}\glossary{"\@\verb+\+}%
+\index{"^@\verb+^+}\glossary{"^@\verb+^+}%
+\index{"_@\verb+_+}\glossary{"_@\verb+_+}%
+\index{"{1"}@\protect\bgroup\verb+"{+"}}%
+\glossary{"{1"}@\protect\bgroup\verb+"{+"}}%
+\index{"{2"}@"{\verb+"}+\protect\egroup}%
+\glossary{"{2"}@"{\verb+"}+\protect\egroup}%
+\index{"~@\verb+~+}%
+\glossary{"~@\verb+~+}%
+\index{%@\verb+%+}%"
+\glossary{%@\verb+%+}%"
+
+%\begin{quote}
+%\verb|# $ % & _ { } ~ ^ \ |
+%\end{quote}
+
+さらに3個の記号は出力が違う文字記号になります．%"
+\index{"|@\texttt{\symbol{'174}}}%"
+\index{"<@\verb+<+}%"
+\index{">@\verb+>+}%"
+%\begin{quote}
+\str| \str< \str> はそれぞれ --- !` ?`
+%\end{quote}
+として表示されてしまいます．
+
+
+\begin{table}[htbp] \centering
+\index{見える空白}%
+\index{ダガー}\index{短剣符}%
+\index{ダブルダガー}\index{二重短剣符}%
+\index{セクション}\index{章標}%
+\index{パラグラフ}\index{段標}%
+\index{たんらくきこう@段落記号\hskip1em(\P)}\indindz{記号}{段落}%
+\index{せつきこう@節記号\hskip1em(\S)}\indindz{記号}{節}%
+\glossary{"!@\verb+"!`+\hskip1em("!`)}%"
+\glossary{?@\verb+?`+\hskip1em(?`)}%
+\index{シャープS}%
+\index{スラッシュ付きO}%
+\index{伏字L}%
+\index{合字!OEの\zdash}%
+\index{合字!AEの\zdash}%
+\index{ポンド}%
+\index{リングA}%
+\indindz{記号}{特殊な}%
+\zindind{点}{のないi}\zindind{点}{のないj}%
+\indindz{記号}{特殊な}%
+\caption{特殊な文字記号}\tablab{app:tokusyukigou}%
+\begin{tabular}{*{5}{l@{\thickspace}l}}
+ \hline
+\T{aa} & \T{AA} & \T{ae} & \T{AE} &\T{oe}\\
+\T{OE} & \T{l} & \T{L} & \T{o} & \T{O}\\
+\T{i}  & \T{j} & \T{ss} & \T{SS} & \T{S}\\
+\T{P}  & \T{dag} & \T{ddag} & \T{pounds} & !`&\verb|!`|  \\
+ {?`}&\verb|?`| & \\ 
+\end{tabular}\\
+\begin{tabular}{*{2}{l@{\thickspace}l}}
+% \hline
+\T{textvisiblespace} & \T{copyright}\\
+\T{textregistered} & \T{texttrademark}\\
+ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}
+ \begin{center}
+  \caption{その他の文字記号}
+  \begin{tabular}{*{2}{l@{\thickspace}l}}
+   \hline
+   \T{textbraceleft}  &
+   \T{textbraceright}\\
+   \T{textunderscore}&
+   \T{textendash}\\
+   \T{textemdash}&
+   \T{textellipsis}\\
+   \T{textquoteleft}&
+   \T{textquoteright}\\
+   \T{textquotedblleft}&
+   \T{textquotedblright}\\
+   \T{textquestiondown}&
+   \T{textexclamdown}\\
+   \hline
+  \end{tabular}   
+ \end{center}
+\end{table}
+
+\tabref{T1エンコーディングで使用できる文字記号}の記号は\Y{fontenc}
+パッケージを\qu{\Option{T1}}というオプション付きで読み込むと出力できます．
+\begin{usage}
+\usepackage[T1]{fontenc} 
+\end{usage}
+このとき，\sty{pxfonts}や\sty{txfonts}，\Y{lmodern}，\Y{type1ec}パッ
+ケージを読み込むとアウトラインフォントがPDFに埋め込まれるようになります．
+
+\begin{table}  \centering
+ \caption{\option{T1}エンコーディングで使用できる文字記号}
+ \tablab{T1エンコーディングで使用できる文字記号}
+\begin{tabular}{*{2}{l@{\thickspace}l}}
+ \hline
+ \T{DJ} &\T{guillemotleft}\\
+ \T{ng} &\T{guillemotright}\\
+ \T{NG} &\T{guilsinglleft}\\
+ \T{th} &\T{guilsinglright}\\
+ \T{TH} &\T{quotedblbase}\\
+ \T{dh} &\T{quotesinglbase}\\
+ \T{DH} &\T{textquotedbl}\\
+ \T{dj} \\
+ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}
+ \caption{ダイアクリティカルマーク（アクセント）}%
+ \tablab{ダイアクリティカルマーク}%
+ \begin{center}
+  \index{ダイアクリティカルマーク}%
+  \indindz{記号}{アクセント}\index{アクセント記号}%
+  \indindz{アクセント}{文中の}%
+  \makeatletter
+  \glossary{""@\hspace*{-1.2ex}\verb+\""+\hskip1em(\""u)}%"
+  \glossary{"~@\hspace*{-1.2ex}\verb+\~+\hskip1em(\~n)}%"
+  \glossary{"^@\hspace*{-1.2ex}\verb+\^+\hskip1em(\^o)}%"
+ \newcommand*\A[4][]{%
+   \glossary{#2@\hspace*{-1.2ex}\texttt{\protect\BS#2}%
+      \hskip1em(\csname#2\endcsname{#3}\relax)}%
+  \index{#1}%
+   #1&\texttt{\BS\string #2}&\csname#2\endcsname{#3}&%
+   \texttt{\BS\string#2\@charlb#3\@charrb}&{#4}%
+  }%
+ \newcommand*\NA[4][]{%
+  \index{#1}%
+   #1&\texttt{\BS\string #2}&\csname#2\endcsname{#3}&%
+   \texttt{\BS\string#2\@charlb#3\@charrb}&{#4}%
+  }%
+ \makeatother
+  \index{acute}\index{breve}\index{circumflex}\index{cedilla}%
+  \index{hungarumlaut}\index{double acute}\index{grave}\index{caron}%
+  \index{macron}\index{dot accent}\index{ring}\index{tie}%
+  \index{tilde}\index{umlaut}\index{subscript dot}\index{under dot}%
+  \index{underscore}%
+  \index{ogonek}%
+ \begin{tabular}{lllll}
+  \toprule
+  名称 & 命令 & 出力例 & 入力例 & 別称 \\
+  \midrule
+  \A[アキュート]         {'}{a} {\W{揚音符}}\\%
+  \A[ブレーヴェ]         {u}{u} {\W{短音府}}\\% 
+  \NA[サーカムフレックス]{^}{a} {\W{抑揚音符}}\\% これは noindex
+  \A[セディーユ]         {c}{C} {\W{鈎形符}}\\ %
+  \A[ダブルアキュート]   {H}{o} {}\\% %長短音符?
+  \A[グレイヴ]           {`}{a} {\W{抑音符}}\\% 
+  \A[ハーチェク]         {v}{a} {\W{キャロン}}\\% 
+  \A[マクロン]           {=}{e} {\W{長音符}}\\% 
+  \A[ドット]             {.}{a} {}\\% 
+  \A[リング]             {r}{o} {}\\% 
+  \A[タイ]               {t}{oo}{}\\% 
+  \maketildeletter
+  \NA[チルダ]            {~}{o} {\W{波音符}}\\%  これは noindex
+  \maketildeother
+  \NA[ウムラウト]        {"}{a} {\W{分音符}}\\%" これは noindex
+  \A[下付きドット]       {d}{t} {}\\% 
+  \A[下線]               {b}{z} {}\\% 
+  \midrule
+  \A[点なしj]            {j}{} {}\\% 
+  \A[点なしi]            {i}{} {}\\% 
+  \midrule
+  \A[オゴネク*]          {k}{c} {}\\ % T1 のみ
+  \bottomrule
+ \end{tabular}
+ \end{center}
+\end{table}
+%
+\tabref{ダイアクリティカルマーク}のオゴネクはT1エンコーディングで出力可
+能です． \tabref{T1エンコーディングで使用できる文字記号}の説明を参照して
+ください．
+\begin{inout}
+J\"org mu\ss\ ein Gel\"ande f\"ur seine Fabrik erwerben.
+\end{inout}
+
+\subsection{\sty{pifont}}
+\begin{table}[htbp]
+\begin{small}
+ \makeatletter
+ \newcommand*\fntsymb[1]{{\usefont{U}{pzd}{m}{n}\char#1}}
+ \newcommand*\fnttbl[1]{%
+   \fntsymb{'#10} & \fntsymb{'#11} &  \fntsymb{'#12} & \fntsymb{'#13} &%
+   \fntsymb{'#14} & \fntsymb{'#15} &  \fntsymb{'#16} & \fntsymb{'#17} &%
+ }
+ \makeatother
+ \begin{center}
+  \caption{\sty{pifont} (\W{ZapDingbats}) 中の記号一覧}\tablab{ZapDingbats}
+  \begin{tabular}{c|*8c|c}
+   \textit{x}
+   & \textit{'0} & \textit{'1} & \textit{'2} & \textit{'3}
+   & \textit{'4} & \textit{'5} & \textit{'6} & \textit{'7}
+   &  \\ \hline
+   \textit{'04x} & \fnttbl{04} \texttt{"2x} \\ \cline{1-9}
+   \textit{'05x} & \fnttbl{05} \texttt{"2y} \\ \hline
+   \textit{'06x} & \fnttbl{06} \texttt{"3x} \\ \cline{1-9}
+   \textit{'07x} & \fnttbl{07} \texttt{"3y} \\ \hline
+   \textit{'10x} & \fnttbl{10} \texttt{"4x} \\ \cline{1-9}
+   \textit{'11x} & \fnttbl{11} \texttt{"4y} \\ \hline
+   \textit{'12x} & \fnttbl{12} \texttt{"5x} \\ \cline{1-9}
+   \textit{'13x} & \fnttbl{13} \texttt{"5y} \\ \hline
+   \textit{'14x} & \fnttbl{14} \texttt{"6x} \\ \cline{1-9}
+   \textit{'15x} & \fnttbl{15} \texttt{"6y} \\ \hline
+   \textit{'16x} & \fnttbl{16} \texttt{"7x} \\ \cline{1-9}
+   \textit{'17x} & \fnttbl{17} \texttt{"7y}\\
+   \hline
+   \multicolumn{10}{c}{}\\
+   \hline
+   \textit{'24x} & \fnttbl{24} \texttt{"Ax} \\ \cline{1-9}
+   \textit{'25x} & \fnttbl{25} \texttt{"Ay}\\\hline
+   \textit{'26x} & \fnttbl{26} \texttt{"Bx} \\ \cline{1-9}
+   \textit{'27x} & \fnttbl{27} \texttt{"By}\\\hline
+   \textit{'30x} & \fnttbl{30} \texttt{"Cx} \\ \cline{1-9}
+   \textit{'31x} & \fnttbl{31} \texttt{"Cy}\\\hline
+   \textit{'32x} & \fnttbl{32} \texttt{"Dx} \\ \cline{1-9}
+   \textit{'33x} & \fnttbl{33} \texttt{"Dy}\\\hline
+   \textit{'34x} & \fnttbl{34} \texttt{"Ex} \\ \cline{1-9}
+   \textit{'35x} & \fnttbl{35} \texttt{"Ey}\\\hline
+   \textit{'36x} & \fnttbl{36} \texttt{"Fx} \\ \cline{1-9}
+   \textit{'37x} & \fnttbl{37} \texttt{"Fy}\\\hline
+   & \texttt{"8} & \texttt{"9} & \texttt{"A} & \texttt{"B}
+   & \texttt{"C} & \texttt{"D} & \texttt{"E} & \texttt{"F}
+   & \texttt{y}
+  \end{tabular}
+ \end{center}
+\end{small}
+\end{table}
+\Y{pifont}パッケージに含まれる記号を使うには次のようにします．
+\begin{usage}
+ \usepackage{pifont}
+ \ding{$\<文字コード>$}
+\end{usage}
+\val{文字コード}は10進数，8進数，16進数で指定可能です．
+\tabref{ZapDingbats}には左側に8進数，右側に16進数の数値を示してあります．
+飛行機の記号を出力するために，
+10進数では40，8進数では\textit{'050}，16進数では \verb|"28| となっていますので，%"
+次のようにします．
+\begin{inout}
+\ding{40} $=$ \ding{'050} $=$ \ding{"28}%"
+\end{inout}
+
+\begin{usage}
+\dingfill{$\<文字コード>$}% 記号で1行の残りの部分を埋める
+\dingline{$\<文字コード>$}% 記号で1行全部を埋める
+\end{usage}
+
+\begin{inout}
+\dingfill{'044} ※ここから切り取ってください．
+\dingline{'134} 
+\end{inout}
+
+\begin{usage}
+\begin{dinglist}{$\<項目>$}% itemize と似た機能です
+ \item $\<項目>$
+\end{dinglist}
+
+\begin{dingautolist}{$\<項目>$}% enumerate と似た機能です
+ \item $\<項目>$
+\end{dingautolist}
+\end{usage}
+
+
+\subsection{\Y{textcomp}}
+\begin{usage}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{mathcomp}% 数式中で使う時 
+% \textleaf であれば \tcleaf のように短い名前(\tc)で参照
+\end{usage}
+
+%\tablab{app:textcomp}
+\begingroup%{table}[htbp]\index{著作権記号}
+%\newcommand*\TC[1]{\mynameuse{#1}&\C{#1}}%
+\newcommand*\TCS[2]{\T{#1}&\T{#2}\\}
+\begin{longtable}{*{2}{l@{\thickspace}l}}
+  \caption{\textsf{textcomp}で使える記号}\\
+ \hline
+ \endfirsthead
+ \hline
+ \multicolumn{4}{c}{前ページからの続きです}\\
+ \endhead
+ \multicolumn{4}{c}{次ページへ続きます}\\
+ \hline
+ \endfoot
+ \hline
+ \endlastfoot
+  \TCS{textquotestraightbase}{textquotestraightdblbase}
+  \TCS{texttwelveudash}{textthreequartersemdash}
+  \TCS{textleftarrow}{textrightarrow}
+  \TCS{textblank}{textdollar}
+  \TCS{textquotesingle}{textasteriskcentered}
+  \TCS{textdblhyphen}{textfractionsolidus}
+  \TCS{textzerooldstyle}{textoneoldstyle}
+  \TCS{texttwooldstyle}{textthreeoldstyle}
+  \TCS{textfouroldstyle}{textfiveoldstyle}
+  \TCS{textsixoldstyle}{textsevenoldstyle}
+  \TCS{texteightoldstyle}{textnineoldstyle}
+  \TCS{textlangle}{textminus}
+  \TCS{textrangle}{textmho}
+  \TCS{textbigcircle}{textohm}
+  \TCS{textlbrackdbl}{textrbrackdbl}
+  \TCS{textuparrow}{textdownarrow}
+  \TCS{textasciigrave}{textborn}
+  \TCS{textdivorced}{textdied}
+  \TCS{textleaf}{textmarried}
+  \TCS{textmusicalnote}{texttildelow}
+  \TCS{textdblhyphenchar}{textasciibreve}
+  \TCS{textasciicaron}{textgravedbl}
+  \TCS{textacutedbl}{textdagger}
+  \TCS{textdaggerdbl}{textbardbl}
+  \TCS{textperthousand}{textbullet}
+  \TCS{textcelsius}{textdollaroldstyle}
+  \TCS{textcentoldstyle}{textflorin}
+  \TCS{textcolonmonetary}{textwon}
+  \TCS{textnaira}{textguarani}
+  \TCS{textpeso}{textlira}
+  \TCS{textrecipe}{textinterrobang}
+  \TCS{textinterrobangdown}{textdong}
+  \TCS{texttrademark}{textpertenthousand}
+  \TCS{textpilcrow}{textbaht}
+  \TCS{textnumero}{textdiscount}
+  \TCS{textestimated}{textopenbullet}
+  \TCS{textservicemark}{textlquill}
+  \TCS{textrquill}{textcent}
+  \TCS{textsterling}{textcurrency}
+  \TCS{textyen}{textbrokenbar}
+  \TCS{textsection}{textasciidieresis}
+  \TCS{textcopyright}{textordfeminine}
+  \TCS{textcopyleft}{textlnot}
+  \TCS{textcircledP}{textregistered}
+  \TCS{textasciimacron}{textdegree}
+  \TCS{textpm}{texttwosuperior}
+  \TCS{textthreesuperior}{textasciiacute}
+  \TCS{textmu}{textparagraph}
+  \TCS{textperiodcentered}{textreferencemark}
+  \TCS{textonesuperior}{textordmasculine}
+  \TCS{textsurd}{textonequarter}
+  \TCS{textonehalf}{textthreequarters}
+  \TCS{texteuro}{texttimes}
+  \T{textdiv}
+\end{longtable}
+\endgroup
+
+
+
+%・windingbats
+
+%\section{ほげ}
+

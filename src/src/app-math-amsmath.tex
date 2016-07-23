@@ -1,0 +1,98 @@
+\subsection{\sty{amsmath}}
+
+\begin{table}[htbp]
+ \begin{center}
+  \zindind{ギリシャ文字}{の変体大文字}%
+  \caption{\sty{amsmath}で追加されたギリシャ大文字の変体文字}\tablab{ams:upper:hen}
+  \begin{tabular}{*{4}{c@{\thickspace\thinspace}l}}
+   \hline
+  \M{varGamma} & \M{varLambda} & \M{varSigma} & \M{varPsi}\\
+  \M{varDelta} & \M{varXi} & \M{varUpsilon} & \M{varOmega}\\ 
+  \M{varTheta} & \M{varPi} & \M{varPhi} & \\
+   \hline
+  \end{tabular}
+ \end{center}
+\end{table}
+
+\begin{table}[htbp]
+\begin{center}
+ \caption{\sty{amsmath}で追加された数学関数}\tablab{ams:mathfunc}
+ \begin{tabular}{*{3}{c@{\thickspace\thinspace}l}}
+     \hline
+\M{injlim}    & \M{projlim}   & \M{varliminf} \\[1ex]
+\M{varlimsup} & \M{varinjlim} & \M{varprojlim}\\
+     \hline
+ \end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[htbp]
+\begin{center}
+ \caption{\sty{amsmath}で追加された積分記号}
+ \begin{tabular}{*{3}{c@{\thickspace\thinspace}l}}
+     \hline
+\M{oint} & \M{iint} & \M{iiint} \\[1ex]
+\M{iiiint} & \M{idotsint} & \\
+   \hline
+ \end{tabular}
+\end{center}
+\end{table}
+
+
+\tabref{ams:accents}で追加されたアクセントにおいて，
+\cmd{dddot} と \cmd{ddddot}以外は基本的に二重のアクセントを
+出力するために使われます．
+
+\CIS{Hat,Acute,Bar,Dot,Check,Grave,Vec,Ddot,Breve,Tilde}%
+\begin{table}[htbp]
+\begin{center}
+\newcommand*{\AW}[2]{%
+  \glossary{#1@\hspace*{-1.2ex}\texttt{\protect\bs#1}%
+    \hskip1em($\protect\csname#1\endcsname{#2}$)}%
+  $\protect\csname#1\endcsname{#2}$ & %
+  \texttt{\bs#1\lb\string#2\rb}}%
+ \newcommand*\BW[1]{$#1{#1{A}}$ & \texttt{\string#1\lb\string#1\lb A\rb\rb}}
+ \caption{\Y{amsmath}で追加されたアクセント記号}\tablab{ams:accents}
+ \begin{tabular}{*{3}{c@{\thickspace\thinspace}l}}
+     \hline
+  \AW{dddot}{a}  & \BW{\Dot}   \\
+  \AW{ddddot}{a} & \BW{\Ddot}  \\
+  \BW{\Acute}    & \BW{\Grave} \\
+  \BW{\Bar}      & \BW{\Hat}   \\
+  \BW{\Breve}    & \BW{\Tilde} \\
+  \BW{\Check}    & \BW{\Vec}   \\
+   \hline
+ \end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[htbp]
+\begin{center}
+ \caption{\Y{amsmath}で追加された空白命令}\tablab{ams:aki}
+\let \DW = \demowidth
+ \begin{tabular}{llll}
+   \hline
+\C{thinspace} & \DW{1.66702truept} & \C{negthinspace} & \DW{-1.66702truept} \\
+\C{medspace}  & \DW{2.22198truept} & \C{negmedspace} & \DW{-2.22198truept} \\
+\C{thickspace} & \DW{2.77695truept} & \C{negthickspace} & \DW{-2.77695truept} \\
+   \hline
+ \end{tabular}
+\end{center}
+\end{table}
+
+
+
+\begin{table}[htbp]
+ \centering
+ \caption{\Y{amsmath}で追加された大きいアクセント}\tablab{ams:big:accent}
+ \begin{tabular}{*{2}{c@{\thickspace\thinspace}l}}
+   \hline
+  $\overrightarrow{a+b}$ & \C{overrightarrow}  & 
+  $\underleftarrow{a+b}$ & \C{underleftarrow} \\
+  $\underleftrightarrow{a+b}$ & \C{underleftrightarrow} & 
+	  $\underrightarrow{a+b}$ & \C{underrightarrow} \\
+   \hline
+ \end{tabular}
+\end{table}
+
+\vskip.5\cvs plus 2pt minus 3pt

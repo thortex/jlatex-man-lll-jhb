@@ -1,0 +1,184 @@
+%#!platex -kanji=utf8 hb.tex
+\chapter{図表の構成}
+% これはただのダミーテキスト．
+% 文字コードを判定するための意味のない文字列．
+% これくらい記述すれば大丈夫かな．
+% Emacs のくせに生意気な．
+% Emacs の分際で自動判別とか．
+% Mac OS X のテキストエディッタの文字コード自動判別はうまくいかないぞ．
+
+\section{}
+
+\section{フロート（浮動体）}
+
+\subsection{図に通し番号を付けてフロートさせる}
+
+\subsection{表に通し番号を付けてフロートさせる}
+レポートや論文においては基本的に図表に対して通し番号を振るために，図表は
+\Env{table}環境か\Env{figure}環境に入れ子にします．この場合，{\LaTeX}で
+は図表を\KY{浮動体} (\Z{float}) と呼ばれる場所に一度退避させ，最適な位置
+に図表を配置しようと試みます\pp{\tabref{floats}}．浮動体として退避さ
+せた図表は少し制限の多い条件で組版されます．
+\begin{table}%[6]{r}{20zw}
+ \centering
+ \caption{浮動体の種類}\tablab{floats}
+ \begin{tabular}{lcc} 
+  \TR
+  & \Th{表}          & \Th{図}          \\ 
+  \MR
+  入れる環境 & \Env{table}環境 & \Env{figure}環境 \\ 
+  見出しの位置 & 表の上部 & 図の下部 \\
+  \BR
+ \end{tabular}
+\end{table}
+
+\indindz{番号}{図表の通し}\indindz{番号}{表の通し}\indindz{番号}{図の通し}%
+表 (\Z{table}) は\Env{tabular}環境で作成し，番号付けしたければ
+\Env{table}環境中に入れ子にします．
+%
+図 (\Z{figure}) は\Env{picture}環境や\indindz{ファイル}{画像}%
+画像ファイルを指定し，番号付
+けしたければ\Env{figure}環境中に入れ子にします．このようにするとそれ
+らの図表は浮動体として扱われます．レポートや論文では図表に通し番号
+を付けるのは必須ですから，全ての表は\env{table}環境の中へ，図は
+\env{figure}環境の中に入れるのが良いでしょう．
+\indindz{画像}{浮動体としての}%
+
+
+\zindind{ページ}{の最下部}%
+\zindind{ページ}{の最上部}%
+図表を挿入するときに指定するのはその配置場所です．基本的に{\LaTeX}は
+図表をページの最上部か最下部に配置しようとして，それでも無理なときは
+別ページへと出力します．ユーザはこれら図表（浮動体）の配置場所を指定する
+事ができます．指定できる場所は\tabref{hudoutai}となります．位
+置指定は複数指定する事が可能です．
+
+\begin{table}
+ \begin{center}
+  \caption{浮動体の位置指定}\tablab{hudoutai}
+  \begin{tabular}{cl}
+   \TR
+   \Th{記号} & \Th{浮動体の配置する場所} \\
+   \MR
+   \str h & まさにその場所に配置しようと試みます\\
+   \str t & ページ上部に配置しようと試みます\\
+   \str b & ページ下部に配置しようと試みます\\
+   \str p & 浮動体を別ページに配置しようと試みます\\
+   \str ! & 無理やりその場所に配置します\\
+   \BR
+  \end{tabular}
+ \end{center}
+\end{table}
+これらの位置指定は\env{table}環境や\env{figure}環境の
+{任意引数として渡します}．\env{figure}環境で例を示すと
+次のように使います．
+
+\begin{intext}
+\begin{figure}[htbp]
+ここに図が入ります．
+\end{figure}
+\end{intext}
+
+図表用の見出しを出力するには \C{caption}命令を
+\E{figure}/\E{table}環境中で使用します．
+\begin{usage}
+\caption[$\<図表目次用見出し>$]{$\<見出し>$}
+\label{$\<ラベル>$}
+\end{usage}
+%\begin{Syntax}
+%\C{caption}\pa{図表見出し}\C{label}\pa{ラベル}
+%\end{Syntax}
+前述のように表見出しは表の上部に出力するために，\C{caption}
+命令を先に，図見出しの場合は，図の後に \C{caption}を先に
+記述します．
+
+\env{figure}環境中に表を入れたり，\env{table}環境中に
+図を入れたりする事ができます．他にも環境中に文字列
+を挿入する事も可能です．
+
+一般的なレポート・論文等においては
+図表を文章中で参照するときは「上の図は何々」や「前述の図は何々」
+と参照してはいけません．必ず\K{付加した通し番号}で「図~3.8は
+何々」として \C{ref}命令で参照します．そのためには \C{label}命令で
+ラベルを付け加える事になります．間違っても{手動で図表の番号を
+書かないで下さい}．%番号の参照は \LaTeX の\secref{xr}を参照して，
+
+
+
+
+
+
+\subsection{図表を末尾に移動する (\Y{endfloat})}
+
+
+%\section{Gnuplot}
+
+%\subsection{Gnuplotのグラフを\LaTeX に張り込む}
+
+
+
+
+\subsection{『表3.8 見出し』を『表3.8: 見出し』に変更する}
+\C{figurename}
+\C{tablename}
+を再定義して '表: ' としたい．
+% \makeatletter
+\begin{intext}
+\def\fnum@figure{\figurename\nobreak\thefigure:\space}
+\end{intext}
+% makeatother
+
+% \makeatletter
+\begin{intext}
+\def\fnum@table{\tablename\nobreak\thetable:\space} 
+\end{intext}
+% makeatother
+
+\subsection{指定した位置に図を配置する}
+
+\begin{enumerate}
+ \item オプションを htbp から指定する．
+ \item 少し早めの位置にフロートを記述する．
+ \item パラメータをいじる．
+ \item `!'を付ける．
+ \item here.sty を使う．逆にページの境目の調整は手動になる．
+ 
+\end{enumerate}
+
+\subsection{テキストを図に回り込ませる（枠開けを行う）}
+
+\Y{wrapfig}
+
+\subsection{longtableのキャプションが『図』orz}
+
+\C{fnum@table}を適切に定義しても勝手に`:'が追加されてしまいます．
+
+\begin{intext}
+\def\LT@makecaption#1#2#3{%
+  \LT@mcol\LT@cols c{\hbox to\z@{\hss\parbox[t]\LTcapwidth{%
+    \sbox\@tempboxa{#1{#2: }#3}%
+    \ifdim\wd\@tempboxa>\hsize
+      #1{#2: }#3%
+    \else
+      \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
+    \fi
+    \endgraf\vskip\baselineskip}%
+  \hss}}}
+\end{intext}
+
+\sty{jsclasses}
+
+\begin{intext}
+\def\LT@makecaption#1#2#3{%
+  \LT@mcol\LT@cols c{\hbox to\z@%
+  {\hss\parbox[t]\LTcapwidth{%
+    \sbox\@tempboxa{#1{#2\hskip1zw\relax}#3}%
+    \ifdim\wd\@tempboxa>\hsize
+      #1{#2\hskip1zw\relax}#3%
+    \else%
+      \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
+    \fi%
+    \endgraf\vskip\belowcaptionskip}%
+  \hss}}%
+}% 
+\end{intext}

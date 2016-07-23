@@ -1,0 +1,19 @@
+This is pTeXk, Version 3.141592-p3.1.10 (euc) (Web2C 7.5.4) (format=platex-euc 2007.10.8)  30 MAR 2008 13:17
+ Source specials enabled.
+**/Users/eroi/jhb/src/app-math-sign.tex
+(/Users/eroi/jhb/src/app-math-sign.tex
+pLaTeX2e <2006/01/04>+0 (based on LaTeX2e <2003/12/01> patch level 0)
+! Undefined control sequence.
+l.1 \section
+            {æ^^95°å­¦è¨^^98å^^8f·}
+? x
+ 
+Here is how much of TeX's memory you used:
+ 5 strings out of 94689
+ 124 string characters out of 1172257
+ 49234 words of memory out of 1000000
+ 3382 multiletter control sequences out of 10000+50000
+ 7511 words of font info for 31 fonts, out of 500000 for 2000
+ 566 hyphenation exceptions out of 1000
+ 4i,0n,1p,64b,7s stack positions out of 1500i,500n,5000p,200000b,5000s
+No pages of output.

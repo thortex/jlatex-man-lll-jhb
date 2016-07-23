@@ -1,0 +1,223 @@
+\section{\Y{fancyhdr}によるヘッダ・フッタの設定}
+
+%\section{ヘッダ・フッタの変更その2\zdash\Y{fancyhdr}}
+\indindz{スタイル}{ページ}%
+\zindind{ページ}{スタイル}%
+{\LaTeX}が標準で用意してくれているページスタイル
+では寂しい，そう思う人も多いでしょう．自分で全て
+定義する事もできますが，\Person{Piet}{Oostrum}が
+作成した \Y{fancyhdr} を使うと比較的簡単にペー
+ジスタイルをカスタマイズできます．\sty{fancyhdr}
+は\Y{fancyheadings}の後継で，ページのヘッダーと
+フッターをカスタマイズできるマクロです．
+まず\sty{fancyhdr}を使うために以下をプリアンブルに記述します．
+
+\begin{intext}
+\usepackage{fancyhdr} 
+\pagestyle{fancy}
+\end{intext}
+
+\sty{fancyhdr}では
+ヘッダ・フッタを六つに分割しています．
+\begin{center}
+\begin{tabularx}{.8\linewidth}{|XcX|}
+\hline
+\cmd{lhead} & \cmd{chead} & \hfill\cmd{rhead}\\
+\multicolumn{3}{|c|}{%
+   \hrulefill (\C{headrulewidth})\hrulefill} \\   
+\multicolumn{3}{|c|}{\val{本文領域}}\\
+\multicolumn{3}{|c|}{%
+   \hrulefill (\C{footrulewidth})\hrulefill} \\
+\cmd{lfoot} & \cmd{cfoot} &\hfill\cmd{rfoot} \\
+\hline
+\end{tabularx}
+\end{center}
+\C{lhead}，\C{chead}，\C{rhead}の
+三つはヘッダに使い\C{lfoot}，\C{cfoot}，
+\C{rfoot}の三つはフッタに使います．%
+\indindz{罫線}{ヘッダ上部の}\indindz{罫線}{フッタ上部の}%%
+\C{headrulewidth}はヘッダ下部の罫線の太さで，
+\C{footrulewidth}はフッタ上部の罫線の太さです．
+図だけのページや表だけのページはシンプルな
+ヘッダ・フッタにしたり，ヘッダ下部の罫線を
+引かない場合があります．その場合は \C{headrulewidth} を
+\C{iffloatpage}命令で判定するように定義すると良いでしょう．
+
+\begin{intext}
+\def\headrulewidth{\iffloatpage{0pt}{.4pt}} 
+\end{intext}
+
+\cmd{lhead}などの
+他の命令も同様に変更できます．
+
+例えば\cls{jarticle}クラスで次のようなヘッダ・フッタ
+\begin{center}
+\begin{tabularx}{\linewidth}{|cXcXc|}
+\hline
+& & \hskip5em & \hfill 資本主義社会の崩壊 & \\
+\cline{2-4}
+\multicolumn{5}{|c|}{\val{本文領域}}\\
+\cline{2-4}
+& 名無しの権兵衛 & \hskip3em & \hfill \textbf{ページ番号} & \\
+\hline
+\end{tabularx}
+\end{center}
+を設定したければ以下のように記述します．
+
+\begin{intext}
+\lhead{} \chead{}
+\rhead{資本主義社会の崩壊}
+\lfoot{名無しの権兵衛} 
+\cfoot{}
+\rfoot{\textbf{\thepage}}
+\def\headrulewidth{.4pt}
+\def\footrulewidth{.4pt}
+\end{intext}
+
+書籍用クラス\cls{jbook}などでクラスオプションに
+\Option{twoside}が指定されている場合は偶数ページと
+奇数ページを個々に設定します．例えば次のような
+ヘッダ・フッタにしたいとします．
+\begin{center}
+\begin{tabular}{|p{7zw}cp{7zw}|}
+\hline
+第1章\hskip1zw 序論& & \hfill 1.1\hskip1zw 背景\\\hline
+\multicolumn{3}{|c|}{本文}\\\hline
+& \textbf{2}&\hfill \\\hline
+\end{tabular} \hfill
+\begin{tabular}{|p{7zw}cp{7zw}|}
+\hline
+1.2\hskip1zw  目標& & \hfill 第1章\hskip1zw 序論\\\hline
+\multicolumn{3}{|c|}{本文}\\\hline
+& \textbf{3}& \\\hline
+\end{tabular}
+\end{center}
+ヘッダ・フッタの奇数ページと偶数ページの場所
+を区別するために以下のような設定になっています．
+\begin{center}
+\begin{tabular}{|p{6zw}cp{6zw}|}
+\hline
+\str{EL(H)}& \str{EC(H)}& \hfill  \str{ER(H)}\\\hline
+\multicolumn{3}{|c|}{本文}\\\hline
+\str{EL(F)}& \str{EC(F)} &\hfill \str{ER(F)} \\\hline
+\multicolumn{3}{c}{偶数ページ側}\\
+\end{tabular} \hfill
+\begin{tabular}{|p{6zw}cp{6zw}|}
+\hline
+\str{OL(H)} &\str{OC(H)} & \hfill \str{OR(H)} \\\hline
+\multicolumn{3}{|c|}{本文}\\\hline
+\str{OL(F)}&\str{OC(F)} & \hfill  \str{OR(F)}\\\hline
+\multicolumn{3}{c}{奇数ページ側}\\
+\end{tabular}
+\end{center}
+先程の出力を得るためには \C{fancyhead} と \C{fancyfoot}命令を使います．
+
+\begin{intext}
+\documentclass{jbook}
+\usepackage{fancyhdr} \pagestyle{fancy}
+\fancyhead[ER,OL]{\rightmark}
+\fancyhead[EL,OR]{\leftmark}
+\fancyfoot[EC,OC]{\textbf{\thepage}}
+\end{intext}
+
+欧文のクラスではこれで良いのですが和文では \C{chaptermark} 
+と \C{sectionmark}の定義を\sty{fancyhdr}を読み込んだ後に次のように定義
+するのが良いでしょう．
+
+\begin{intext}
+ \def\chaptermark#1{\markboth{%
+   \ifnum \c@secnumdepth >\m@ne
+     \if@mainmatter
+       \@chapapp\thechapter\@chappos\hskip1zw
+     \fi
+   \fi
+   #1}{}}%
+  \def\sectionmark#1{\markright{%
+    \ifnum \c@secnumdepth >\z@ \thesection \hskip1zw\fi
+    #1}}%
+\end{intext}
+
+\subsection{標準設定}
+\begin{intext}
+\usepackage{fancyhdr} 
+\usepackage{fancy}
+\fancyhead[LE,RO]{\slshape \rightmark}
+\fancyfoot[LE,RE]{\slshape \leftmark}
+\renewcommand*{\headrulewidth}{0.4pt}
+\renewcommand*{\footrulewidth}{0.4pt}
+\end{intext}
+
+標準では見出しが uppercase に変更される．
+
+\begin{usage}
+\lhead{\nouppercase{\rightmark}} 
+\rhead{\nouppercase{\leftmark}}
+\end{usage}
+
+\subsection{chaptermark, sectionmark 再定義}
+
+\begin{intext}
+\renewcommand{\chaptermark}[1]{%
+   \markboth{\chaptername\ \thechapter.\ #1}{}}
+\end{intext}
+
+\subsection{片面印刷時のヘッダ・フッタ設定}
+
+\CIS{lhead,chead,rhead,lfoot,cfoot,rfoot,headrulewidth,footrulewidth}%
+\begin{usage}
+\lhead{$\<ヘッダ左側>$}
+\chead{$\<ヘッダ中央>$}
+\rhead{$\<ヘッダ右側>$}
+\lfoot{$\<フッタ左側>$}
+\cfoot{$\<フッタ中央>$}
+\rfoot{$\<フッタ右側>$}
+\end{usage}
+
+\subsection{両面印刷時のヘッダ・フッタ設定}
+\begin{usage}
+\fancyhead{} % to clear all fields
+\fancyhead[$\<位置指定>$]{$\<ヘッダ要素>$}
+\fancyfoot[$\<位置指定>$]{$\<フッタ要素>$}
+\end{usage}
+
+\subsection{罫線}
+\begin{usage}
+\renewcommand*{\headrulewidth}{$\<ヘッダ下部の罫線の太さ>$}
+\renewcommand*{\footrulewidth}{$\<フッタ上部の罫線の太さ>$}
+\end{usage}
+
+\subsection{ページ下部中央に「---\protect\val{ページ番号}---」だけ出力する}
+
+\begin{usage}
+\fancypagestyle{plain} 
+\fancyhf{}
+\fancyfoot[c]{---\bfseries\thepage---}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\end{usage}
+
+\subsection{ヘッダ・フッタを2行にする}
+
+\begin{intext}
+\addtolength{\headheight}{\baseilneskip}
+\renewcommand{\sectionmark}{\markboth{#1}{}}
+\renewcommand{\subsectionmark}{\markright{#1}}
+\rhead{\leftmark\\ \rightmark}
+\end{intext}
+
+
+\subsection{総ページ数を追加する}
+
+ヘッダ・フッタの設定をフッタだけに「ページ/総ページ」にしたい場合がある
+でしょう．これは例えば次のようにプリアンブルに記述します．
+
+\begin{usage}
+\usepackage{lastpage}
+\cfoot{\thepage/\pageref{LastPage}}
+\end{usage}
+
+%この場合は \cmd{ps@total}によって新規に\qu{\str{total}}という
+%ページスタイルを定義しています．ページ番号の書体を
+%変えたいときは \cmd{normalfont}を \cmd{bfseries}などに
+%変更します．
+

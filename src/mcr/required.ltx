@@ -1,0 +1,133 @@
+\makeatletter
+% \:filename:{required.ltx}
+% \:author:{Thor Watanabe}
+% \:version:{1.0.0}
+% \:date:{2008/03/16}
+% 
+% \section{必要とする LaTeX マクロパッケージ}
+% \begin{abstract}
+%   使えるものは何でも使います．版面のレイアウトには geometry を
+% 使っています．このファイルを叩き台にして新たに書籍等を作成したい
+% 人がいるかもしれませんので，可能な限りスリムに仕上げたいと考えています．
+% \end{abstract}
+% 
+% \paragraph{上位のマクロパッケージ名}
+% 親となるマクロパッケージの名前を定義します．
+\def\parent@pac{jhb}
+% CTAN のアドレス
+\def\ctan@url{http://www.ring.gr.jp/pub/text/CTAN}
+% \CTAN コマンドの定義
+\let \CTAN = \ctan@url
+%
+% \begin{command}
+% \syntax{\loadpackage[<オプション>]{<パッケージ名>}[<所在 (URL)>]}
+% \usepackage コマンドではなく，基本的には所在を明らかにする
+% \loadpackage を使ってマクロを読み込みます．もし，他の人がこのファイルを
+% タイプセットしたときに，該当マクロがシステムに存在しなかった時は，
+% マクロの URL を示します．エラーを出さずにそのままタイプセットに向かいます．
+%
+\def\loadpackage{%
+   \@ifnextchar[{\@loadpackage}{\@loadpackage[\@empty]}%
+}
+\def\@loadpackage[#1]#2{%
+  \@ifnextchar[{\@@loadpackage[#1]{#2}}{\@@loadpackage[#1]{#2}[\@empty]}%
+}
+\def\@@loadpackage[#1]#2[#3]{
+  \IfFileExists{#2.sty}{%
+     \RequirePackage[#1]{#2}\relax%
+  }{%
+    \PackageWarning{\parent@pac}{#2.sty not found. please access to ^^J%
+      \space\space\space#3^^J}%
+  }%
+}
+% \end{command}
+%
+% 数式
+%psamsfonts
+\loadpackage{amsmath}[\CTAN/macros/latex/required/amslatex/]
+\loadpackage[psamsfonts]{amssymb}[\CTAN/fonts/amsfonts/]
+\loadpackage{amscd}[\CTAN/macros/latex/required/amslatex/math/]
+\loadpackage{amsxtra}[\CTAN/macros/latex/required/amslatex/math/]
+\loadpackage{theorem}[\CTAN/macros/latex/required/tools/]
+%\loadpackage{bm}[\CTAN/macros/latex/required/tools/]
+%\loadpackage{leftidx}[\CTAN/macros/latex/contrib/leftidx/]
+% 画像
+\loadpackage{graphicx}[\CTAN/macros/latex/required/graphics/]
+\loadpackage[usenames,dvipsnames]{color}\relax
+\loadpackage{epic}[\CTAN/macros/latex/contrib/eepic/]
+\loadpackage{eepic}[\CTAN/macros/latex/contrib/eepic/]
+\loadpackage{overpic}[\CTAN/macros/latex/contrib/overpic/]
+\loadpackage{wrapfig}[\CTAN/macros/latex/contrib/wrapfig/]
+% 文章の体裁
+%\loadpackage{layout}[\CTAN/macros/latex/required/tools/]
+\loadpackage{enumerate}[\CTAN/macros/latex/required/tools/]
+\loadpackage{csquotes}[\CTAN/macros/latex/contrib/csquotes/]
+\loadpackage{multicol}[\CTAN/macros/latex/required/tools/]
+\loadpackage{xspace}[\CTAN/macros/latex/required/tools/]
+\loadpackage{indent}[\CTAN/macros/latex209/contrib/misc/indent.sty]
+\loadpackage{setspace}[\CTAN/macros/latex/contrib/setspace/]
+% 日本語
+% plext は parbox や tabular 環境等を再定義しているので，とりあえず
+% 表関係のマクロよりも先に書く
+%\loadpackage{plext}% platex extentions
+% 表
+\loadpackage{array}[\CTAN/macros/latex/required/tools/]
+\loadpackage{longtable}[\CTAN/macros/latex/required/tools/]
+\loadpackage{tabularx}[\CTAN/macros/latex/required/tools/]
+\loadpackage{dcolumn}[\CTAN/macros/latex/required/tools/]
+\loadpackage{booktabs}[\CTAN/macros/latex/contrib/booktabs/]
+\loadpackage{hhline}[\CTAN/macros/latex/required/tools/]
+\loadpackage{multirow}[\CTAN/macros/latex/contrib/multirow/]
+%\loadpackage{slashbox}[\CTAN/macros/latex/contrib/slashbox/]
+\loadpackage{colortbl}[\CTAN/macros/latex/contrib/colortbl/]
+\loadpackage{delarray}[\CTAN/macros/latex/required/tools/]
+\loadpackage{eclarith}[http://emath.s40.xrea.com/]
+\loadpackage{emathT}[http://emath.s40.xrea.com/]
+% 日本語
+\let \MARU \relax
+\loadpackage{okumacro}[http://oku.edu.mie-u.ac.jp/\noexpand~okumura/jsclasses/]
+\loadpackage{okuverb}[http://oku.edu.mie-u.ac.jp/\noexpand~okumura/jsclasses/]
+\loadpackage[expert,deluxe,multi]{otf}[http://psitau.at.infoseek.co.jp/]
+\loadpackage{numcomma}[http://mytexpert.sourceforge.jp/?numcomma]
+% 索引
+\loadpackage{makeidx}[\CTAN/macros/latex/unpacked/makeidx.sty]
+% 箱・枠
+\loadpackage{fancybox}[\CTAN/macros/latex/contrib/fancybox/]
+\loadpackage{eclbkbox}[ftp://ftp.matsusaka-u.ac.jp/pub/latex-styles/bear_collections/style-files/eclbkbox/]
+% その他
+\loadpackage{cite}[\CTAN/macros/latex/contrib/cite/]
+\loadpackage{ulem}[\CTAN/macros/latex/contrib/misc/ulem.sty]
+\loadpackage[obeyspaces,spaces]{url}[\CTAN/macros/latex/contrib/misc/url.sty]
+\loadpackage{endnotes}[\CTAN/macros/latex/contrib/misc/endnotes.sty]
+% ベタ書き
+\loadpackage{verbatim}[\CTAN/macros/latex/required/tools/]
+\loadpackage{fancyvrb}[\CTAN/macros/latex/contrib/fancyvrb/]
+% コード整形
+\loadpackage{listings}[\CTAN/macros/latex/contrib/listings/]
+\loadpackage{jlisting}[http://mytexpert.sourceforge.jp/?Listings]
+% 版面調整
+\loadpackage[%showframe,% for debug
+  paperheight=182truemm,paperwidth=128truemm,% JIS B5
+  outer=15truemm,inner=15truemm,% 小口 = outer, ノド = inner
+  tmargin=17truemm,bmargin=14truemm,% 天 = tmargin, 地 = bmargin
+  headsep=\cvs,% 柱と本文の空き
+  ignorefoot,ignoremp,nomarginpar,nofoot,% フッター・傍注は無視
+  ]{geometry}[\CTAN/macros/latex/contrib/geometry/]
+%
+%\usepackage{showkeys}
+% 書体
+\loadpackage[T1]{fontenc}[\CTAN/macros/latex/unpacked/fontenc.sty]
+\loadpackage{mflogo}[\CTAN/macros/latex/contrib/mflogo/]
+\loadpackage{manfnt}[\CTAN/macros/latex/contrib/manfnt/]
+\loadpackage{textcomp}[\CTAN/obsolete/fonts/psfonts/ts1/]
+\loadpackage{pifont}[\CTAN/macros/latex/required/psnfss/]
+%\loadpackage{type1cm}[\CTAN/macros/latex/contrib/type1cm/]
+% AmS-LaTeX と衝突するので，とりあえず一番最後に書く．
+\loadpackage{pxfonts}[\CTAN/fonts/pxfonts/]
+%\loadpackage{txfonts}[\CTAN/fonts/pxfonts/]
+% これで終わりダメポ
+\makeatother
+\endinput
+
+
+

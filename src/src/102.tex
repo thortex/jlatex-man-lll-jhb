@@ -1,0 +1,766 @@
+\section{複雑な数式を\AmSLaTeX を用いて記述する}\seclab{amsmath}
+% これはただのダミーテキスト．
+% 文字コードを判定するための意味のない文字列．
+% これくらい記述すれば大丈夫かな．
+% Emacs のくせに生意気な．
+% Emacs の分際で自動判別とか．
+% Mac OS X のテキストエディッタの文字コード自動判別はうまくいかないぞ．
+
+\Z{米国数学会}\pp{\Z{American Mathematical Society}}が提供していた数式記
+述用のマクロ\Prog[AmSTeX]{\AmSTeX}を\Person{Frank}{Mittelbach}と
+\Person{Rainer}{Sch\"opf}らが{\LaTeX}に移植しました．これが
+\Prog[AmSLaTeX]{\AmSLaTeX}と呼ばれるマクロ群です．{\AmSLaTeX}には数式記
+述に関するマクロパッケージ\Sty{amsmath}や，{\LaTeX}では用意されていない
+記号を提供する{\AmS Fonts}などが含められています\footnote{\AmSLaTeX のバー
+ジョンは現在 2 で古いバージョン 1.2 がインストールされている場合は，更
+新するのが良いでしょう．}．\AmSLaTeX を用いる事で，表現の幅が広がります%
+\footnote{表現の幅が広がるという事は一般的な原則から徐々に少しずつ離れて
+いくという側面も多少なりあると思います．そのため，全ての著者が\AmSLaTeX
+の表現方法に納得できるとは限らないでしょう．}．
+
+\begin{usage}
+\usepackage{amsmath}
+\end{usage}
+
+
+\AmSLaTeX はおおむね次のパッケージ群で構成されるツールです．
+\begin{description}
+ \item[\Y{amsmath}]
+ \AmSLaTeX の核となる種々のマクロを含むパッケージです．自動的に
+ \Y{amstext}, \Y{amsgen}, \Y{amsbsy}, \Y{amsopn}のパッケージを
+ 読み込みます．
+%\sty{amsmath}パッケージでは
+\begin{description}
+\item[\sty{amsbsy}] 
+  数式を太字にする \C{boldsymbol}を使うための命令が定義されています．
+\item[\sty{amstext}] 
+  数式中で文章を出力する \C{text}命令が定義されています．
+\item[\Sty{asmcd}]  
+ ダイヤグラムを描くための\E{CD}環境が定義されています．
+\item[\Sty{amsopn}]
+  新規に演算子を定義するための \C{DeclareMathOperator}
+  命令が定義されています．
+\end{description}
+%の四つのパッケージが自動的に読み込まれます．そのため
+%\sty{amsmath}を読み込んでおけばこれらのパッケージを
+%読み込む必要はありません．
+ \item[\Y{amscd}] 可換図を描くためのパッケージです．
+ \item[\Y{amsxtra}] \sty{amsmath}パッケージからは外れている
+ 補助的なコマンドが定義されているパッケージです．
+ \item[\Y{amssymb}] 種々の拡張的な記号が定義されているファイルです．
+ \Y{amsfonts}パッケージを自動的に読み込みます．
+%\begin{metacomment}
+% \Y{theorem}パッケージがあるからいらないでしょう？ せいぜい \qedsymbol
+% が自動的に出力されないだけの話だろうが，ちょっと工夫すればすぐに
+% 実現できるはず．
+%\end{metacomment}
+\begin{comment}
+ \item[\Y{amsthm}] \env{theorem}環境の拡張をするパッケージです．
+ \E{proof}%, \E{definition}, \E{problem}, \E{exmapl}
+ 環境と『証明終わり (\Z{Q.E.D.})』を表す記号 \C{qedsymbol} がすでに定義され
+ ています．
+\end{comment}
+ \item[\Y{eucal}]% Helmann Zapf すごいー
+ 標準の Computer Modern のカリグラフィック体ではなく，Eulerスクリプト体と呼ばれる書体に変更するためのパッケージ．
+% -\Y{eufrak}
+\end{description}
+
+
+%\begin{Prob}
+\subsection{文書全体で数式番号の位置を変更する}
+
+\subsection{文書全体で直和 ($\protect\sum$) 等の添字の位置を変更する}
+%\sty{amsmath}パッケージのパッケージオプションとしていくつか
+%指定できるものがあります．
+%
+%数式番号に関連する\Option{centertags}, \Option{tbtags}，
+%添字に関連する\Option{sumlimits}, \Option{nosumlimits}, 
+%\Option{intlimits}, \Option{nointlimits},  \Option{namelimits}, 
+%\Option{nonamelimits}，
+%数式の揃え等に関連する\Option{leqno}, \Option{ceqno}, \Option{fleqn}
+%等があります．実際にオプションを指定して，その挙動を確認してください．
+%\end{Prob}
+
+%入出力例
+%\InOutRuletrue
+% split
+\begin{inout}
+\begin{equation}
+\begin{split}
+  f & = a + b + c + d \\
+    & + e + f + g + h \\
+    & = i + j \\
+\end{split} 
+\end{equation} 
+\end{inout}
+
+% multline
+\begin{inout}
+\begin{multline}
+f = a + b + c + d + e \\
+   + g + h + i + j \\
+   + k + l + m + n \\
+   + o + p + q 
+\end{multline} 
+\end{inout}
+
+% gather
+\begin{inout}
+\begin{gather}
+a = b + c \\
+c = d + f + g
+\end{gather} 
+\end{inout}
+
+% align
+\begin{inout}
+\begin{align}
+   a &= b + c + d \\
+f(x) &= g + h + i + j
+\end{align} 
+\end{inout}
+
+% align
+\begin{inout}
+\begin{align}
+  a_1 &= b + c & g_1 &= d + e \\
+  a_2 &= f + h & g_2 &= i + j 
+\end{align} 
+\end{inout}
+
+% flalign
+\begin{inout}
+\begin{flalign}
+  a_1 &= b + c & g_1 &= d + e \\
+  a_2 &= f + h & g_2 &= i + j  
+\end{flalign}
+\end{inout}
+
+%alignat
+\begin{inout}
+\begin{alignat*}{2}
+(a+b)^2 &= a^2+2ab+b^2 &
+   \qquad & \text{展開する}\\
+        &=a(a+2b)+b^2  &
+ & \text{$a$ で括る}
+\end{alignat*}
+\end{inout}
+
+% cases
+\begin{inout}
+\begin{equation}
+ f =
+ \begin{cases}
+   x  & \text{if $x>0$.}\\
+   0  & \text{if $x=0$.}\\
+   -x & \text{if $x<0$.}
+ \end{cases}
+\end{equation} 
+\end{inout}
+
+\begin{inout}
+\begin{equation}
+ \delta_{ij} = 
+ \begin{cases}
+  1 & \text{($i = j$)}\\
+  0 & \text{(otherwise)}
+ \end{cases}
+\end{equation} 
+\end{inout}
+
+ 
+%\InOutRulefalse
+
+\subsection{\protect\AmSLaTeX の数式環境の概説}
+
+複数行の数式を記述するための便利な環境が新設されています%
+\footnote{もちろん，既存の \LaTeX の命令も修正，変更されている部分もあり
+ます．}．
+
+まず，新設されている数式用の環境と，数式環境とともに用いる環境を
+紹介します．
+
+\begin{description}
+ \item[調整付き環境] 基本的には1列の行列のような環境です．
+  星付きの場合は番号付けされません．
+ \begin{description}
+ \item[\E{gather}] 1列で中央揃えされます．
+ \item[\E{multline}] 
+  1行目は左揃え，2行目から最後の一つ前まで中央揃え，最期の行が
+ 右揃えになります．明示的に \C{shoveleft}, \C{shoveright} で揃えの
+ 調整ができます．
+ \end{description}
+ \item[整列付き環境] 基本的には行列を記述するための環境です．
+ \begin{description}
+  \item[\E{matrix}] 何列でも記述可能な行列で，列指定を必要とせず，各成
+  分は中央揃えされます．
+  \item[\E{cases}]  
+  場合分けに使用できる環境で，波括弧が左側に補われます．何行でも記述可能
+  です．
+  \item[\E{array}] \C{hdotsfor}命令が使えるように拡張されています．
+ \end{description}
+
+ \item[位置合わせ付きの環境] 以下の環境は何列でも何行でも記述可能です．
+ \begin{description}
+  \item[\E{align}] 1行に複数の数式を記述するための環境です．奇数個目の
+アンパサンドが位置合わせに使われます．数式間には自動的に良い加減の空きが
+挿入されます．
+  \item[\E{flalign}]  1行に複数の数式を記述するという意味では
+\env{align}と同じですが，数式間には目一杯の空きが挿入されます．
+  \item[\E{alignat}] 自分で空きと列を指定する環境です．
+ \end{description}
+  \item[\E{split}] 他の数式環境の補助用として1行の数式を複数行に分割できます．
+\end{description}
+
+
+\begin{itemize}
+\item 基本的にどの環境も最終行に改行 \texttt{\bs\bs} は必要ありません．
+\item 番号付きの数式環境，\env{gather}, \env{multline}, \env{align}, 
+  \env{flalign}, \env{alignat} はアスタリスク`\str*'を付ける事により，
+番号付けをしなくなります．
+\item 番号付けは \C{tag} と \C{notag} によって変更できます．
+\C{tag*} を使うと括弧なしで出力します．
+\end{itemize}
+
+
+% Prob or Exe
+各数式環境において，等号の後にアンドを置くと，タイプセット後の
+結果はどうなるか吟味してください．
+
+結果的には適切な空白が挿入されていません．ですから，間違って
+アンドを二項関係子の後に置かないように注意してください．
+ \begin{align}
+  a    &=  b + c + d \\
+  f(x) &=  g + h + i + j
+ \end{align}  
+
+
+\subsection{\env{gather}環境}
+
+\E{gather}は1列で全ての数式が中央揃えになります．
+
+%\begin{Prob}
+中央揃えになるという事は，\LaTeXe 標準の \env{eqnarray}環境と
+同じような事ができるでしょうか．
+次の記述と\env{gather}環境が等価であるか検証してください．もし違いがある
+のであれば，どの部分に差異があるのか整理してください．
+
+\begin{intext}
+\begin{eqnarray*}
+& a = b & \\
+& c = b + d & \\
+& d = d + e & 
+\end{eqnarray*}
+\end{intext}
+%\end{Prob}
+
+\subsection{\env{split}環境}
+
+\Env{split}環境は一行では収まりきらないような長い数式を複数行に
+分割するときに使います．\env{displaymath} 命令 や \env{equation}環境の中
+で使います．
+
+\begin{inout}
+\begin{displaymath}
+ \begin{split}
+  f(x) & = x^9 + \frac{1}{9}x^8 + 
+     \frac{1}{8}x^7 + \cdots\\
+  & + \cdots
+ \end{split}
+\end{displaymath}
+\end{inout}
+
+%\begin{Trick}
+実際には \cmd{cdots} 命令以外にも \AmSLaTeX には \C{dotsc}（コンマ），
+\C{dotsb}（二項演算子か，関係子），
+\C{dotsm}（\Z{乗算}），
+\C{dotsi}（積分記号），
+\C{dotso}（上記以外）
+の五つの三点リーダが定義されています．これによりそれぞれの記号用に
+良い加減に調整された空白が挿入されるようになります．
+
+
+\begin{inout}
+級数 $a_1, a_2,   \dotsc$\\
+直和 $a_1 + a_2 + \dotsb$\\
+直積 $a_1 a_2     \dotsm$\\ 
+積分 $\int_{a_1}\int_{a_2}\dotsi$
+\end{inout}
+%\end{Trick}
+
+%\cmd{quad} を使って複数の式を一行でまとめることもありますが，
+%これよりは \env{split} 環境を使って整列させた方がスマートです．
+%
+%\begin{InOut}
+%\begin{displaymath}
+% \begin{aligned}
+% v &= 32b + 56 & e &= 58b + 32 \\
+% s &= 32a + 33 & t &= 33c + 25 
+% \end{aligned}
+%\end{displaymath}
+%\end{InOut}
+
+%これにより偶数番目の`\str{&}'により式同士を区切る適切な空白が
+%入ります．
+
+\subsection{\env{align}, \env{flalign}, \env{alignat}環境}
+
+\E{align}環境は 1行に複数の数式を記述するための環境です．奇数個目の
+アンドが位置合わせに使われます．数式間には自動的に良い加減の空きが
+挿入されます．
+\begin{inout}
+\begin{align}
+   a &= b + c + d \\
+f(x) &= g + h + i + j
+\end{align} 
+\end{inout}
+
+\begin{inout}
+\begin{align}
+  a_1 &= b + c & g_1 &= d + e \\
+  a_2 &= f + h & g_2 &= i + j 
+\end{align} 
+\end{inout}
+
+\E{flalign}環境は 1行に複数の数式を記述するという意味では
+\env{align}と同じですが，数式間には目一杯の空きが挿入されます．
+\begin{inout}
+\begin{flalign}
+  a_1 &= b + c & g_1 &= d + e \\
+  a_2 &= f + h & g_2 &= i + j  
+\end{flalign}
+\end{inout}
+
+数式同士の空きを手動で調整するには \env{alignat} 環境を使います．
+\begin{inout}
+\begin{alignat*}{2}
+(a+b)^2 &= a^2+2ab+b^2 &
+   \qquad & \text{展開する}\\
+        &=a(a+2b)+b^2  &
+ & \text{$a$ で括る}
+\end{alignat*}
+\end{inout}
+
+
+\subsection{\env{multline}}
+
+最初の行が左揃え，中間の行は中央揃え，最後の行が右揃えになります．
+明示的に \C{shoveleft} と \C{shoveright} 命令で揃えを変更できます．
+%\begin{Syntax}
+%\verb|\begin{multline}|\\
+%\va{複数行の数式}\\
+%\verb|\end{multline}|
+%\end{Syntax}
+\begin{inout}
+\begin{multline}
+ f = a + b + c + d + e \\
+  + g + h + i + j \\
+  \shoveright{+ k + l + m + n}\\
+  + o + p + q  
+\end{multline}
+\end{inout}
+
+%\begin{Prob}
+以下のファイルをタイプセットし，その出力結果を吟味してください．
+
+\begin{inout}
+\setlength\multlinegap{10pt}
+\begin{multline}
+ f = a + b + c + d + e \\
+   + g + h + i + j \\
+   + k + l + m + n \\
+   + o + p + q 
+\end{multline} 
+\setlength\multlinegap{30pt}
+\begin{multline}
+ f = a + b + c + d + e \\
+   + g + h + i + j \\
+   + k + l + m + n \\
+   + o + p + q 
+\end{multline}
+%\end{inout} 
+
+これにより \C{multlinegap}の役割は何だと考えられるでしょうか．
+%\end{Prob}
+
+%\InOutRulefalse
+\subsection{括弧付の行列}
+
+\AmSLaTeX では括弧の入力を省略するために，\Env{matrix} 環境以外にも
+次の五つの環境が定義されています．
+\begin{usage}
+ pmatrix
+ bmatrix 
+ ...
+\end{usage}
+HOGE ここを編集
+%\begin{Syntax}
+%\begin{tabular}{llll}
+% \E{pmatrix} &{丸括弧   $($  \va{行列要素} $)$ } & 
+% \E{bmatrix} &{角括弧   $[$  \va{行列要素} $]$ } \\
+% \E{Bmatrix} &{波括弧   $\{$ \va{行列要素} $\}$} & 
+% \E{vmatrix} &{縦棒     $|$  \va{行列要素} $|$ } \\
+% \E{Vmatrix} &{二重縦棒 $\|$ \va{行列要素} $\|$} & & \\
+%\end{tabular}
+%\end{Syntax}
+HOGE
+
+\begin{inout}
+ \begin{math}
+  \begin{pmatrix}
+   a_{11} & a_{11} \\
+   a_{21} & a_{22} 
+  \end{pmatrix}
+ \end{math}
+\end{inout}
+
+文中数式で \Env{matrix} 環境を使うと
+ $A = \left(\begin{matrix} a & b\\ c & d\end{matrix} \right)$
+のようになります．本来ならば $A = \left(\begin{smallmatrix}
+  a & b\\ c & d\end{smallmatrix}\right)$ となった方が良いと
+思いますので，この場合は \C{smallmatrix} 環境を使います．
+
+\begin{inout}
+行列 $A = \left(\begin{smallmatrix}
+  a & b\\ c & d\end{smallmatrix}
+\right)$ に関しては，云々である
+から\ldots.
+\end{inout}
+
+%\begin{Exe}
+\secref{array:dots}において行列の省略点を種々の方法で出力する
+試みをしましたが，\AmSLaTeX には \C{hdotsfor}命令が用意されており，
+次のような使い方ができます．
+
+\begin{inout}
+\begin{displaymath}
+ \begin{array}{*{2}{c@{\:+\:}}%
+   @{\cdots\:+\:}c@{\;=\;}c}
+ a_{11}x_1 & a_{12}x_2 & a_{1k}x_k
+    & b_1\\
+ a_{21}x_1 & a_{12}x_2 & a_{1k}x_k
+    & b_2\\
+ \hdotsfor{4}\\
+ a_{n1}x_1 & a_{n2}x_2 & a_{nk}x_k
+   & b_n\\
+ \end{array}
+\end{displaymath}
+\end{inout}
+ 
+%\C{hdotsfor} の点の間隔は`\cmd{hdotsfor}\opa{点の数}\pa{列数}'のように
+%任意引数で指定できます．
+%\end{Exe}
+\begin{usage}
+\hdotsfor[$\<点の数>$]{$\<列数>$}
+\end{usage}
+%\begin{Prob}
+
+\subsection{subarray}
+
+\secref{stack:math}の例では \C{substack}命令を使って
+積み重ねを行っていましたが，\sty{amsmath}には他にも
+\E{subarray}環境も用意されています．そこで，
+以下の入出力を吟味してください．
+
+\begin{inout}
+\begin{displaymath}
+\sum_{\substack{i\le 1\le l \\ j\le 1 
+ \le m\\ k\le 1 \le n}} p_i q_j r_k \neq
+ \sum_{\begin{subarray}{l} 
+   i\le 1\le l \\ j\le 1 \le m  \\ 
+  k\le 1 \le n\end{subarray}} 
+  p_i q_j r_k 
+\end{displaymath}  
+\end{inout} 
+
+これにより，\C{substack}命令と\E{subarray}環境の決定的な
+違いは揃えの位置を決められるかどうかになります．\C{substack}
+は有無を言わさずに中央揃えになる事でしょう．
+%\end{Prob}
+
+
+\subsection{数式番号に●○丸}
+
+通常，数式番号はそれぞれの式に対して一意に番号が振られます．
+\begin{inout}
+\begin{align}
+(a+b)^2 &= a^2+2ab+b^2 \\
+        &= a(a+2b)+b^2  
+\end{align}
+\end{inout}
+
+しかし，ほとんど同義の数式をグループにしたい時があり，
+次のように手動で \C{tag} 命令を使ったとします．
+\begin{inout}
+\begin{align}
+g &= (a+b)^2     \label{eq:x}\\
+  &= a^2+2ab+b^2 \tag{\ref{eq:x}a}\\
+  &= a(a+2b)+b^2 \tag{\ref{eq:x}b}
+\end{align} 
+\end{inout}
+これでは親の数式がなければうまくいきません．そこで \Env{subequations}
+環境と呼ばれる専用の環境を使います．
+\begin{inout}
+\begin{subequations}\label{eq:a}
+ \begin{align}
+ (a+b)^2 &= a^2+2ab+b^2\label{eq:b}\\
+         &= a(a+2b)+b^2\label{eq:c}
+ \end{align} 
+\end{subequations} 
+式~\eqref{eq:a}には式~\eqref{eq:b},
+\eqref{eq:c}が含まれる．
+\end{inout}
+
+%\begin{Trick}
+数式番号を節 (\kount{section}) の子カウンタとして出力したいとき，
+\AmSLaTeX では \C{numberwithin} 命令を使って次のようにします．
+
+\begin{intext}
+\numberwithin{equation}{section}
+\end{intext}
+
+もしもこのようにせずに，単純に \C{theequation} を再定義した
+だけでは，\Kount{equation}カウンタは \kount{section}カウンタの
+増分に応じてリセットされません．
+%\end{Trick}
+
+\subsection{ダイヤグラムの例}
+\index{ダイヤグラム}\index{可換図}%
+
+%これはただの遊びで作ったものですからあまり参考にしないでください．
+%このような無謀なこともできるという程度に見てください．
+
+\Y{amscd}パッケージを使うと，可換図を比較的簡単に描く事が可能です．
+
+\begin{inout}
+\usepackage{amscd}
+\newcommand*\End{\mathop{\mathrm{End}}}
+\begin{displaymath}
+ \begin{CD} 
+  S^{{\mathcal{W}}_\Lambda}
+      \otimes T @> j >> T\\ 
+  @VVV @VV{\End P}V\\ 
+  (S\otimes T)/I @= (Z\otimes T)/J 
+ \end{CD} 
+\end{displaymath}
+\end{inout}
+
+もし \sty{amscd}パッケージなしで行う方法の一つとしては，
+次のようなものが考えられるでしょう．
+
+\begin{intext}
+\newcommand{\law}[1]{\mathop{\hbox%
+   to3em{\rightarrowfill}}\limits#1}
+\newcommand{\raw}[1]{\mathop{\hbox%
+   to3em{\leftarrowfill}}\limits#1}
+\newcommand{\rar}[2]{%
+   \Bigm#1\rlap{$\scriptstyle#2$}}
+\newcommand{\lar}[2]{%
+   \llap{$\scriptstyle#2$}\Bigm#1}
+\newcommand*\END{\mathop{\mathrm{End}}}
+\newcommand*\MK{\mkern-4mu}
+\newcommand*\Leq{\hbox to 3em{$=\MK=\MK=\MK=\MK=$}}
+\[ \begin{array}{ccc}
+S^{{\mathcal{W}}_\Lambda}\otimes T & \law{^j} & T\\[1ex]
+\lar \downarrow{} & & \rar \uparrow{\END P}\\[1ex]
+(S\otimes T)/I & \Leq & (Z\otimes T)/J 
+\end{array} \]
+\end{intext}
+
+\subsection{新しい関数の定義}
+
+\newcommand*\End{\mathop{\mathrm{End}}}
+二項演算子
+
+\tabref{ams:mathfunc}にも定義されてない独自の数学関数を
+新規に定義するのであれば，プリアンブルで \C{DeclareMathOperator}命令が
+使えます．
+\begin{usage}
+\DeclareMathOperator{$\<関数名>$}{$\<定義内容>$}% \limits の書式
+\DeclareMathOperator*{$\<関数名>$}{$\<定義内容>$}% \nolimits の書式
+\end{usage}
+%\begin{Syntax}
+%\C{DeclareMathOperator}\str*\pa{関数名}\pa{定義内容}
+%\end{Syntax}
+星を付けると \C{limits}を伴った事と等価になります．
+
+%\begin{Prob}
+以下のファイルをタイプセットし，その実行結果を吟味してください．
+
+\begin{intext}
+\documentclass{jsarticle}
+\usepackage{type1cm,amsmath}
+\newcommand*\End{\mathop{\mathrm{End}}}
+\DeclareMathOperator{\END}{\mathrm{End}}
+\begin{document}
+\begin{align}
+\int \mathrm{End} x\,dx & = cx\\
+\int \End x\,dx & = bx\\
+\int \END x\,dx & = ax
+\end{align}
+\end{document}
+\end{intext}
+
+何かしらの新規の数学関数を定義する場合，\C{DeclareMathOperator}命令を使
+うのが良い事になります．一部分にしか使わない場合は \C{operatorname}命令
+が使えます．
+%\end{Prob}
+
+
+\subsection{複数の積分記号を列挙する}
+\CI{MultiIntegral}%
+\begin{usage}
+\MultiIntegral{$\<個数>$}
+\end{usage}
+
+結果から明らかに \C{iint}を使った方が良い事になるでしょう．
+さらに任意の積分記号を列挙するには \C{MultiIntegral}という
+のも使えます．
+\begin{inout}
+\[ \MultiIntegral{5}f(u,w,x,y,z) du\,dw\,dx\,dy\,dz = g(u,w,x,y,z) \] 
+\end{inout}
+
+\subsection{文中に align, gathered, alignedat}
+
+%\begin{Prob}
+\E{align}, \E{gather}, \E{alignat}は基本的に，その行いっぱいに
+数式を出力する環境であるため，文中で使うというような事ができません．
+そこで \E{aligned}, \E{gathered}, \E{alignedat}環境がそれぞれ
+用意されています．
+
+\begin{inout}
+\begin{equation*}
+\left.
+ \begin{aligned}
+  I &= E/R \\
+  E &= RI
+ \end{aligned}
+\right\} \qquad \text{オームの法則}
+\end{equation*} 
+\end{inout}
+\E{aligned}環境等を文中で使用する時に任意引数に `\str t', `\str c',
+`\str b' を指定するとどうなるか，実際に試してみてください．
+%\end{Prob}
+
+\subsection{別行立て数式の途中に文章を挿入する}
+
+何かしらの理由により，複数行の別行立て数式の途中に文章を
+挿入したい時があります．\AmSLaTeX において途中に文章を入れるに
+は \Cmd{intertext} 命令が使えます．
+%\begin{Syntax}
+% \C{intertext}\pa{文章}
+%\end{Syntax}
+\begin{inout}
+\begin{align*}
+(a+b)^2 &= a^2+2ab+b^2 \\
+\intertext{展開する}
+        &=a(a+2b)+b^2  \\
+\intertext{さらに $a$ で括る}
+\end{align*}
+\end{inout}
+
+%\begin{Trick}
+別行立て数式では \texttt{\bs\bs} 命令によって数式を改行しますが，
+通常 \texttt{\bs\bs} だけで
+はページの区切りで分割されません．これを分割できるようにするに
+は \C{displaybreak} 命令を使います．\C{displaybreak} は任意引数を
+取り，1--4の数値を与える事により改ページのし易さを指定できます．
+プリアンブルに \C{allowdisplaybreaks} を記述すると，文書全体に
+おいて，別行立て数式における分割のし易さを指定できます．
+\C{allowdisplaybreaks} も \C{displaybreak}と同様に任意引数を
+取ります．\C{allowdisplaybreaks} を指定しており，
+逆に分割されたくない時は \texttt{\bs\bs*} 命令を使います．
+%\end{Trick}
+
+\subsection{overset underset sideset}
+\secref{soeji}において添字を出力する命令を紹介しました．
+さらに \C{overset}, \C{underset}, \C{sideset} という三つの
+便利な命令が追加されています．\C{overset} と \C{underset} は
+添字サイズで上付き・下付き記号を付けられます．%\C{sideset} は
+%機能的には \sty{leftidx}パッケージの \C{leftidx}と同じようなものです．
+
+\begin{inout}
+\begin{gather*}
+\overset{*}{X} \neq \underset{*}{X}\\
+%\leftidx{_a^b}{\prod}{_c^d}\\
+\sideset{_a^b}{_c^d}{\prod}
+\end{gather*} 
+\end{inout}
+
+\subsection{矢印（←→）の上下に添字を付ける}
+さらに小さなサイズの添字を自動的に付ける \C{xleftarrow} 
+と \C{xrightarrow} があります．
+\begin{usage}
+\xleftarrow}[$\<下付き文字>$]{$\<上付き文字>$}
+\xrightarrow}[$\<下付き文字>$]{$\<上付き文字>$}
+\end{usage}
+%\begin{Syntax}
+%\C{xleftarrow}\opa{下付き}\pa{上付き} \quad
+%\C{xrightarrow}\opa{下付き}\pa{上付き}
+%\end{Syntax}
+
+\begin{inout}
+\[ A \xleftarrow{\alpha + 1} B
+ \xrightarrow[X]{\beta -1} C \]
+\end{inout}
+
+\subsection{分数の拡張}
+
+\LaTeX 標準の \C{frac} 以外にも，\C{textstyle}を補う \C{tfrac}，
+\C{displaystyle} を補う \C{dfrac}が用意されています．
+
+\begin{inout}
+\[ \frac{R}{I} \neq \dfrac{R}{I} \neq \tfrac{R}{I} \]
+\end{inout}
+
+%\begin{Exe}
+\C{frac}の場合と同様に \C{binom}においても \C{dbinom} と \C{tbinom}
+命令が用意されています．
+
+\begin{inout}
+\[ \binom{k}{1} \neq \dbinom{k}{1} \neq \tbinom{k}{1} \]
+\end{inout}
+%\end{Exe}
+
+もっと一般的に，分母・分子の関係にあるような数式コマンドを
+定義するために \C{genfrac}命令があります．
+\begin{usage}
+ \gengrac{$\<左括弧>$}{$\<右括弧>$}{$\<線の太さ>$}{$\<表示スタイル>$}{$\<分子>$}{$\<分母>$}
+\end{usage}
+%\begin{Syntax}
+%\C{genfrac}\pa{左括弧}\pa{右括弧}\pa{線の太さ}\pa{スタイル}\pa{分子}\pa{分母}
+%\end{Syntax}
+
+\va{スタイル}には0--3までの数字を指定し，それぞれ
+\C{displaystyle}, 
+\C{textstyle}, 
+\C{scriptstyle}, 
+\C{scriptscriptstyle}に対応しています．
+
+先ほどの \C{frac}, \C{tfrac}, \C{binom} は \C{genfrac}を使えば，
+次のように定義できます．
+
+\begin{intext}
+\newcommand\frac[2]{\genfrac{}{}{}{}{#1}{#2}}
+\newcommand\tfrac[2]{\genfrac{}{}{}{1}{#1}{#2}}
+\newcommand\binom[2]{\genfrac{(}{)}{0pt}{}{#1}{#2}}
+\end{intext}
+
+\subsection{連分数}
+
+\Z{連分数}を表現する方法の一つとして \C{cfrac}命令を用いる事が考えられま
+す．
+
+\begin{inout}
+\begin{displaymath}
+  \cfrac{1}{x+
+    \cfrac{1}{x+
+      \cfrac{1}{x+\dotsb}
+    }
+  }
+\end{displaymath}
+\end{inout}
+
+
+
+%\endinput

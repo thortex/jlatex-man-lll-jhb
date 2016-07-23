@@ -1,0 +1,124 @@
+\makeatletter
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{1}
+
+% 画像を読み込むディレクトリ（複数可）
+\graphicspath{{img/}}
+
+% 網掛けなどに使うスミ
+%\def\mygray{\color[cmyk]{0,0,0,.2}}
+\def\gray@i{.1}
+\def\gray@ii{.2}
+\def\gray@iii{.4}
+\def\grayi{\color[cmyk]{0,0,0,\gry@i}}
+\def\grayii{\color[cmyk]{0,0,0,\gray@ii}}
+\def\grayiii{\color[cmyk]{0,0,0,\gray@iii}}
+\let \mygray = \grayii
+
+\makeindex
+\makeglossary
+
+% dvipdfmx.def 修正
+\AtBeginDocument{%
+  \@namedef{Gin@rule@.pdf}#1{{eps}{.bb}{#1}}%
+  \def\Gin@extensions{.pdf,.ai,.jpg,.jpeg,.bmp,.png,.eps,.ps}%
+}
+%
+\def \glossaryname {命令索引}
+\def \indexname    {用語索引}
+\def \symheadpositive {数字・記号}
+
+% OTF: japanese maru gothic for verbatim
+\DeclareRobustCommand\ttfamily
+        {\not@math@alphabet\ttfamily\mathtt
+         \romanfamily\ttdefault\kanjifamily\mgdefault\selectfont}
+
+% jsclasses と体裁を合わせるために longtable 見出しを再定義します．
+% 空きも \belowcaptionskip 等を使って調整します．
+\def\LT@makecaption#1#2#3{%
+  \LT@mcol\LT@cols c{\hbox to\z@%
+  {\hss\parbox[t]\LTcapwidth{%
+    \sbox\@tempboxa{#1{#2\hskip1zw\relax}#3}%
+    \ifdim\wd\@tempboxa>\hsize
+      #1{#2\hskip1zw\relax}#3%
+    \else%
+      \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
+    \fi%
+    \endgraf\vskip\belowcaptionskip}%
+  \hss}}%
+}%
+
+\DeclareFontShape{JY1}{gt}{m}{sc}{<->ssub*gt/m/n}{}
+\DeclareFontShape{JT1}{gt}{m}{sc}{<->ssub*gt/m/n}{}
+\DeclareFontShape{JY1}{mg}{bx}{sc}{<->ssub*gt/m/n}{}
+\DeclareFontShape{JT1}{mg}{bx}{sc}{<->ssub*gt/m/n}{}
+\DeclareFontShape{JY1}{mg}{bx}{n}{<->ssub*gt/m/n}{}
+\DeclareFontShape{JT1}{mg}{bx}{n}{<->ssub*gt/m/n}{}
+\DeclareFontShape{JY1}{mg}{bx}{prp}{<->ssub*mg/bx/n}{}
+\DeclareFontShape{JT1}{mg}{bx}{prp}{<->ssub*mg/bx/n}{}
+\DeclareFontShape{JY1}{gt}{bx}{sl}{<->ssub*gt/bx/n}{}
+\DeclareFontShape{JT1}{gt}{bx}{sl}{<->ssub*gt/bx/n}{}
+\DeclareFontShape{JY1}{mg}{m}{it}{<->ssub*mg/m/n}{}
+\DeclareFontShape{JT1}{mg}{m}{it}{<->ssub*mg/m/n}{}
+\DeclareFontShape{JY1}{gt}{bx}{it}{<->ssub*gt/bx/n}{}
+\DeclareFontShape{JT1}{gt}{bx}{it}{<->ssub*gt/bx/n}{}
+
+\def\clear@usepackage{%
+  \gdef \usepackage{\@ifnextchar[%
+     {\@usepackage}{\@usepackage[\@empty]}}%]
+  \gdef \@usepackage[##1]##2{\@ifnextchar[%
+     {\@@usepackage}{\@@usepackage[\@empty]}}%]
+  \gdef \@@usepackage[##1]{}%
+  \gdef \newcounter##1{\@ifnextchar[{\@newcounter}{\@newcounter[\@empty]}}%
+  \gdef \@newcounter[##1]{}%
+  }%
+\let \clearusepackage = \clear@usepackage
+
+\def\reusemaketitle{%
+  \def\maketitle{%\par% \vskip .2em
+    \begin{minipage}{.95\linewidth}%
+      \def\thempfootnote{\@fnsymbol\c@mpfootnote}%
+      \after@preamble@maketitle
+      \@thanks
+    \end{minipage}%
+    \par \nopagebreak \vskip \fboxsep%
+    \setcounter{mpfootnote}{0}%
+  }
+  \def\after@preamble@maketitle{%
+    \begin{center}%
+      \let \thanks \footnote
+      {\large \@title}\par \vskip .4em
+      \begin{normalsize}%
+         \lineskip .3em
+         \begin{tabular}[t]{c}%
+            \@author
+         \end{tabular}%
+      \end{normalsize}%
+      \par \vskip .2em
+      {\normalsize \@date}%
+      \ifvoid \@abstractbox \else 
+         \vskip.3em{\box\@abstractbox}%
+      \fi
+    \end{center}%
+  }%
+}
+
+% ulem
+\normalem
+
+% 
+\iftombow
+  \setlength\overfullrule{5pt}%
+\fi
+
+\renewcommand\refname{\if@english References\else 参考資料\fi}
+\renewcommand\bibname{\if@english Bibliography\else 参考資料\fi}
+
+% emath の数式番号設定をリセット
+\resettagform
+
+\newtheorem{Prob}{問題}[chapter]
+\newtheorem{Exe}[Prob]{例題} 
+
+\makeatother
+\endinput

@@ -1,0 +1,254 @@
+%#!platex -kanji=utf8 hb.tex
+\chapter{コマンドの定義とマークアップ}
+% これはただのダミーテキスト．
+% 文字コードを判定するための意味のない文字列．
+% これくらい記述すれば大丈夫かな．
+% Emacs のくせに生意気な．
+% Emacs の分際で自動判別とか．
+% Mac OS X のテキストエディッタの文字コード自動判別はうまくいかないぞ．
+
+\section{コマンドの定義}
+
+\zindind{マクロ}{の定義}%
+\zindind{マクロ}{の再定義}%
+{\LaTeX}の原稿では新しい命令などの定義をする事ができます．
+\begin{usage}
+\newcommand{$\<命令>$}[$\<引数の個数>$][$\<標準値>$]{$\<定義>$}
+\renewcommand{$\<命令>$}[$\<引数の個数>$][$\<標準値>$]{$\<定義>$}
+\end{usage}
+%\begin{Syntax}
+%\C{newcommand}\pa{命令}\opa{整数}\opa{標準値}\pa{定義}\\
+%\C{renewcommand}\pa{命令}\opa{整数}\opa{標準値}\pa{定義}
+%\end{Syntax}
+\Cmd{newcommand}についてですが，この命令によって，
+まだ定義されていない\va{命令}を新規に定義する事
+ができます．
+
+\subsection{自前の命令を追加で定義する}
+\begin{intext}
+\newcommand{\example}{これは例です．}
+\end{intext}
+
+本文中で`\cmd{example}'と記述すると
+%\begin{OutText}
+`これは例です．'
+%\end{OutText}
+という出力になります．
+
+\subsection{引数を取る命令を追加する}
+\begin{intext}
+\newcommand{\example}[2]{#1は#2です．}
+\end{intext}
+
+続いて上記の記述に基づき本文中で`\cmd{example}\verb|{ボブ}{背が高い}|'
+と記述すると，
+%\begin{OutText}
+`ボブは背が高いです．'
+%\end{OutText}
+という出力になります．さらにこの \cmd{example}命令
+に任意引数があっても良い事を宣言するためには次のようにしますが，
+任意引数も引数の総和に勘定します．
+%\begin{inout}
+%\newcommand{\example}[2][標準]{任意引数は #1
+%で，必須引数は #2 です．}
+%\example{それ}\\ \example[オプション]{それ}
+%\end{inout}
+\begin{inout}
+\newcommand{\example}[2][未来]{%
+  私は#1#2にいます．}
+\example{大学}   \example{出版}\par
+\example[]{大学} \example[函館]{出
+版}
+\end{inout}
+このように任意引数や必須引数の定義なども，
+\cmd{newcommand}命令を使う事により実現できます．
+定義の中で引数は\qu{\texttt\#}\va{n}として扱い，1から9までの
+整数が使えます．
+%このような定義が何に使えるのかと少し疑問
+%に思う方がいるかも知れませんが，以下の例題をご覧ください．
+%\begin{inout}
+%\newcommand{\seq}[2][n]{%
+%  \{#2_{0},\ldots,\,#2_{#1}\}}
+%ぶっちゃけ$\seq{a}$って$\seq[k]{x}$だよね．
+%\end{inout}
+%%$
+このような定義は数式の記述などに威力を発揮します．
+\begin{inout}
+\newcommand{\seq}[2][n]{%
+ \{#2_{0},#2_{1},\ldots,#2_{#1}\}}
+数式の集合もマクロを使って$\seq{a}$や
+$\seq[k]{x}$とできます．
+\end{inout}
+
+\cmd{newcommand}では任意引数を一つしか設けるこ
+とができませんが，引数は合計9個まで使う事ができます．
+\Cmd{renewcommand}では一度定義した命令を再度定義する
+事ができます．
+
+\subsection{複数の段落を含まない命令を定義する}
+
+%\begin{Prob}
+次のようにアスタリスク付きで定義したコマンドと付与していない場合のコマンドの
+違いを考察してください．
+
+\begin{intext}
+\newcommand\testargs[1]{[#1]}
+\newcommand*\testArgs[1]{[#1]}
+\testArgs{1行目の入力\par 2行目の入力}.
+\testargs{1行目の段落\par 2行目の段落}.
+\end{intext} 
+
+実際にタイプセットするとエラーが表示されます．これによりアスタリスク付きで
+定義した場合は複数行の段落を引数として受けとらなくなると考えられます．
+%\end{Prob}
+
+\subsection{`@'を含んだ命令を定義する}
+\begin{usage}
+\makeatletter % 始まり
+\makeatother  % 終わり
+\end{usage}
+%\begin{Syntax}
+%\Cmd{makeatletter} \pp{\qu{\str{@}}を英字と同じ分類にする．}\\
+%\Cmd{makeatother}  \pp{\qu{\str{@}}を違う分類にする．}
+%\end{Syntax}
+
+`\str{@}'を含むコマンドに関しては上記の二つの命令を使います．
+この命令の中身を見てみると実は次のようになっています．
+
+\begin{intext}
+\makeatletter
+\renewcommand{\section}{%
+    \@startsection{section}{1}{\z@}% 
+    {\Cvs \@plus.5\Cdp \@minus.2\Cdp}% 前アキ
+    {.5\Cvs \@plus.3\Cdp}% 後アキ
+    {\normalfont\Large\headfont\raggedright}}
+} 
+\makeatother
+\end{intext}
+
+\indindz{コード}{カテゴリー}\indindz{コード}{分類}%%
+どうやら\qu{\str{@}}の{\KY{カテゴリーコード}}
+というものを11にすると英字と同じになり，12にすると違う分類に
+なるようです．このような記号の分類を{\KY{カテゴリーコード}}と
+呼びます\pp{\tabref{catcode1}参照}．
+
+
+
+
+\subsection{新しく環境を定義する}
+
+さらに通常{\LaTeX}でよく見かける環境型のコマンドの
+定義に関しては以下の四つの命令が使えます．
+\begin{usage}
+\newenvironment{$\<環境名>$}[$\<引数の個数>$][$\<標準値>$]{$\<始め>$}{$\<終わり>$}
+\renewenvironment{$\<環境名>$}[$\<引数の個数>$][$\<標準値>$]{$\<始め>$}{$\<終わり>$}
+\end{usage}
+%\begin{Syntax}
+%\C{newenvironment}\pa{環境名}\opa{引数の個数}\opa{標準値}%
+% \pa{始め}\pa{終わり}\\
+%\C{renewenvironment}\pa{環境名}\opa{引数の個数}\opa{標準値}%
+% \pa{始め}\pa{終わり}
+%\end{Syntax}
+\Cmd{newenvironment}では環境の始めの部分と終わりの部分
+を定義して，新たに環境型の命令を作成します．引数に関する
+扱いは \cmd{newcommand}と同じです．
+\Cmd{renewenvironment}については一度定義した環境型の
+コマンドを再度定義する機能があります．
+
+\cmd{newcommand}/\cmd{newenvironment}以外にも便利なコマンドがあります．
+
+
+\subsection{定義済みかどうかを判断して命令を定義する}
+\begin{usage}
+\providecommand{$\<命令>$}[$\<引数の個数>$][$\<標準値>$]{$\<定義>$}
+\DeclareRobustCommand{$\<命令>$}[$\<引数の個数>$][$\<標準値>$]{$\<定義>$}
+\end{usage}
+%\begin{Syntax}
+%\cmd{providecommand}\pa{命令}\opa{整数}\opa{標準値}\pa{定義}\\
+%\Cmd{DeclareRobustCommand}\pa{命令}\opa{数値}\opa{標準}\pa{設定}
+%\end{Syntax}
+
+provide は未定義のときだけ
+Declare は上書き
+
+この \Cmd{providecommand}はすでに命令が定義済みならば何もせず，もし定義
+されていないならば指定された内容の通りに命令を定義する事ができます．
+\cmd{DeclareRobustCommand}を使った場合は頑丈な命令を作成できます．
+
+%\begin{Prob} 
+\C{DeclareRobustCommand} を使った例を示します．次のファイルをタイプセッ
+ トし，その結果を吟味してください．
+
+\begin{intext}
+\documentclass{jarticle}
+\DeclareRobustCommand{\joubuyen}{{\ooalign{Y\crcr\hss=\hss}}}
+\newcommand{\moroiyen}{{\ooalign{Y\crcr\hss=\hss}}}
+\begin{document}
+\tableofcontents
+\section{もろい{\moroiyen}は壊れやすい}
+どうですかねぇ。
+\section{丈夫な{\joubuyen}は壊れにくい}
+大丈夫ですか？
+\end{document}
+\end{intext}
+
+この例では1回目のタイプセットでエラーが表示されます．
+
+%\begin{OutTerm}
+%! Illegal parameter number in definition of \reserved@a.
+%<to be read again> \crcr
+%l.6 \section{もろい{\moroiyen}は壊れやすい}
+%?
+%\end{OutTerm}
+
+さらに2回目のタイプセットでは目次
+ファイル\Va{file}{toc}が作成され，それが読み込まれるので
+さらにエラーとなります．\Va{file}{toc}と\Va{file}{aux}に
+何が記述されているのかを吟味してください．\Va{file}{aux}には
+次のように出力されており，凄い事になっています．
+
+\begin{intext}
+\relax
+\@writefile{toc}{\contentsline{section}{\numberline{1}もろい
+  {{\lineskiplimit -\maxdimen \unhbox \voidb@x \vtop {\baselineskip 
+  \z@skip \lineskip .25ex\everycr{}\tabskip \z@skip \halign {##\crcr
+  Y\crcr \hss =\hss \crcr }}}}は壊れやすい}{1}}
+\@writefile{toc}{\contentsline{section}{\numberline{2}丈夫な
+  {\joubuyen}は壊れにくい}{1}} 
+\end{intext}
+
+さらに\Va{file}{toc}には次のような出力になります．
+
+\begin{intext}
+\contentsline{section}{\numberline{1}もろい{{\lineskiplimit 
+  -\maxdimen \unhbox\voidb@x \vtop {\baselineskip \z@skip 
+  \lineskip .25ex\everycr{}\tabskip \z@skip \halign {####\crcr 
+  Y\crcr \hss =\hss \crcr}}}}は壊れやすい}{1}
+\contentsline{section}{\numberline{2}丈夫な{\joubuyen}
+  は壊れにくい}{1}
+\end{intext}
+
+これが \cmd{DeclareRobustCommand}で \cmd{moroiyen}命令
+を定義しなかった結果となります．{\LaTeX}の命令を
+何か別のファイルに書き出す場合は丈夫な命令として定義して
+いた方が無難なようです．ただし，次のように \Cmd{protect}
+命令を使った場合はうまく行く事を確認してください．
+
+\begin{intext}
+\section{もろい{\protect\moroiyen}は壊れやすい} 
+\end{intext}
+
+\Cmd{protect}を使うと \cmd{moroiyen}が壊れずに
+\Va{file}{toc}や\Va{file}{aux}に出力されている事も
+確認してください．
+%\end{Prob}
+
+%このような定義をするコマンドのほかに{\LaTeX}では
+%数値を操作するコマンド，組版に関するコマンドなど
+%数多く存在します．
+%
+%以上のことを踏まえてこれからマクロとクラスについての
+%解説をします．各章並びに各節は用途別にそれらを分類し，
+%必要に応じて相互参照をしています．また，索引からもパ
+%ッケージやクラス，コマンドなどを追うことができます．
+

@@ -1,0 +1,572 @@
+%#!platex -kanji=utf8 hb.tex
+%\chapter{記号}
+
+\section{OTFパッケージ}
+\begin{usage}
+\usepackage[$\<オプション>$]{otf} 
+\end{usage}
+\Y{OTF}パッケージは\LaTeX で\W{Open Typeフォント}を扱うためのマクロパッ
+ケージです．\W{udvips}，\W{dvipdfmx}，\W{Mxdvi}，\W{xdvi}の\W{デバイスド
+ライバ} (\W{dviware}) に対応しています．\W{dviout}は制限付きで対応してい
+ます．単に\W{ユニコード}文字を使うだけであれば\Y{UTF}パッケージが使えま
+す．
+%ただし，\sty{UTF}パッケージは開発が終了したものです．
+%\sty{OTF}パッケージのオプションとしては以下が用意されています．
+\begin{description}
+ \item[noreplace] 
+	    クラスファイルで元々定義されている\W{TFM}を用います．
+	    何も指定しなければTFMが置き換えられます．
+ \item[bold]      
+	    ゴシック体を太字として割り当てます．
+ \item[expert]    
+	    組方向に応じた専用仮名を使います．
+	    仮名が縦組専用，または横組専用のものに切り替わり，ルビ用の仮
+	    名を使えるようになります．
+	    \C{rubyfamily} コマンドで使用できます．
+ \item[deluxe]    多ウェイト化．
+	    明朝体，ゴシック体を2ウェイト化します。（該当フォントが存在
+	    する場合）丸ゴシック体も使えるようになります．
+ \item[multi]     
+	    \W{繁体字}、\W{簡体字}、\W{ハングル}を使えるようにします．
+ \item[nomacros]  
+	    \Y{ajmacros}を読み込まないようにします．
+\end{description}
+
+%\begin{itemize}
+% \item \pTeX は\W{JIS~X~0208}までの\W{文字集合}しか扱えません．
+% \item OTFは\W{JIS~X~0213}に完全対応しています．
+% \item Unicode~3.0の\W{字体}をUTF16コードで指定可能です．
+% \item 日本語に限りAdobe-Japan~1-5の\W{CID番号}を指定して出力可能です．
+% \item \sty{UTF}パッケージの拡張バージョンであり，\W{Open Typeフォント}
+%       が扱えるようになって名称が変更されました．
+% \item \Y{OTF}と表記されていますが，実際には \verb|\usepackage{otf}| と
+%       原稿に書きます．
+% \item \W{CID番号}はAdobe社の開発者向けサイトで公開されている技術資料か
+%       ら知る事が出来ます\footnote{\webAdobeJapanList}．
+%\end{itemize}
+
+\begin{usage}
+\UTF{$\<4桁の16進数>$} % UTF16コードで指定
+\CID{$\<10進数>$}% CID 番号で指定
+\end{usage}
+\W{CID番号}はAdobe社の開発者向けサイトで公開されている技術資料か
+ら知る事が出来ます\footnote{\webAdobeJapanList}．
+
+%\begin{itemize}
+% \item \C{UTF}\val{4桁の16進数}
+% \item \C{CID}\val{10進数}
+%\end{itemize}
+
+%\CID{16315}
+%\CID{16321}
+%\CID{16319}
+
+%\makeatletter
+%\@tempcnta=\z@
+%\@whilenum\@tempcnta<20317\do{%
+%  \CID{\the\@tempcnta}
+%  \advance\@tempcnta\@ne
+%}
+%\makeatother
+
+%\CID{2234}\CID{2233}
+%\CID{2244}
+
+
+\begin{inout}
+\UTF{2318}+\keytop{Tab}キーでアプリケーションを選択してから，
+\UTF{23ce}キーを押して下さい．
+\end{inout}
+
+
+%HOGE パッケージオプション
+
+\subsection{囲みつき文字 (\protect\ajKuroKaku{5}, \protect\ajMaru{99}) を出力する}
+
+\begin{longtable}{*4l}
+  % 最初のヘッダ
+  \caption{\sty{OTF}の囲みつき文字}\tablab{OTFの囲みつき文字}\\
+  \toprule 
+  命令 & 最小値 & 最大値 & 出力例\\
+  \midrule
+  \endfirsthead
+  % 続きのヘッダ
+  \toprule 
+  命令 & 最小値 & 最大値 & 出力例\\
+  \midrule 
+  \endhead
+  % 続きのフッタ
+  \multicolumn{4}{c}{次ページに続きます}\\
+  \bottomrule  
+  \endfoot
+  % 最後のフッタ
+  \bottomrule  
+  \endlastfoot
+
+ \otfKakomi{ajMaru}{0}{100}
+ \otfKakomi[*]{ajMaru}{0}{100}
+ \otfKakomi{ajKuroMaru}{0}{100}
+ \otfKakomi[*]{ajKuroMaru}{0}{100}
+ \otfKakomi{ajKaku}{0}{100}
+ \otfKakomi[*]{ajKaku}{0}{100}
+ \otfKakomi{ajKuroKaku}{0}{100}
+ \otfKakomi[*]{ajKuroKaku}{0}{100}
+ \otfKakomi{ajMaruKaku}{0}{100}
+ \otfKakomi[*]{ajMaruKaku}{0}{100}
+ \otfKakomi{ajKuroMaruKaku}{0}{100}
+ \otfKakomi[*]{ajKuroMaruKaku}{0}{100}
+ \otfKakomi{ajKakko}{0}{100}
+ \otfKakomi[*]{ajKakko}{0}{100}
+ \otfKakomi{ajRoman}{1}{15}
+ \otfKakomi[*]{ajRoman}{1}{15}
+ \otfKakomi{ajroman}{1}{15}
+ \otfKakomi{ajPeriod}{1}{9}% AJ1-6?
+ \otfKakomi{ajKakkoYobi}{1}{9}
+ \otfKakomi{ajKakkoroman}{1}{15}
+ \otfKakomi{ajKakkoRoman}{1}{15}
+ \otfKakomi{ajKakkoalph}{1}{26}
+ \otfKakomi{ajKakkoAlph}{1}{26}
+ \otfKakomi{ajKakkoHira}{1}{48}
+ \otfKakomi{ajKakkoKata}{1}{48}
+ \otfKakomi{ajKakkoKansuji}{1}{20}
+ \otfKakomi{ajMaruKansuji}{1}{10}
+ \otfKakomi{ajMarualph}{1}{26}
+ \otfKakomi{ajMaruAlph}{1}{26}
+ \otfKakomi{ajMaruHira}{1}{48}
+ \otfKakomi{ajMaruKata}{1}{48}
+ \otfKakomi{ajMaruYobi}{1}{7}
+ \otfKakomi{ajKuroMarualph}{1}{26}
+ \otfKakomi{ajKuroMaruAlph}{1}{26}
+ \otfKakomi{ajKuroMaruHira}{1}{48}
+ \otfKakomi{ajKuroMaruKata}{1}{48}
+ \otfKakomi{ajKuroMaruYobi}{1}{7}
+ \otfKakomi{ajKakualph}{1}{26}
+ \otfKakomi{ajKakuAlph}{1}{26}
+ \otfKakomi{ajKakuHira}{1}{26}
+ \otfKakomi{ajKakuKata}{1}{48}
+ \otfKakomi{ajKakuYobi}{1}{7}
+ \otfKakomi{ajKuroKakualph}{1}{26}
+ \otfKakomi{ajKuroKakuAlph}{1}{26}
+ \otfKakomi{ajKuroKakuHira}{1}{48}
+ \otfKakomi{ajKuroKakuKata}{1}{48}
+ \otfKakomi{ajKuroKakuYobi}{1}{7}
+ \otfKakomi{ajMaruKakualph}{1}{26}
+ \otfKakomi{ajMaruKakuAlph}{1}{26}
+ \otfKakomi{ajMaruKakuHira}{1}{48}
+ \otfKakomi{ajMaruKakuKata}{1}{48}
+ \otfKakomi{ajMaruKakuYobi}{1}{7}
+ \otfKakomi{ajKuroMaruKakualph}{1}{26}
+ \otfKakomi{ajKuroMaruKakuAlph}{1}{26}
+ \otfKakomi{ajKuroMaruKakuHira}{1}{48}
+ \otfKakomi{ajKuroMaruKakuKata}{1}{48}
+ \otfKakomi{ajKuroMaruKakuYobi}{1}{7}
+ \otfKakomi{ajNijuMaru}{1}{10}
+  \otfKakomi{ajRecycle}{0}{11}
+\end{longtable}
+
+\begin{inout}
+\usepackage{otf}
+リチウムイオン電池には識別マーク\ajRecycle{0}が表示されていま
+すので，使用済み電池はお近くのリサイクル協力店にお持ちください．
+\end{inout}
+
+\subsection{合字 (\protect\ajLig{株式会社}, \protect\ajLig{アパート}) を出力する}
+\begin{usage}
+\ajLig{$\<引数>$}
+\end{usage}
+
+\begin{small}
+\begin{longtable}{*6l}
+  % 最初のヘッダ
+  \caption{\sty{OTF}の合字}\tablab{OTFの合字}\\
+  \toprule 
+  引数 & 横組 & 縦組  & 引数 & 横組 & 縦組\\
+  \midrule
+  \endfirsthead
+  % 続きのヘッダ
+  \toprule 
+  引数 & 横組 & 縦組  & 引数 & 横組 & 縦組\\
+  \midrule 
+  \endhead
+  % 続きのフッタ
+  \multicolumn{6}{c}{次ページに続きます}\\
+  \bottomrule  
+  \endfoot
+  % 最後のフッタ
+  \bottomrule  
+  \endlastfoot
+
+ \otfLig{明治} \otfLig{大正} \otfLig{昭和} 
+ \otfLig{ミリ} \otfLig{キロ} \otfLig{センチ} \otfLig{センチ*} \otfLig{メートル}
+ \otfLig{グラム} \otfLig{グラム*} \otfLig{トン} \otfLig{アール}
+ \otfLig{アール*} \otfLig{ヘクタール} \otfLig{リットル} \otfLig{ワット}
+ \otfLig{ワット*} \otfLig{カロリー} \otfLig{ドル} \otfLig{セント}
+ \otfLig{セント*} \otfLig{パーセント} \otfLig{ミリバール} \otfLig{ページ}
+ \otfLig{ページ*} \otfLig{キロメートル} \otfLig{キログラム} \otfLig{アパート}
+ \otfLig{ビル} \otfLig{マンション} \otfLig{株式会社} \otfLig{有限会社}
+ \otfLig{財団法人} \otfLig{平成} \otfLig{フィート} \otfLig{インチ}
+ \otfLig{インチ*} \otfLig{ヤード} \otfLig{ヤード*} \otfLig{ヘルツ}
+ \otfLig{ヘルツ*} \otfLig{ホーン} \otfLig{ホーン*} \otfLig{コーポ}
+ \otfLig{コーポ*} \otfLig{ハイツ} \otfLig{ハイツ*} \otfLig{さじ}
+ \otfLig{アト} \otfLig{アルファ} \otfLig{アンペア} \otfLig{イニング}
+ \otfLig{ウォン} \otfLig{ウルシ} \otfLig{エーカー} \otfLig{エクサ}
+ \otfLig{エスクード} \otfLig{オーム} \otfLig{オングストローム} \otfLig{オンス}
+ \otfLig{オントロ} \otfLig{カイリ} \otfLig{カップ} \otfLig{カラット}
+ \otfLig{ガロン} \otfLig{ガンマ} \otfLig{ギガ} \otfLig{ギニー}
+ \otfLig{キュリー} \otfLig{ギルダー} \otfLig{キロリットル} \otfLig{キロワット}
+ \otfLig{グスーム} \otfLig{グラムトン} \otfLig{クルサード} \otfLig{クルゼイロ}
+ \otfLig{クローネ} \otfLig{ケース} \otfLig{コルナ} \otfLig{サイクル}
+ \otfLig{サンチーム} \otfLig{シリング} \otfLig{ダース} \otfLig{デカ}
+ \otfLig{デシ} \otfLig{テラ} \otfLig{ドラクマ} \otfLig{ナノ}
+ \otfLig{ノット} \otfLig{バーツ} \otfLig{バーレル} \otfLig{パスカル}
+ \otfLig{バレル} \otfLig{ピアストル} \otfLig{ピクル} \otfLig{ピコ}
+ \otfLig{ファラッド} \otfLig{ファラド} \otfLig{フェムト} \otfLig{ブッシェル}
+ \otfLig{フラン} \otfLig{ベータ} \otfLig{ヘクト} \otfLig{ヘクトパスカル}
+ \otfLig{ペセタ} \otfLig{ペソ} \otfLig{ペタ} \otfLig{ペニヒ}
+ \otfLig{ペンス} \otfLig{ポイント} \otfLig{ホール} \otfLig{ボルト}
+ \otfLig{ホン} \otfLig{ポンド} \otfLig{マイクロ} \otfLig{マイル}
+ \otfLig{マッハ} \otfLig{マルク} \otfLig{ミクロン} \otfLig{メガ}
+ \otfLig{メガトン} \otfLig{ヤール} \otfLig{ユアン} \otfLig{ユーロ} \otfLig{ラド} \otfLig{リラ} 
+ \otfLig{ルーブル} \otfLig{ルクス} \otfLig{ルピア} \otfLig{ルピー} \otfLig{レム} \otfLig{レントゲン} 
+ \otfLig{医療法人} \otfLig{学校法人} \otfLig{共同組合} \otfLig{協同組合} \otfLig{合資会社}
+ \otfLig{合名会社} \otfLig{社団法人} \otfLig{宗教法人} \otfLig{郵便番号}\\
+ \end{longtable}
+\end{small}
+
+\begin{table}[htbp]
+ \centering
+  \caption{\sty{OTF}のくの字などの記号}\tablab{OTFのくの字などの記号類}
+ \setcounter{otfligline}{0}
+ \setcounter{otfligrow}{2}
+ \begin{tabular}{*4l}
+  \hline
+  引数&合字&引数&合字\\%&引数&合字\\%&引数&合字\\
+  \hline
+  \otfAjt{Kunoji}
+  \otfAjt{KunojiwithBou}
+  \otfAjt{DKunoji}
+  \otfAjt{DKunojiwithBou}
+  \otfAjt{Ninoji}
+  \otfAjt{varNinoji}
+  \otfAjt{Yusuriten}
+  \\
+  \hline
+ \end{tabular}
+\end{table}
+
+\begin{inout}
+\usepackage{otf}
+宛名書きにおいて「株式会社」を \ajLig{(株)} と表記したり，
+(\ajLig{株式会社}) と表記するのは先方に対して失礼になる．
+\end{inout}
+
+ \setcounter{otfligline}{0}
+ \setcounter{otfligrow}{3}
+\begin{longtable}{*6l}
+  \caption{\sty{OTF}の仮名文字の合字}\tablab{OTFの仮名文字の合字}\\
+  \hline
+  引数 & 合字 & 引数 & 合字 & 引数 & 合字\\
+  \hline
+  \otfLigS{!!} \otfLigS{??} \otfLigS{!?*} 
+  \otfLigS{!?} \otfLigS{!*} \otfLigS{?!} \otfLigS{!!*} \\
+  \hline\setcounter{otfligline}{0}%
+  \otfLigS{う゛} \otfLigS{ワ゛} \otfLigS{ヰ゛} \otfLigS{ヱ゛} \otfLigS{ヲ゛}
+  \otfLigS{か゜} \otfLigS{き゜} \otfLigS{く゜} \otfLigS{け゜} \otfLigS{こ゜}
+  \otfLigS{カ゜} \otfLigS{キ゜} \otfLigS{ク゜} \otfLigS{ケ゜} \otfLigS{コ゜}
+  \otfLigS{セ゜} \otfLigS{ツ゜} \otfLigS{ト゜}
+  \hline\setcounter{otfligline}{0}%
+  %
+  \otfLigS{小か} \otfLigS{小け} \otfLigS{小こ} \otfLigS{小コ}
+  \otfLigS{小ク} \otfLigS{小シ} \otfLigS{小ス} \otfLigS{小ト}
+  \otfLigS{小ヌ} \otfLigS{小ハ} \otfLigS{小ヒ} \otfLigS{小フ}
+  \otfLigS{小ヘ} \otfLigS{小ホ} \otfLigS{小プ} \otfLigS{小ム}
+  \otfLigS{小ラ} \otfLigS{小リ} \otfLigS{小ル} \otfLigS{小レ} 
+  \otfLigS{小ロ}
+  %
+  \hline
+\end{longtable}
+
+\begin{table}[htbp]
+\centering
+ \setcounter{otfligline}{0}
+ \setcounter{otfligrow}{4}
+ \caption{\sty{OTF}の丸文字・括弧文字の合字}\tablab{OTFの丸文字・括弧文字の合字}
+ \begin{tabular}{*8l}
+  \hline
+  引数&合字&引数&合字&引数&合字&引数&合字\\
+  \hline
+  \otfLigS{○上} \otfLigS{○中} \otfLigS{○下} \otfLigS{○左} 
+  \otfLigS{○右} \otfLigS{○〒} \otfLigS{○夜} \otfLigS{○企} 
+  \otfLigS{○医} \otfLigS{○協} \otfLigS{○名} \otfLigS{○宗}
+  \otfLigS{○労} \otfLigS{○学} \otfLigS{○有} \otfLigS{○株}
+  \otfLigS{○社} \otfLigS{○監} \otfLigS{○資} \otfLigS{○財} 
+  \otfLigS{○印} \otfLigS{○秘} \otfLigS{○大} \otfLigS{○小}
+  \otfLigS{○優} \otfLigS{○控} \otfLigS{○調} \otfLigS{○注}
+  \otfLigS{○副} \otfLigS{○減} \otfLigS{○標} \otfLigS{○欠} 
+  \otfLigS{○基} \otfLigS{○禁} \otfLigS{○項} \otfLigS{○休} 
+  \otfLigS{○女} \otfLigS{○男} \otfLigS{○正} \otfLigS{○写} 
+  \otfLigS{○祝} \otfLigS{○出} \otfLigS{○適} \otfLigS{○特} 
+  \otfLigS{○済} \otfLigS{○増} \otfLigS{○問} \otfLigS{○答} 
+  \otfLigS{○例} \otfLigS{○電}
+  \\\setcounter{otfligline}{0}%
+  \otfLigS{(株)} \otfLigS{(有)} \otfLigS{(代)} \otfLigS{(至)} 
+  \otfLigS{(企)} \otfLigS{(協)} \otfLigS{(名)} \otfLigS{(労)} 
+  \otfLigS{(社)} \otfLigS{(監)} \otfLigS{(自)} \otfLigS{(資)} 
+  \otfLigS{(財)} \otfLigS{(特)} \otfLigS{(学)} \otfLigS{(祭)} 
+  \otfLigS{(呼)} \otfLigS{(祝)} \otfLigS{(休)} \otfLigS{(営)} 
+  \otfLigS{(合)} \otfLigS{(注)} \otfLigS{(問)} \otfLigS{(答)} 
+  \otfLigS{(例)}
+  \\\setcounter{otfligline}{0}%
+   \otfLigS{●問} \otfLigS{●答}  \otfLigS{●例} \otfLigS{□印}
+   \otfLigS{□問} \otfLigS{□答}  \otfLigS{□例} \otfLigS{□負}
+   \otfLigS{■問} \otfLigS{■答}  \otfLigS{■例} \otfLigS{□勝} 
+   \otfLigS{◇問} \otfLigS{◇答}  \otfLigS{◇例} 
+  \\\setcounter{otfligline}{0}%
+   \otfLigS{◆問} \otfLigS{◆答}  \otfLigS{◆例}
+  \\
+  \hline  
+ \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+  \caption{\sty{OTF}の単位の合字}\tablab{OTFの単位の合字}
+ \setcounter{otfligline}{0}
+ \setcounter{otfligrow}{4}
+ \begin{tabular}{*8l}
+  \hline
+  引数&合字&引数&合字&引数&合字&引数&合字\\
+  \hline
+  \otfLigS{mm} \otfLigS{cm} \otfLigS{km} \otfLigS{mg}
+  \otfLigS{kg} \otfLigS{cc} \otfLigS{m2} \otfLigS{No.}
+  \otfLigS{K.K.} \otfLigS{TEL} \otfLigS{cm2} \otfLigS{km2}
+  \otfLigS{cm3} \otfLigS{m3} \otfLigS{dl} \otfLigS{l}
+  \otfLigS{kl} \otfLigS{ms} \otfLigS{micros} \otfLigS{ns}
+  \otfLigS{ps} \otfLigS{KB} \otfLigS{MB} \otfLigS{GB}
+  \otfLigS{HP} \otfLigS{Hz} \otfLigS{mb} \otfLigS{ml}
+  \otfLigS{KK.} \otfLigS{Tel} \otfLigS{in} \otfLigS{mm2}
+  \otfLigS{mm3} \otfLigS{km3} \otfLigS{sec} \otfLigS{min}
+  \otfLigS{cal} \otfLigS{kcal} \otfLigS{dB} \otfLigS{m}
+  \otfLigS{g} \otfLigS{F} \otfLigS{TB} \otfLigS{FAX}
+  \otfLigS{ohm} \otfLigS{AM} \otfLigS{KK} \otfLigS{No}
+  \otfLigS{PH} \otfLigS{PM} \otfLigS{PR} \otfLigS{tel}
+  \otfLigS{tm} \otfLigS{VS} \otfLigS{a/c} \otfLigS{a.m.}
+  \otfLigS{c/c} \otfLigS{c.c.} \otfLigS{c/o} \otfLigS{dl*}
+  \otfLigS{hPa} \otfLigS{kl*} \otfLigS{l*} \otfLigS{microg}
+  \otfLigS{microm} \otfLigS{ml*} \otfLigS{m/m} \otfLigS{n/m}
+  \otfLigS{pH} \otfLigS{p.m.} \otfLigS{mho} %\otfLigS{}
+  \\
+  \hline
+ \end{tabular}
+\end{table}
+
+\subsection{濁音・拗音・丸付き／括弧付き文字を簡単に出力する}
+\CI{゛,゜,！,○,（}%
+\begin{usage}
+\゛$\<濁音化したい文字>$    % $\text{例：\゛う}$
+\゜$\<半濁音化したい文字>$  % $\text{例：\゜か}$
+\！$\<拗音化したい文字>$    % $\text{例：\！ヌ}$
+\○$\<丸付きにする文字>$    % $\text{例：\○秘}$
+\（$\<括弧付きにする文字>$）% $\text{例：\（労）}$
+\end{usage}
+
+\begin{usage}
+\○$\<引数>$ \●$\<引数>$ \□$\<引数>$ 
+\■$\<引数>$ \◇$\<引数>$ \◆$\<引数>$ 
+\end{usage}
+あ〜ん，ア〜ン，日〜休，半角のa〜z，半角のA〜Zでも合字が出せます．
+上の表と同じ出力が得られますが，違う入力方法になります．
+
+%OK: \ajLig{ohm*} \ajLig{mho*} 
+%
+%OK: \ajLig{euro} \ajLig{euro*} 
+
+%\ajLig{JIS} \ajLig{JAS} 
+
+%NG: \ajLig{No*}
+
+%NG: \ajLig{ppb}  \ajLig{ppm}  \ajLig{'S}  \ajLig{H2} 
+% \ajLig{O2}  \ajLig{Ox}  \ajLig{Nx}  \ajLig{Q2} 
+% \ajLig{Jr.}  \ajLig{Dr.}  \ajLig{ガル}  \ajLig{グレイ} 
+% \ajLig{クローナ}  \ajLig{シーベルト}  \ajLig{シュケル}  \ajLig{ジュール} 
+% \ajLig{デシベル}  \ajLig{ドット}  \ajLig{バイト}  \ajLig{ビット} 
+% \ajLig{ベクトル}  \ajLig{ボー}  \ajLig{ランド}  \ajLig{リンギット} 
+% \ajLig{より} \ajLig{升} \ajLig{コト}  \ajLig{年}  
+
+%NG:  \ajLig{□:A} \ajLig{:B} \ajLig{:C} \ajLig{:D} 
+% \ajLig{:E} \ajLig{:F} \ajLig{:終} \ajLig{:CL} 
+% \ajLig{:KCL} \ajLig{:BEL} \ajLig{:AS} \ajLig{:AM} 
+
+%\def\@ajmojifam{□}
+%\@ajligaturedef{:A}{:B}{:C}{:D}{:E}{:F}{:終}\@nil%AJ1-6
+%\@ajligaturedef{:CL}{:KCL}{:BEL}{:AS}{:AM}{:段}{:ゴ}{:ミ}\@nil%AJ1-6
+
+%NG: \ajLig{:段} \ajLig{:ゴ} \ajLig{:ミ} \ajLig{News} \ajLig{PV} 
+% \ajLig{MV} \ajLig{SS} \ajLig{S1} \ajLig{S2} \ajLig{S3} 
+% \ajLig{HV} 
+
+%OK: \ajPICT{Club} \ajPICT{Heart} \ajPICT{Spade} \ajPICT{Diamond}
+% \ajPICT{Club*} \ajPICT{Heart*} \ajPICT{Spade*} \ajPICT{Diamond*}
+
+%OK: \ajPICT{〒} \ajPICT{晴} \ajPICT{曇} \ajPICT{雨}
+% \ajPICT{雪} \ajPICT{→} \ajPICT{←} \ajPICT{↑}
+% \ajPICT{↓} \ajPICT{野球} \ajPICT{湯} \ajPICT{花}
+% \ajPICT{花*} 
+
+%?: \ajPICT{電話} 
+
+%NG: \ajPICT{サッカー} 
+%
+%?: \ajLig{ほか} \ajLig{▽▽} \ajLig{▽〒}
+% \ajLig{△!} \ajLig{■◇} %\ajLig{} \ajLig{}
+% \ajLig{} \ajLig{} \ajLig{} \ajLig{}
+
+%\△#1
+%\▽#1
+% \※花 
+
+%\def\@ajmojifam{◇}
+%\@ajligaturedef {News}天再新映声前後終立交{ほか}劇司解株気二多文手{PV}{MV}双{SS}{S1}{S2}{S3}デ{HV}\@nil%AJ1-6
+
+%hoge: \ajHishi{1}
+%\ajHishi{2}
+%\ajHishi{3}
+%\ajHishi{4}
+
+%hoge: %\ajFrac{1}{4}
+% \ajFrac{1}{2} \ajFrac{3}{4} \ajFrac{1}{8} \ajFrac{3}{8} 
+% \ajFrac{5}{8} \ajFrac{7}{8} \ajFrac{1}{3} \ajFrac{2}{3}
+% \ajFrac{}{} \ajFrac{}{} \ajFrac{}{} \ajFrac{}{}
+%	\or\ifcase#1\or9826\fi 1
+% \ajFrac{1}{1}
+% \ajFrac{1}{2} %\ajFrac{2}{2}
+% \ajFrac{1}{3} \ajFrac{2}{3} %\ajFrac{3}{3}
+% \ajFrac{1}{4} \ajFrac{2}{4} \ajFrac{3}{4} %\ajFrac{4}{4}
+% \ajFrac{1}{5} \ajFrac{2}{5} \ajFrac{3}{5} \ajFrac{4}{5} %\ajFrac{5}{5}
+% \ajFrac16 \ajFrac26 \ajFrac36 \ajFrac46 \ajFrac56 %\ajFrac66 
+% \ajFrac17 \ajFrac27 \ajFrac37 \ajFrac47 \ajFrac57 \ajFrac67 
+% \ajFrac18 \ajFrac28 \ajFrac38 \ajFrac48 \ajFrac58 \ajFrac68 \ajFrac78
+% \ajFrac19 \ajFrac29 \ajFrac39 \ajFrac49 \ajFrac59 
+% \ajFrac69 \ajFrac79 \ajFrac89 
+% \ajFrac1{10} \ajFrac2{10} \ajFrac3{10} \ajFrac4{10} \ajFrac5{10} 
+% \ajFrac6{10} \ajFrac7{10} \ajFrac8{10} \ajFrac9{10}
+% \ajFrac1{11} \ajFrac2{11} \ajFrac3{11} \ajFrac4{11} \ajFrac5{11}
+% \ajFrac6{11} \ajFrac7{11} \ajFrac8{11} \ajFrac9{11} \ajFrac{10}{11}
+% \ajFrac1{12} \ajFrac2{12} \ajFrac3{12} \ajFrac4{12} \ajFrac5{12} 
+% \ajFrac6{12} \ajFrac7{12} \ajFrac8{12} \ajFrac9{12} \ajFrac{10}{12} 
+% \ajFrac{11}{12}
+
+%hoge: \ajFrac{1}{100} 
+
+%hoge: \ajArrow{RIGHT*} \ajArrow {LEFT*} \ajArrow{UP*} \ajArrow{DOWN*}
+
+%hoge: 
+%\ajArrow{DOWN} \ajArrow{UP} \ajArrow{LEFT} \ajArrow{RIGHT}
+
+%hoge: \ajArrow{RightHand} \ajArrow{LeftHand} \ajArrow{UpHand} 
+%\ajArrow{DownHand}
+
+%hoge: 
+%\ajArrow{Left/Right} \ajArrow{Right/Left} \ajArrow{Up/Down} 
+%\ajArrow{Down/Up}
+
+%hoge: 
+%\ajArrow{LeftScissors} \ajArrow{RightScissors} \ajArrow{UpScissors}
+%\ajArrow{DownScissors}
+
+%hoge: 
+%\ajArrow{LeftTriangle} \ajArrow{RightTriangle} 
+%\ajArrow{LeftTriangle*} \ajArrow{RightTriangle*} 
+%\ajArrow{LeftAngle} \ajArrow{RightAngle}
+
+%\ajArrow{Left} \ajArrow{Right} \ajArrow{Up} \ajArrow{Down} 
+%\ajArrow{LeftDouble}
+%\ajArrow{RightDouble}
+
+%\ajArrow{LeftRight*} 
+%\ajArrow{LeftRightDouble}
+%%\ajArrow{RightDown} \ajArrow{LeftDown}
+%%\ajArrow{LeftUp} \ajArrow{RightUp} 
+%\ajArrow{Right/Left*}
+%\ajArrow{Left/Right*} \ajArrow{Right/Left+} \ajArrow{Down/Up+}
+%\ajArrow{Left+} \ajArrow{Right+} \ajArrow{Up+} \ajArrow{Down+}
+%\ajArrow{LeftRight+} \ajArrow{UpDown+}
+
+%hoge:  \ajArrow{UpAngle}
+%\ajArrow{DownAngle} \ajArrow{LeftAngle*} \ajArrow{RightAngle*} 
+%\ajArrow{UpAngle*} \ajArrow{DownAngle*}
+%
+%\ajArrow{RightUp*}
+%\ajArrow{RightDown*}
+%
+%良く使われる異字体: 
+%\ajMayuHama, \ajTatsuSaki, \ajHashigoTaka, \ajTsuchiYoshi
+
+\begin{table}[htbp]
+ \centering
+ \setcounter{otfligline}{0}
+ \setcounter{otfligrow}{2}
+  \caption{\sty{OTF}のその他の記号類}\tablab{OTFのその他の記号類}
+ \begin{tabular}{*4l}
+  \hline
+  引数&合字&引数&合字\\%&引数&合字\\%&引数&合字\\
+  \hline
+ \otfAj{SenteMark}
+ \otfAj{GoteMark}
+ \otfAj{Club}
+ \otfAj{Heart}
+ \otfAj{Spade}
+ \otfAj{Diamond}
+ \otfAj{varClub}
+ \otfAj{varHeart}
+ \otfAj{varSpade}
+ \otfAj{varDiamond}
+ \otfAj{Phone}
+ \otfAj{Postal}
+ \otfAj{varPostal}
+ \otfAj{Sun}
+ \otfAj{Cloud}
+ \otfAj{Umbrella}
+ \otfAj{Snowman}
+ \otfAj{JIS}
+ \otfAj{JAS}
+ \otfAj{Ball}
+ \otfAj{HotSpring}
+ \otfAj{WhiteSesame}
+ \otfAj{BlackSesame}
+ \otfAj{WhiteFlorette}
+ \otfAj{BlackFlorette}
+ \otfAj{RightBArrow}
+ \otfAj{LeftBArrow}
+ \otfAj{UpBArrow}
+ \otfAj{DownBArrow}
+ \otfAj{RightHand}
+ \otfAj{LeftHand}
+ \otfAj{UpHand}
+ \otfAj{DownHand}
+ \otfAj{RightScissors}
+ \otfAj{LeftScissors}
+ \otfAj{UpScissors}
+ \otfAj{DownScissors}
+ \otfAj{RightWArrow}
+ \otfAj{LeftWArrow}
+ \otfAj{UpWArrow}
+ \otfAj{DownWArrow}
+ \otfAj{RightDownArrow}
+ \otfAj{LeftDownArrow}
+ \otfAj{LeftUpArrow}
+ \otfAj{RightUpArrow}
+  \\ \setcounter{otfligline}{0}
+ \otfAj{Masu}
+ \otfAj{Yori}
+ \otfAj{Koto}
+ \otfAj{Uta}
+ \otfAj{CommandKey}
+ \otfAj{ReturnKey}
+ \otfAj{Checkmark}
+ \otfAj{VisibleSpace}
+ \hline
+ \end{tabular}
+\end{table}
+
+

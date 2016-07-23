@@ -1,0 +1,51 @@
+%#!platex -kanji=utf8 hb.tex
+\chapter{記号}
+% これはただのダミーテキスト．
+% 文字コードを判定するための意味のない文字列．
+% これくらい記述すれば大丈夫かな．
+% 付録のくせに生意気な．
+% 付録の分際で．
+
+\begingroup
+
+\makeatletter
+\renewenvironment{table}[1][htbp]%
+   {\vskip 0pt plus 1pt minus 1pt
+    \def\@captype{table}\vbox\bgroup\small}%
+   {\egroup\vskip 0pt plus 1pt minus 1pt}
+
+% 文字 (Text) 記号
+\newcommand*{\T}[1]{%
+   \glossary{#1@\hspace*{-1.2ex}\texttt{\protect\BS\string#1}%
+\hskip1em(\protect\mynameuse{#1})}%
+   \csname#1\endcsname&\texttt{\BS\string#1}}
+% 数学 (Math) 記号
+
+\newcommand*{\m}[1]{$#1$&\texttt{\string#1}}
+
+\newcommand*{\M}[1]{%
+   \glossary{#1@\hspace*{-1.2ex}\texttt{\protect\BS#1}%
+\hskip1em($\protect\csname #1\endcsname$)}%
+   $\csname #1\endcsname$&\texttt{\BS#1}}
+% 
+\newcommand*{\B}[2]{%
+   \glossary{#1@\hspace*{-1.2ex}\texttt{\protect\BS#1}%
+      \hskip1em(\csname#1\endcsname{#2}\relax)}%
+   \csname#1\endcsname{#2}&%
+    \texttt{\protect\BS\string#1\string{#2\string}}}
+
+\newcommand*{\BM}[1]{%
+   \glossary{#1@\hspace*{-1.2ex}\texttt{\protect\BS#1}%
+\hskip1em($\protect\expandafter\protect\big\protect\csname #1\endcsname$)}%
+   \texttt{\BS#1}}
+
+\makeatother
+
+\input{src/app-text-sign}%    文字記号
+\input{src/app-math-sign}%    LaTeX \& latexsym 数学記号
+\input{src/app-math-amsmath}% amsmath
+\input{src/app-math-amsxtra}% amsxtra
+\input{src/app-math-amssymb}% amssymb
+\input{src/app-math-txpx}%    TXFonts/PXFonts
+\input{src/app-otf}%          OTF
+\endgroup

@@ -1,0 +1,14 @@
+﻿%#!platex
+\documentclass{jsarticle}
+\usepackage{showkeys}
+\usepackage{type1ec}
+\pagestyle{empty}
+\setcounter{section}{1}
+\begin{document}
+\subsection{背景}\label{sec:back}
+目標は\ref{sec:goal}~節を参照．
+\subsection{目標}\label{sec:goal}
+背景は\ref{sec:back}~節を参照．\par
+改段落．\par
+背景は~\pageref{sec:back}ページ．
+\end{document}

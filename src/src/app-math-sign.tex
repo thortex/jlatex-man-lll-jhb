@@ -1,0 +1,408 @@
+\section{数学記号}
+
+\begin{table}[htbp]
+\begin{center}
+\caption{ギリシャ小文字}\tablab{app:greek:lower}
+\begin{tabular}{*{4}{c@{\thickspace\thinspace}l}}
+ \hline
+\M{alpha}   & \M{eta}    & \M{nu}    & \M{tau}     \\
+\M{beta}    & \M{theta}  & \M{xi}    & \M{upsilon} \\
+\M{gamma}   & \M{iota}   & $o$&o     & \M{phi}     \\
+\M{delta}   & \M{kappa}  & \M{pi}    & \M{chi}     \\
+\M{epsilon} & \M{lambda} & \M{rho}   & \M{psi}     \\
+\M{zeta}    & \M{mu}     & \M{sigma} & \M{omega}   \\
+  \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[htbp]
+\begin{center}
+ \makeatletter
+ \newcommand*\LG[1]{\C{mathrm}\texttt{\@charlb#1\@charrb}}%
+ \newcommand*\LGS[1]{$\mathrm{#1}$&\LG{#1}}%
+ \makeatother
+\caption{ギリシャ大文字}\tablab{app:greek:upper}
+\begin{tabular}{*{4}{c@{\thickspace}l}}
+ \hline
+ \LGS{A}   & \LGS{H}    & \LGS{N}   & \LGS{T}\\
+ \LGS{B}   & \M{Theta}  & \M{Xi}    & \M{Upsilon}\\
+ \M{Gamma} & \LGS{I}    & \LGS{O}   & \M{Phi}\\
+ \M{Delta} & \LGS{K}    & \M{Pi}    & \LGS{X}\\
+ \LGS{E}   & \M{Lambda} & \LGS{P}   & \M{Psi}\\
+ \LGS{Z}   & \LGS{M}    & \M{Sigma} & \M{Omega}\\
+  \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+%\begin{inout}
+%\begin{eqnarray*}
+%\cos^2\theta + \sin^2\theta & \neq & \cos^2x + \sin^2x 
+%\end{eqnarray*}
+%\end{inout}
+%
+
+%\begin{inout}
+%\begin{eqnarray*}
+%     A      & \neq & \mathrm{A}\\
+%F(x)+C      & \neq & F(x)+ \mathrm{C}\\
+%\mathit{foo}& \neq & \mathrm{foo}
+%\end{eqnarray*}
+%\end{inout}
+
+\begin{table}[htbp]
+ \begin{center}\zindind{ギリシャ文字}{の変体小文字}%
+\caption{ギリシャ小文字の変体文字}\tablab{app:greek:lower:hen}
+ \begin{tabular}{*{3}{c@{\thickspace\thinspace}l}}
+  \hline
+ \M{varepsilon} & \M{vartheta} & \M{varpi} \\
+ \M{varrho}     & \M{varsigma} & \M{varphi}\\
+  \hline
+ \end{tabular}
+ \end{center}
+\end{table}
+
+
+\begin{table}[htbp]
+\begin{center}
+\caption{大型演算子}\indindz{演算子}{大型}\index{大型演算子}%
+\begin{tabular}{*{4}{c@{\thickspace\thinspace}l}}
+ \hline
+\M{sum}    & \M{oint}     & \M{bigvee}   & \M{bigoplus}  \\
+\M{prod}   & \M{bigcup}   & \M{bigwedge} & \M{bigotimes} \\
+\M{coprod} & \M{bigcap}   &    &          & \M{bigodot}  \\
+\M{int}    & \M{bigsqcup} &    &          & \M{biguplus} \\
+  \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+\begin{table}[htbp]
+\begin{center}
+\caption{括弧の大きさを指定する例}
+\tablab{app:ookiikakko}
+\index{"/@"\verb+"/+}%"
+\begin{tabular}{*{5}{c@{\thickspace}l}}
+ \hline
+\m{/}      & \m{(}       & \m{)}       & \m{|}       &
+  $\|$      & \verb+\|+\\
+\m{\big/}  & \m{\bigl(}  & \m{\bigr)}  & \m{\bigm|}  &
+  $\bigm\|$ & \verb+\bigm\|+\\[4pt]
+\m{\Big/}  & \m{\Bigl(}  & \m{\Bigr)}  & \m{\Bigm|}  &
+  $\Bigm\|$ & \verb+\Bigm\|+\\[5pt]
+\m{\bigg/} & \m{\biggl(} & \m{\biggr)} & \m{\biggm|} &
+  $\biggm\|$&  \verb+\biggm\|+\\[6pt]
+\m{\Bigg/} & \m{\Biggl(} & \m{\Biggr)} & \m{\Biggm|} &
+  $\Biggm\|$&  \verb+\Biggm\|+\\[7pt]
+ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[htbp]
+\begin{center}
+\caption{主な区切り記号}\tablab{app:brace1}
+\glossary{"{1"}@\hspace*{-1.2ex}\protect\bgroup\verb+"\"{+"}}%
+\glossary{"{2"}@\hspace*{-1.2ex}"{\verb+"\"}+\protect\egroup}%
+\glossary{"|@"\hspace*{-1.2ex}"\verb+"\"|+}%}
+\index{"(@\verb+(+}%"
+\index{")@\verb+)+}%
+\index{"[@\verb+[+}%
+\index{"]@\verb+]+}%
+\index{"|@\texttt{\symbol{'174}}}%""
+\begin{tabular}{*{4}{c@{\thickspace}l}}
+ \hline
+$($ &\verb+(+ & \M{rfloor}   & \M{updownarrow}& \M{lbrace}\\
+$)$ &\verb+)+ & \M{lfloor}   & \M{Uparrow}&     \M{rceil}\\
+$[$ &\verb+[+ & \M{arrowvert}& \M{Downarrow}&   \M{lceil}\\
+$]$ &\verb+]+ & \M{Arrowvert}& \M{Updownarrow}& 
+ $\big\lmoustache$&\BM{lmoustache}~${}^*$\\[2pt]
+$\{$&\verb+\{+& \M{Vert}&      \M{backslash}&   
+ $\big\rmoustache$&\BM{rmoustache}~${}^*$\\[2pt]
+$\}$&\verb+\}+& \M{vert}&      \M{rangle}&      
+ $\big\lgroup$&\BM{lgroup}~${}^*$\\[2pt]
+$|$ &\verb+|+ & \M{uparrow}&   \M{langle}&      
+ $\big\rgroup$&\BM{rgroup}~${}^*$\\[2pt]
+$\|$&\verb+\|+& \M{downarrow}& \M{rbrace}&      
+ $\big\bracevert$&\BM{bracevert}~${}^*$\\
+  \hline
+\end{tabular}
+\\ {\small${}^{*}$\ 大型の区切り記号です．}
+\end{center}
+\end{table}
+%}}}"
+
+%\begin{inout}
+% $<x, y> \neq \langle x, y\rangle$
+%\end{inout}
+
+%\begin{inout}
+%\begin{displaymath}
+%\left( \frac{1}{1+\frac{1}{1+x}} \right) 
+%\end{displaymath}
+%\end{inout}
+
+%\begin{inout}
+%\[ \left\lmoustache \left\{ 
+%  \left(\frac{1}{x}+1\right)
+%  +\left(\frac{1}{x^2}+2\right) 
+%\right\} \right\rmoustache \]
+%\end{inout}
+
+%\begin{inout}
+%\begin{displaymath}
+% \left\uparrow \int f(x)dx 
+%   \right\downarrow + \left\lgroup 
+%     \int g(x)dx \right\rgroup
+%\end{displaymath}
+%\end{inout}
+
+
+\begin{table}[htbp]
+\begin{center}%
+ \indindz{アクセント}{数式中の}%
+ \zindind{ベクトル}{記号}%
+ \makeatletter
+ \newcommand*{\WA}[2]{%
+ \glossary{#1@\hspace*{-1.2ex}\texttt{\protect\BS#1}%
+ \hskip1em($\csname#1\endcsname{#2}$)}%
+ $\csname#1\endcsname{#2}$ & %
+ \texttt{\BS#1\@charlb\string#2\@charrb}}%
+ \makeatother
+\caption{小さいアクセント}\tablab{app:smallac}
+\begin{tabular}{*{4}{c@{\thickspace\thinspace}l}}
+ \hline
+\WA{hat}{a}  & \WA{check}{a}& \WA{breve}{a}&\WA{acute}{a}\\
+\WA{grave}{a}& \WA{tilde}{a}& \WA{bar}{a}  &\WA{dot}{a}  \\
+\WA{ddot}{a} & \WA{vec}{a}  &       &      &         &   \\
+  \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+%\begin{inout}
+%\( \vec{a}+\vec{b}\neq \vec{a+b} 
+%   \neq \overrightarrow{a+b} \)
+%\end{inout}
+
+
+
+\begin{table}[htbp]
+\begin{center}
+\caption{大きいアクセント}\tablab{app:bigac}
+\begin{tabular}{*{2}{c@{\thickspace\thinspace}l}}
+ \hline
+$\overline{m+M}$      &\C{overline}      & 
+  $\overbrace{m+M}$& \C{overbrace}  \rule{0pt}{1.5em}\\
+$\underline{m+M}$     &\C{underline}     &
+  $\underbrace{m+M}$&  \C{underbrace} \rule{0pt}{1.5em}\\
+$\overleftarrow{m+M}$ &\C{overleftarrow} & 
+  $\widehat{m+M}$& \C{widehat} \rule{0pt}{1.5em}\\
+$\overrightarrow{m+M}$&\C{overrightarrow}& 
+  $\widetilde{m+M}$& \C{widetilde}  \rule{0pt}{1.5em}\\
+  \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+%\begin{inout}
+%\begin{displaymath}
+% \overbrace{a+b+c+d+e+f+g}^{h+i+j+k}+
+% \underbrace{l+m+n}_{o+p+q}
+%\end{displaymath} 
+%\end{inout}
+
+
+\begin{table}[htbp]
+\begin{center}
+ \caption{主な数学関数}\tablab{app:suugakukannsuu}
+ \begin{tabular}{*{4}{c@{\thickspace\thinspace}l}}
+  \hline
+  \M{arccos} & \M{csc} & \M{ker}    & \M{min}  \\
+  \M{arcsin} & \M{deg} & \M{lg}     & \M{Pr}   \\
+  \M{arctan} & \M{det} & \M{liminf} & \M{sec}  \\
+  \M{arg}    & \M{dim} & \M{limsup} & \M{sin}  \\
+  \M{cos}    & \M{exp} & \M{lim}    & \M{sinh} \\
+  \M{cosh}   & \M{gcd} & \M{ln}     & \M{sup}  \\
+  \M{cot}    & \M{hom} & \M{log}    & \M{tan}  \\
+  \M{coth}   & \M{inf} & \M{max}    & \M{tanh} \\
+  \hline
+ \end{tabular}
+\end{center}
+\end{table}
+
+%\begin{inout}
+%\[cos^2x+sin^2x \neq \cos^2x+\sin^2x\]
+%\end{inout}
+
+\begin{table}[htbp]
+\begin{center}
+\caption{関係子}\tablab{app:kannkeisi}
+\begin{tabular}{*{4}{c@{\thickspace\thinspace}l}}
+ \hline
+\M{le}         & \M{in}        & \M{sqsupseteq} & \M{neq}    \\
+\M{prec}       & \M{notin}     & \M{dashv}      & \M{doteq}  \\
+\M{preceq}     & \M{ge}        & \M{ni}         & \M{propto} \\
+\M{ll}         & \M{succ}      & \M{equiv}      & \M{models} \\
+\M{subset}     & \M{succeq}    & \M{sim}        & \M{perp}   \\
+\M{subseteq}   & \M{gg}        & \M{simeq}      & \M{mid}    \\
+\M{sqsubseteq} & \M{supset}    & \M{asymp}      & \M{cong}   \\
+\M{vdash}      & \M{supseteq}  & \M{approx}     & \M{bowtie} \\
+\M{smile}      & \M{frown}     & \M{parallel}   &     &      \\
+  \hline
+\end{tabular}
+\\{\footnotesize これらのコマンドの前に \C{not}を付ければ
+その関係子の否定になります}
+\end{center}
+\end{table}
+
+
+
+%\begin{inout}
+%\( \sum^n_{i=0} a_i \neq a_o+
+% {\displaystyle\sum^{n-1}_{i=1}a_i}\)
+%\end{inout}
+
+\begin{table}[htbp]
+\begin{center}\indindz{演算子}{2項}%
+\caption{2項演算子}\tablab{app:ennzannsi}
+\begin{tabular}{*{4}{c@{\thickspace\thinspace}l}}
+ \hline
+\M{pm}     & \M{cdot}  & \M{setminus}        & \M{ominus} \\
+\M{mp}     & \M{cap}   & \M{wr}              & \M{otimes} \\
+\M{times}  & \M{cup}   & \M{diamond}         & \M{oslash} \\
+\M{div}    & \M{uplus} & \M{bigtriangleup}   & \M{odot}   \\
+\M{ast}    & \M{sqcap} & \M{bigtriangledown} & \M{bigcirc}\\
+\M{star}   & \M{sqcup} & \M{triangleleft}    & \M{dagger} \\
+\M{circ}   & \M{vee}   & \M{triangleright}   & \M{ddagger}\\
+\M{bullet} & \M{wedge} & \M{oplus}           & \M{amalg}  \\
+ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+%\begin{inout}
+%\begin{displaymath}
+%  (p\to r)\vee  (q\to s)
+%\end{displaymath}
+%\end{inout}
+
+\begin{table}[htbp]
+ \begin{center}
+  \caption{点}\tablab{tenn}
+  \index{点}%
+  \index{3点リーダ}%
+  \index{3点リーダ!中点\zdash}%
+  \index{3点リーダ!下付き\zdash}%
+  \index{...@\ldots（下付3点リーダ）}%
+  \index{...@$\cdots$（中点3点リーダ）}%
+  \begin{tabular}{*{5}{c@{\thickspace\thinspace}l}}
+   \hline
+   \M{dots}  & 
+   \M{ldots} &  \M{cdots} & \M{vdots} &  \M{ddots}\\
+   \hline
+  \end{tabular}
+ \end{center}
+\end{table}
+
+\begin{inout}
+\begin{eqnarray*}
+ (a_0+a_1+\cdots+a_n) &\neq& \{a_0,a_1,\ldots,a_n\}\\
+ \{f_n\} &=& f_1, f_2, \dots, f_n
+\end{eqnarray*}
+\end{inout}
+\cmd{ldots} や \cmd{cdots} 以外に \C{dots} という命令
+もあります．これは前後の数式要素に応じて自動的に \cmd{ldots} と \cmd{cdots} を
+切り替える命令です．
+%\begin{inout}
+%\( \{f_n\} = f_1, f_2, \dots, f_n \)
+%\end{inout} 
+%しばしば適切に選定されない場合がありますので，その場合は手動で
+%対処します．
+
+\begin{table}[htbp]
+\begin{center}
+ \caption{矢印}\index{矢印}
+ \begin{tabular}{*{3}{c@{\thickspace\thinspace}l}}
+  \hline
+ \M{leftarrow}       & \M{rightarrow}      \\
+ \M{uparrow}         & \M{downarrow}        \\
+ \M{Leftarrow}       & \M{Rightarrow}      \\
+%  \hline
+ \M{Uparrow}         & \M{Downarrow}        \\
+ \M{updownarrow}     &  \M{Updownarrow}       \\
+%  \hline
+ \M{mapsto}          & \M{longmapsto}       \\
+%  \hline
+ \M{hookleftarrow}   & \M{hookrightarrow}   \\
+ \M{leftrightarrow}  & \M{Leftrightarrow}     \\
+ \M{longleftarrow}   & \M{longrightarrow}   \\
+ \M{Longleftarrow}   & \M{Longrightarrow}   \\
+ \M{Longleftrightarrow}\\
+%  \hline
+ \M{leftharpoonup}   & \M{rightharpoonup}   \\
+ \M{leftharpoondown} & \M{rightharpoondown} \\
+ \M{rightleftharpoons} \\
+%  \hline
+ \M{nearrow}         & \M{nwarrow}           \\
+ \M{searrow}         & \M{swarrow}           \\
+  \hline
+ \end{tabular}
+\end{center}
+\end{table}
+
+
+\begin{table}[htbp]
+\begin{center}
+\caption{特殊な数学記号}
+\begin{tabular}{*{4}{c@{\thickspace\thinspace}l}}
+ \hline
+ \M{aleph} & \M{partial}  & \M{bot}       & \M{natural}     \\
+ \M{hbar}  & \M{infty}    & \M{angle}     & \M{sharp}       \\
+ \M{imath} & \M{prime}    & \M{triangle}  & \M{clubsuit}    \\
+ \M{jmath} & \M{emptyset} & \M{forall}    & \M{diamondsuit} \\
+ \M{ell}   & \M{nabla}    & \M{exists}    & \M{heartsuit}   \\
+ \M{wp}    & \M{surd}     & \M{neg}       & \M{spadesuit}   \\
+ \M{Re}    & $|$&\verb+|+& \M{backslash} &     &           \\
+ \M{Im}    & \M{top}      & \M{flat}      &     &           \\
+  \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+%\begin{inout}
+%\[ \forall{x}\forall{y}( 
+%     P(x,y)\vee(f(x)\wedge g(x))) \] 
+%\end{inout}
+%
+%\begin{inout}
+%\( e^{j\theta}=\Re{\{e^{j\theta}\}}
+%   +\Im{\{e^{j\theta}\}}
+%   =\cos\theta+j\sin\theta\)
+%\end{inout}
+
+%\subsection{\Y{latexsym}}
+
+%{\LaTeXe}からはこぼれた記号類を出力するためには，
+%\Person{Frank}{Mittelbach}が作成した\Y{latexsym}
+%を読み込むと良いでしょう．すでに\Y{amssymb}か
+%\Y{amsfonts}を読み込んでいるならば，そちらに定
+%義されているので\sty{latexsym}を読み込む必要はありません．
+
+%\begin{table}[htbp]
+% \begin{center}
+%\caption{\Y{latexsym}パッケージに含まれる数学記号}
+%  \begin{tabular}{*{4}{c@{\thickspace\thinspace}l}}
+%   \hline
+%   \M{mho}     & \M{Join}     & \M{Box}      & \M{Diamond} \\
+%   \M{leadsto} & \M{sqsubset} & \M{sqsupset} & \M{lhd} \\
+%   \M{unlhd}   & \M{rhd}      & \M{unrhd}    &    & \\
+%   \hline
+%  \end{tabular}
+% \end{center}
+%\end{table}
+
+
+

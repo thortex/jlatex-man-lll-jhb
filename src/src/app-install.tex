@@ -1,0 +1,193 @@
+%#!platex -kanji=utf8 hb.tex
+\chapter{\TeX と執筆環境のインストール}\chaplab{執筆環境のインストール}
+% これはただのダミーテキスト．
+% 文字コードを判定するための意味のない文字列．
+% これくらい記述すれば大丈夫かな．
+% 付録のくせに生意気な．
+% 付録の分際で．
+
+\section{インストール}
+\LaTeX を使うためには他の周辺ツールも含めて数千のファイルが必要になりま
+す．これらを簡単に導入するために，各OS用のインストーラが用意されている場
+合があります．インストーラがなくとも数行のコマンドライン操作で完了できる
+まで簡単になってきています．
+%なるべくウェブから最新版の\TeX 環境を導入するようにし，可能であれば定期
+%的に更新してください．
+
+\begin{description}
+ \item[Windows] 
+ \zindind{Windows}{への導入}%
+ \Hito{阿部}{紀行}\footnote\webAbenori による『\TeX インストーラ3』を用いると
+ 簡単に\TeX に関わるソフトウェア（角藤版\TeX, \Dviout, \GS, GSView,
+ \Y{jsclasses}）を導入する事ができます．このインストーラについては，例えば
+ \Hito{大友}{康寛}による『ワープロユーザーのための\LaTeX 入門』にある
+ 解説ページ\footnote{\webOtomoTeX}を参照してみてください．
+
+ \item[Mac OS X]  
+ \zindind{Mac OS X}{への導入}%
+ \Prog{MacOS X WorkShop}\footnote\webTaizo
+ で簡単に周辺ツールも導入できます\footnote{\W{X11}も導入していれば，
+ GUIインタフェースの\Prog{Synaptic}によるパッケージ管理も可能となります．}．
+ 今後の展開については \W{MacWiki}\footnote{\webMacwiki}等を参照してくだ
+ さい．
+
+ \item[Vine Linux] 
+ \zindind{Vine Linux}{への導入}%
+ 土村氏の\W{ptetex3}が公式に提供されています．
+ コンソールから管理者権限で \type{apt-get install task-tetex}
+ と実行するだけで\TeX 関係のパッケージが導入されます．
+ Gentoo~Linux及びMomonga~Linuxにおいてもptetex3が用意されています．
+\end{description}
+
+\LaTeX の導入と周辺情報に関しては\hito{奥村}{晴彦}による
+\TeX~Wiki\footnote{\webTeXWiki}を参照するのが良いと思います．可能な限り
+インターネットから最新の\LaTeX を導入するようにしてください．
+
+Emacsのようなテキストエディッタやコンソールからの操作等に慣れていない方
+は，\TeX 環境とは別に，\TeX の\W{執筆支援環境}も導入すると大変便利かと思
+われます．\secref{basic:lakulaku}を参照し，それぞれの環境に応じて適切だ
+と思うプログラムを導入してみてください．
+
+%\begin{description}
+% \item[Windows] 
+%  \TeX インストーラ3
+% \item[Mac~OS~X]
+%   apt-get install task-tetex
+%   \begin{description}
+%    \item[EasyPackage] 
+%    \item[Fink]
+%    \item[MacOS X Workshop]
+%    \item[MacpTeX]
+%    \item[MacPorts]
+%   \end{description}
+% \item[Linux]
+%   apt-get install task-tetex
+%  \begin{description}
+%   \item[ディストリビューション標準のRPM]
+%   \item[ptetex3のソースから] 
+%   \item[ptexliveのソースから]
+%  \end{description}
+%\end{description}
+
+
+%\section{Windows}
+
+%\subsection{角藤亮氏によるW32TeX}
+
+%\section{Mac OS X}
+
+%\subsection{Fink}
+
+%\subsection{Mac OS X Workshop}
+
+%X11 と Xcode 環境が必要になります．
+
+%周辺環境もインストールするのであれば Mac OS X WorkShop
+
+%\subsection{MacpTeX}
+%MacpTeX とか
+%
+%\subsection{ほげ}
+
+%\section{Linux}
+%
+%最初から土村氏の\W{ptetex3}がパッケージされているディストリビューション
+%\begin{description}
+% \item[Vine Linux] 
+% \item[Gentoo Linux] 
+% \item[Momonga Linux] 
+% \item[] 
+%\end{description}
+
+%\subsection{ptetex3}
+%
+%\subsection{ptexlive}
+
+\section{執筆・編集環境}\seclab{執筆編集環境}
+\zindind{原稿}{作成の支援}%
+
+\TeX はテキストエディッタによって原稿を執筆するという方法を取るため，何ら
+かの執筆環境を必要とします．それらの執筆環境の中には作業の簡略化を目的と
+したものも数多くあります．
+\TeX における伝統的な\W{執筆環境}には次のものがあります．
+\begin{description}
+ \item[Unix系OS] 
+ \TeX とその周辺のプログラムを活用しようと思えば，Unix系OS
+ を使うと（人によっては）快適な執筆環境を得る事ができます．\Prog{Vine Linux}は特に \TeX 周辺
+ の日本語環境が整っていると思われます\footnote\webVineLinux ．
+ \item[\Prog{Emacs}] 
+ \LaTeX の原稿となるソースファイルを編集する時に役に立つテキストエディッタです．
+ \item[{\Prog[yatex]\YaTeX}]
+ 上記Emacs上で動作する\Hito{広瀬}{雄二}\footnote\webYaTeX による \LaTeX
+ 執筆支援システムです．
+ \item[\Prog{Tgif}] 
+ \zindind{画像}{編集}%
+ \unixos で広く使われているベクター画像編集プログラムです．
+  \item[\Prog{Gnuplot}] 
+ \unixos で広く使われているグラフを描画したり，データをプロットするため
+ のプログラムです．
+ \item[\Prog{Make}]
+  \zindind{原稿}{の再コンパイル}%
+  原稿の再コンパイルを支援するためのプログラムです．\Fl{Makefile}とい
+  う特別なファイルを用意する事で，再コンパイルにおける手間を軽減する事に
+  なります．
+\end{description}
+
+
+\begin{table}[htbp]
+  \begin{center}\small
+   \caption{執筆支援環境やプレビューア}
+  \begin{tabular}{llll}
+   \hline
+   OS & テキストエディッタ        & 統合執筆支援環境 & プレビューア \\
+   \hline
+   Windows  & 各種エディッタ      & Easy\TeX/WinShell& dviout\\
+   Linux    & Emacs $+$ Ya\TeX 等 & LyX/\TeX macs    & xdvi\\
+   Mac~OS~X & Carbon Emacs等      & \TeX Shop        & Mxdvi \\
+   \hline
+  \end{tabular}
+ \end{center}
+\end{table}
+
+環境に依存してはいるものの，以下に挙げるように \LaTeX での煩雑な作業を軽
+減できる有益な原稿執筆支援環境が数多く存在します．
+\begin{description}
+\zindind{Windows}{の執筆支援環境}%
+% \item[\Prog{WinShell} (Windows)]
+% 日本語対応が不十分になっていたり，何かと問題があるので省略．
+% 結構有用なんだけどね．
+% \Person{Ingo H. de}{Boer}らによる統合執筆支援環境です\footnote
+% \webWinShell ．コマンドラインから
+% の煩雑な操作なしにタイプセット等ができるようになります．
+ \item[{\Prog[EasyTeX]{Easy\TeX}}] \Hito{中川}{仁}によるWindows用の執
+ 筆支援環境です\footnote\webEasyTeX ．
+ \LaTeX に慣れないうちはEasy\TeX を使うのが望ましいでしょう．
+ \index{TeX Wiki@\TeX~Wiki}%
+ 導入方法や操作方法に関しては\Hito{大友}{康寛}による解説%
+ \footnote{\webOtomoEasyTeX}や\TeX~Wiki\footnote{\webOkumuraEasy}を参照してください．
+
+\zindind{Mac OS X}{の執筆支援環境}%
+ \item[{\Prog[TeXShop]{\TeX Shop}}] 
+  Mac~OS~X で使用できる\Person{Richard}{Koch}らによる執筆支援環境で
+  す\footnote{\webTeXShop}．PDF でのプレビューが可能でディスプレイにおけ
+  る表示がきれいです．
+\end{description}
+
+Easy\TeX や \TeX Shop ではコマンドの入力を補完したり，プログラムの実行等
+も簡単にできる環境が整備されています．まず最初はこのようなプログラムを使っ
+た執筆の方が負荷も少ないと思われます．
+
+\zindind{Windows}{でのプレビュー}%
+\zindind{Unix系OS}{でのプレビュー}%
+\zindind{Mac OS X}{でのプレビュー}%
+\indindz{プレビュー}{Windowsでの}%
+\indindz{プレビュー}{Unix系OSでの}%
+\indindz{プレビュー}{Mac OS Xでの}%
+Windowsでは\Hito{大島}{利雄}らが開発している\prog{\Dviout}，\Z{Unix系OS}な
+らば\prog{xdvi}，Red Hat や Fedora Core では \prog{pxdvi}が使えます．
+Mac~OS~Xでは\Hito{内山}{孝憲}による\Prog{Mxdvi}でプレビューできます．
+
+DVIファイルから印刷ができるか，画像が表示できるか，どの画像形式に対応し
+ているかというような条件は全てお使いの環境のデバイスドライバに依存してい
+ます．デバイスドライバの設定方法，基本的な操作方法等は，各種お使いのデバ
+イスドライバのマニュアルを参照してください．

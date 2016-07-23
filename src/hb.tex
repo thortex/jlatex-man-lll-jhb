@@ -1,0 +1,74 @@
+%#!platex -kanji=utf8 hb.tex; dvipdfmx hb; open hb.pdf
+\documentclass[openany,tombow,disablejfam]{jsbook}
+%\documentclass[openany,tombow]{jsbook}% for final version
+%\documentclass[openany,draft]{jsbook}% for draft version
+%\documentclass[dvipdfmx,openany,draft,tombow]{jsbook}
+%\includeonly{src/000,src/010,src/025,src/060,%
+%
+\includeonly{%
+  src/000,% はじめに
+  src/010,% ゲームを始める前に（マクロの読み込み方） 
+%  src/020,% ページ設定・書式，段組み
+  src/025,% 表紙の作成
+%  src/070,% 文書の構造（章立て，目次，箇条書き，べた書き，注釈，構造）
+%  src/030,% レイアウト・スペースの調整
+  src/060,% 書体
+%  src/095,% 相互参照とカウンタ
+%  src/100,% 数式 (math, amsmath, emath)
+%  src/050,% 装飾と箱の操作（罫線，カラー，リスティング）
+%  src/080,% 表組
+%  src/040,% 画像ファイルの取り込み (Illustrator, Gnuplot, Excel)
+%  src/090,% 図表の構成 (floats, figure/table env, caption，並べる)
+%  src/110,% 文献管理
+%  src/120,% コマンドの定義マークアップ
+  src/app-application,% Authors Notes (本冊子執筆者向け情報)
+  src/app-biblio,%      Bibliography (参考文献)
+  src/app-changelog,%   ChageLog (変更履歴)
+  src/app-fonts,%       Fonts & Symbols (フォント・記号)
+  src/app-fdl,%         GNU FDL (ライセンス情報)
+  src/app-hint,%        Hints (今後の動向)
+  src/app-install,%     Installing TeX/LaTeX (導入)
+}
+%
+%\includeonly{src/app-fonts}
+\usepackage{jhb}
+%\publishingtrue
+\begin{document}
+\maketitle       % 表紙
+\makecopyright   % 版権表示
+\frontmatter     % 前付け
+\include{src/000}% はじめに
+\tableofcontents % 目次
+\mainmatter      % 本文
+\clearusepackage % \usepackage 命令をどこでも使えるように
+\reusemaketitle  % \maketitle は何度でも甦るさ！
+\include{src/010}% ゲームを始める前に（マクロの読み込み方） 
+%% 書式
+\include{src/020}% ページ設定・書式，段組み
+\include{src/025}% 表紙の作成
+\include{src/070}% 文書の構造（章立て，目次，箇条書き，べた書き，注釈，構造）
+\include{src/030}% レイアウト・スペースの調整
+\include{src/060}% 書体
+\include{src/095}% 相互参照とカウンタ
+\include{src/100}% 数式 (math, amsmath, emath)
+\include{src/050}% 装飾と箱の操作（罫線，カラー，リスティング）
+\include{src/080}% 表組
+\include{src/040}% 画像ファイルの取り込み (Illustrator, Gnuplot, Excel)
+\include{src/090}% 図表の構成 (floats, figure/table env, caption，並べる)
+\include{src/110}% 文献管理
+\include{src/120}% コマンドの定義マークアップ
+\begin{appendix} % 付録
+\include{src/app-application} % Authors Notes (本冊子執筆者向け情報)
+\include{src/app-biblio}      % Bibliography (参考文献)
+\include{src/app-changelog}   % ChageLog (変更履歴)
+% D がない ;_;
+\include{src/app-fonts}       % Fonts & Symbols (フォント・記号)
+\include{src/app-fdl}         % GNU FDL (ライセンス情報)
+\include{src/app-hint}        % Hints (今後の動向)
+\include{src/app-install}     % Installing TeX/LaTeX (導入)
+\end{appendix}
+\backmatter    % 後付け
+\printglossary % 命令索引 Command Index
+\printindex    % 用語索引 Glossary
+\printokuduke  % 奥付
+\end{document}

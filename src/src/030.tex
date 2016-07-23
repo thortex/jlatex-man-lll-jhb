@@ -1,0 +1,449 @@
+%#!platex -kanji=utf8 hb.tex
+\chapter{スペース（空き）の調整}
+% これはただのダミーテキスト．
+% 文字コードを判定するための意味のない文字列．
+% これくらい記述すれば大丈夫かな．
+% Emacs のくせに生意気な．
+% Emacs の分際で自動判別とか．
+% Mac OS X のテキストエディッタの文字コード自動判別はうまくいかないぞ．
+
+
+\section{ページ}
+\zindind{ページ}{の区切り}
+
+{\LaTeX}ではユーザが意図的に改行や改ページを行わなくても良いように工夫さ
+れています．どうしても自分の思い通りにページをレイアウトできないときは強
+制的なレイアウト命令を使います．%{\W{ページ区切り}}を制御したいならば，
+
+\subsection{改ページをする}
+\begin{usage}
+\newpage         % TODO
+\clearpage       % TODO
+\cleardoublepage % TODO
+\end{usage}
+
+\begin{description}
+\item[\C{newpage}] 
+   改ページします．\Z{2段組}の場合は次の段までの
+  改ページになります．
+\item[\C{clearpage}]	
+   未出力の浮動体を配置してから改ページします．
+ 2段組の場合は本当の次のページまで改ページされます． 
+\item[\C{cleardoublepage}] 
+  次のページが奇数ページになるように改ページします．
+  これを{\W{奇数起こし}}，または{\W{改丁}}と呼びます．
+\item[\C{samepage}] 
+   指定した場所でできる限り改ページを抑制します．
+\end{description}
+%の四つの命令が使えます．
+
+TODO: add sample
+
+\subsection{ページの分割を抑制する}
+
+TODO: add desc
+
+\begin{usage}
+\nopagebreak[$\<0〜4>$] % TODO 
+\pagebreak[$\<0〜4>$]   % TODO 
+\linebreak[$\<0〜4>$]   % TODO 
+\nolinebreak[$\<0〜4>$] % TODO 
+\end{usage}
+
+%\C{nopagebreak}\opt{数値}\pp{$0 \leq i \leq 4$}\\
+%\C{pagebreak}\opt{数値} \\
+%\C{linebreak}\opt{数値} \\
+%\C{nolinebreak}\opt{数値} 
+
+
+%newpage	改ページ	改段
+%clearpage	改ページ	改段
+%		(フローと出力)
+%cleardoublepage改丁(twosideの
+%		ときは左右起こし		
+
+
+%\section{水平方向}
+%\section{垂直方向}
+
+\section{空白の挿入}
+%{\LaTeX}にはいろいろ空白が用意されているのですが，
+%それらは{\W{空き}}に含まれます．単語間に挿入される
+%程度の空きを基準とするとその4倍の空きを
+%\qu{quad}\pp{クワタ}と呼びます．和文組版では
+%空きの基準となるのは全角1文字分の幅であり，これを
+%\emph{全角空白}などと呼びます．全角空白一つ分の
+%空きを\emph{全角空き}，全角空白二つ分の空きを
+%\emph{倍角空き}と呼びます．さらに4分の1の場合は
+%\emph{四分空き}，6分の5ならば\emph{二分三分}と
+%呼んだりします．欧文の\qu{quad}と和文の\yo{クワタ}
+%では若干長さが異なりますので，本書では二つを
+%区別して表します．
+
+\subsection{水平方向の空き}
+\indindz{空き}{水平方向の}
+\zindind{改行}{を許す空き}%
+水平方向の空きにはその両側での改行を許すものと
+許さないものがあります．主な空きを制御する
+命令は\tabref{yokokuhaku:break}の通りです．
+\tabref{yokokuhaku:break}は基本的に
+空きの前後での改行を行っても良い事になっています．
+\begin{table}[htbp]
+\begin{center}
+\caption{改行を許す水平方向の空き}\tablab{yokokuhaku:break}
+\glossary{" @\hspace*{-1.2ex}\verb*+"\" +}%"
+\indindz{空白}{単語間}%
+\begin{tabular}{ll}
+\TR
+\Th{命令}         & \Th{意味}  \\
+\MR
+\verb*|\ |   & 適切な\emph{単語間空白} \pp{約1/4\,quad分}  \\
+\C{quad}   & 1\,quad分の空き \\
+\C{qquad}  & 2\,quad分の空き \\
+\C{enspace}& 1/2\,quad分の空き\\
+\C{enskip} & 適切な約1/2\,quad分の空き\\
+\C{thinspace}    & 1/5\,quad分の空き\\
+\C{negthinspace} & $-$1/5\,quad分の空き\\
+\BR
+\end{tabular}
+\end{center}
+\end{table}
+
+%\tabref{yokokuhaku:break}は基本的に
+%空きの前後での改行を行っても良い事になっています．
+
+\begin{inout}
+ユーザが{\quad}原稿の中{\qquad}で空き
+の調節を直接\ するのは好ましくない．
+\end{inout}
+
+\tabref{yokokuhaku:break}の命令は改行を
+許しますが\tabref{yokokuhaku:nobreak}では
+空きの前後での改行を許しません．
+\zindind{改行}{を許さない空き}%
+改行を許さないので行頭・行末が不揃いに\index{行末}
+なるときがあります．
+
+
+\begin{table}[htbp]
+\begin{center}
+\caption{改行を許さない水平方向の空き}\tablab{yokokuhaku:nobreak}
+\glossary{" @\hspace*{-1.2ex}\verb+"\"!+}%
+\index{"~@\verb+"~+}%"
+\glossary{"~@\verb+"~+}%"
+\begin{tabular}{ll}
+\TR
+\Th{命令}     & \Th{意味}  \\
+\MR
+\C{,}  & 3/18\,quad分の空き\\
+\C{:}  & 4/18\,quad分の空き\\
+\C{;}  & 5/18\,quad分の空き\\
+\verb|\!|& $-3/18$\,quad分の空き\\
+\verb|~| & 適切な\emph{単語間空白} \\
+%\C{hspace*}\pa{長さ}& 
+\BR
+\end{tabular}
+\end{center}
+\end{table}
+
+%改行を許さないので行頭・行末が不揃いに\index{行末}
+%なるときがあります．
+
+TODO 文末指定
+
+\begin{inout}
+Donald~E. Knuth made \TeX\@. 
+Leslie~Lamport made \LaTeX\@.
+\end{inout}
+
+\subsection{TODO: heading}
+
+\textbf{空白}を制御するには以下の四つの命令が使えます．
+\begin{description}
+\item[\C{hspace}\param{長さ}] 
+  長さ分の横方向の空白を挿入します．
+  行頭では有効ではありません．
+\item[\C{hspace*}\param{長さ}]
+  行頭でも横方向の空白を挿入します．
+\item[\C{vspace}\param{長さ}]
+  長さ分の縦方向の空白を挿入します．
+  ページの先頭・末尾では有効ではありません．\zindind{ページ}{の先頭での空き}
+\item[\C{vspace*}\param{長さ}] \zindind{ページ}{の末尾での空き}
+  ページの先頭・末尾でも縦方向の空白を挿入します．
+\end{description}
+これらの空白制御の命令では単位付きの長さで指定します．
+
+\begin{inout}
+ \hspace{1cm} 空白制御用のコマンドは行頭では意図的に
+ \vspace{1cm} アスタリスクを付けます．\par\hspace{1cm}
+ 段落の途中に縦方向 \hspace{1cm} の空白を挿入すると，
+ 段が改行されてから縦に空白が挿入されます．
+\end{inout}
+
+自分で水平方向の空きの長さを指定するならば \C{hspace*}
+命令が使えます．
+\begin{usage}
+\hspace*{$\<長さ>$} 
+\end{usage}
+%\begin{Syntax}
+%\C{hspace*}\opa{長さ}
+%\end{Syntax}
+アスタリスクを付けると行頭・行末でも使えるようになります．
+\begin{inout}
+アスタリスクをつけないと\hspace{2zw}であるが，\par
+\hspace*{-2zw}この場合は有効になる．
+\end{inout}
+
+%\hito{奥村}{晴彦}の\Cls{jsclasses}を使っているときに
+%は\qu{\str{pt}}や\qu{\str{cm}}などの単位は使わずに
+%\qu{\str{truept}}や\qu{\str{truecm}}などを使わないと
+%長さがずれます．これが面倒ならば文章で使用されている
+%フォントに応じて基準の変わる\qu{\str{em}}や\qu{\str{zw}}
+%などを使ってください．
+
+\subsection{垂直方向の空き}
+\indindz{空き}{垂直方向の}
+
+自分で長さを指定する垂直方向の空きにおいて
+は \cmd{addvspace}と \cmd{vspace*} の二つが使えます．
+\cmd{vspace*} はアスタリスクを付けないとページの最上部・最下部
+では有効になりません．あらかじめ長さの決まっている
+垂直方向の空きとして \cmd{smallskip}，\cmd{midskip}，
+\cmd{bigskip}の三つがありますが，これは\emph{スキップ}
+と呼ばれるもので可変長の空きが挿入されます．
+%\yo{大体で良いからこれくらいの空きを入れてね．}程度の
+%意味を持っています．
+\yo{見映えが損なわれない程度におおよそ指定した長さの空きを挿入してほしい}と
+いうような意味合いを持っています．
+\begin{table}[htbp]
+\begin{center}
+\caption{垂直方向の空き}\tablab{tatekuhaku}
+  \begin{tabular}{ll}
+ \TR
+ \Th{命令}            & \Th{意味} \\
+ \MR
+ \C{smallskip}& 3\,pt $\pm$1\,ptの空き \\
+ \C{medskip}  & 6\,pt $\pm$2\,ptの空き \\
+ \C{bigskip}  & 12\,pt \pp{$+$4\,ptか $-$2\,pt} の空き \\
+ \BR
+ \end{tabular}
+\end{center}
+\end{table}
+垂直方向の空きは紙面の多くの部分を空きで占有するので
+無駄が多くなります．{\LaTeX}では図表と段落のあいだや
+そのほか必要と思われる所には半自動的に
+空きが挿入されるようになっておりますので，闇雲に
+垂直方向の空きを挿入するのは好ましくないと思われます．
+
+長さを自分で指定して空きを挿入する場合
+は \cmd{vspace*} と \cmd{addvspace}が使えます．
+\begin{usage}
+\addvspace{$\<長さ>$}
+\vspace*{$\<長さ>$} 
+\end{usage}
+%\begin{Syntax}
+%\C{addvspace}\pa{長さ}\\
+%\C{vspace*}\pa{長さ} 
+%\end{Syntax}
+\cmd{vspace*} のアスタリスクを外すとページの最上部・最下部での
+空きの挿入が有効になりません．\cmd{addvspace}は
+直前の空きがどれくらいかも調べているので \cmd{vspace}
+よりも適当な空きを挿入します．
+\begin{inout}
+この\vspace*{2zw}だと全角2文字分の
+垂直方向の空きが挿入されると思われます．
+\end{inout}
+
+\subsection{改行}
+
+\indindz{改行}{文章中の}%%
+\Z{改行} (\Z{line break}) はバックスラッシュ\qu{\texttt\bs}%
+\pp{Windowsなどでは円\qu\yen}を二つ並べて\qu{\texttt{\bs\bs}}
+のようにすれば入れる事が可能ですが，文章の中に改行を
+入れるときは慎重に挿入しなければいけません．できる事
+ならばユーザ側の強制的な改行は挿入しないほうが良いでしょう．
+同じ段落とある文字列を区別したいときは改行ではなく
+引用\pp{\secref{quote}参照}を使うとうまく行く事が多いです．
+\begin{usage}
+\\[$\<長さ>$] 
+\newline
+\par
+\end{usage}
+%\begin{Syntax}
+%\verb|\\*|\opa{長さ}\\
+%\Cmd{newline} \\
+%\Cmd{par}
+%\end{Syntax}
+任意引数に改行を行うときの縦の長さを指定できます．
+ページの先頭での改行を行う事はできません．アスタリスク
+を付けると改行直後にページを改める事を禁止します．
+  \Cmd{newline} は\qu{\texttt{\bs\bs}}とほぼ同時の命令です．
+  \Cmd{par} は改行ではなく\KY{改段落}，
+すなわち段の始まりを示します．その直後の文字列
+は \C{parindent} の値に応じて字下げされます．
+\begin{inout}
+改行は\verb|\\| のように\\バックスラッ
+シュを二つ続けて書くと\\[1cm]ユーザに
+よる強制的な改行が挿入されます．\par
+この文章は新しい段落から組まれ
+\newline 字下げされる場合があります．
+\end{inout}
+
+
+
+
+
+\section{伸縮する糊}
+
+{\LaTeX}ではバネのように伸縮する\emph{糊}のような
+便利な道具があります．これは活版印刷時代における
+活字職人が経験で挿入する\W{込め物}に似ています．
+
+{\LaTeX}においてもある領域の中での空きを制御するためとか，適切な表示をす
+るための込め物が使われます．{\LaTeX}で使われる込め物は{\W{グルー}}と呼
+ばれています．グルーは伸縮自在でバネのように要素と要素をくっ付けるので伸
+縮する\emph{糊}とも呼ばれています．
+
+グルーは特別な単位\qu{\str{fil}}と\index{fil@\texttt{fil}}%
+\index{fill@\texttt{fill}}\qu{\str{fill}}によって定義されています．
+\qu{\str{fil}}は良い\ruby{按}{あん}\ruby{排}{ばい}
+で0からかなり大きい空きまで挿入する働きを
+します．\qu{\str{fill}}は\qu{\str{fil}}よりも
+大きく無限に近い空きを挿入する働きをします．
+\begin{table}[htbp]
+\begin{center}
+\caption{{\protect\LaTeX}で使用できるグルー}
+\tablab{gulue:fil}
+  \begin{tabular}{ll}
+ \TR
+ \Th{命令}  & \Th{意味} \\
+ \MR
+ \C{hfil}  & 水平方向にかなり大きく伸びる空き\\
+ \C{hfill} & 水平方向に無限に大きく伸びる空き\\
+ \cmd{hss}   & 水平方向にかなり大きく伸び縮みする空き\\
+ \MR
+ \cmd{vfil}  & 垂直方向にかなり大きい空き\\
+ \cmd{vfill} & 垂直方向に無限に大きい空き\\
+ \cmd{vss}   & 垂直方向にかなり大きく伸び縮みする空き\\
+ \BR
+ \end{tabular}
+\end{center}
+\end{table}
+\qu{\str{fil}}は\qu{\str{fill}}よりも弱いので
+\qu{\str{fill}}のほうが優先されます．
+\begin{inout}
+この空き{\hfil}は{\hfil}かき消されません．\par
+この空きは{\hfil}恐らく{\hfill}かき消されます．
+\end{inout}
+\qu{\str{fil}}と\qu{\str{fill}}の二つのグルーの
+両方を使っている場合は空きが挿入されない場合があ
+りますから気を付けてください．
+
+もう少し相対的なグルーを挿入するには
+\cmd{stretch}を使います．
+\begin{usage}
+\stretch{$\<整数値>$} 
+\end{usage}
+%\begin{Syntax}
+%\C{stretch}\pa{整数}
+%\end{Syntax}
+これは\qu{\str{fill}}の何倍かのグルーを挿入しても
+良いようにするために使用できます．
+\begin{inout}
+hoge\hspace{\stretch{3}}hoge%
+\hspace{\stretch{1}}hoge.\par
+hoge\hspace{\fill}hoge\hspace{\fill}
+hoge.\par
+\end{inout}
+\C{fill}は \cmd{hspace}や \cmd{vspace}の引数に
+使う事ができるグルーです．
+例えばページの最上部に無限に近いグルーを
+挿入するときは以下のようにします．
+\begin{inout}
+\vspace*{\fill}を使ってもこの出力例で
+は伸びません．
+\end{inout}
+
+
+
+
+\section{文字間}
+
+\subsection{半角空白をそのまま出力する}
+\begin{usage}
+\obeyspaces 
+\end{usage}
+
+\begin{showwhitespaces}
+\begin{inout}
+\obeyspaces
+It does not matter whether you enter one or 
+several                  spaces afte a word.
+An   empty        line stars a new paragrah.
+\end{inout} 
+\end{showwhitespaces}
+
+\subsection{改行をそのまま出力する}
+
+\begin{usage}
+\obeylines
+\end{usage}
+
+\begin{showwhitespaces}
+\begin{inout}
+\obeyspaces \obeylines
+It does not matter whether you enter one or 
+several                  spaces afte a word.
+An   empty        line stars a new paragrah. 
+\end{inout}
+\end{showwhitespaces}
+
+\section{行間}
+
+\subsection{ダブルスペースにする}
+
+\begin{usage}
+\usepackage{setspace}
+\doublespacing
+\end{usage}
+
+\begin{inout}
+\usepackage{setspace}
+シングルスペース\\ で組まれるテキスト．\\
+\doublespacing
+ダブルスペース\\ で組まれるテキスト．
+\end{inout}
+
+\subsection{シングルスペースに戻す}
+
+\begin{usage}
+\usepackage{setspace}
+\singlespacing
+\end{usage}
+
+\begin{inout}
+\usepackage{setspace}
+\doublespacing
+ダブルスペース\\ で組まれるテキスト．\\
+\singlespacing
+シングルスペース\\ で組まれるテキスト．
+\end{inout}
+
+\subsection{行間を指定した割合で変更する}
+
+\begin{usage}
+\usepackage{setspace}
+\begin{spacing}{$\<割合>$}
+ $\<段落要素>$
+\end{spacing}
+\end{usage}
+
+\begin{inout}
+ \begin{spacing}{0.5}
+  通常の行間の50\%で\\ 段落が組まれます．
+ \end{spacing}
+ \begin{spacing}{3}
+  通常の3倍の行間で\\段落が組まれます．
+ \end{spacing}
+\end{inout}
+

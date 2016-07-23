@@ -1,0 +1,623 @@
+\makeatletter
+% 見出し書体
+\def \headfont {\mcfamily\bfseries\propshape}
+
+% 索引語句
+\def\W#1{\index{#1}#1}
+% 索引書き出し
+% `@'が含まれるコマンドにも対応
+\newcommand*\add@cmd@ind[1]{%
+  \@bsphack \begingroup%
+  \def \at@mark{@}%
+  \let \out@char = \@empty
+  \@tfor \char@temp:=#1\do{%
+     \if \at@mark \char@temp
+        \edef \out@char {\out@char"\at@mark}%"
+     \else
+        \edef \out@char {\out@char\char@temp}%
+     \fi}%
+  \edef \gloss@hoge {\noexpand \glossary {%
+     \out@char \string @\string \hspace*{-1.2ex}\string \texttt{%
+  \string \BS \space \out@char}}}%
+  \gloss@hoge \endgroup \@esphack}
+% コマンドを索引に追加するだけで表示しない
+\let \CI     = \add@cmd@ind
+% 複数のコマンドを一挙に
+\newcommand*\CIS[1]{%
+  \@for\member:=#1\do{\CI{\member}}%
+}
+
+% コマンド，索引に追加する
+\newcommand*\C[1]{%
+  \add@cmd@ind{#1}%
+  \texttt{\@backslashchar#1}%
+}
+% 表示だけ
+\newcommand*\cmd[1]{%
+  \texttt{\@backslashchar#1}%
+}
+
+\let \env \texttt
+
+\newcommand*\EI[1]{\glossary{#1かんきよう@\texttt{#1}環境}}
+\newcommand*\Env[1]{\EI{#1}\texttt{#1}}
+
+\let \E = \Env
+\let \Cmd \C
+\let \bs \BS
+
+\newcommand*{\pp}[1]{（#1）}
+\newcommand*{\exten}[1]{\texttt{.#1}}
+\newcommand*{\Va}[2]{\val{#1}\exten{#2}}
+
+\let \K \W 
+\let \KY \W
+
+\newcommand*{\kount}[1]{\texttt{#1}}
+
+\newcommand*{\Kount}[1]{%
+  \index{#1@\kount{#1}\pp{カウンタ}}%
+  \kount{#1}}
+
+% マクロパッケージ
+\let \sty = \textsf
+% ファイル
+\let \fl  = \texttt
+\let \Fl  = \fl
+%
+\newcommand*\YI[1]{\index{#1@\sty{#1}（パッケージ）}}
+\newcommand*{\Y}[1]{\YI{#1}\sty{#1}}
+\let \Sty \Y 
+
+\newcommand*{\cls}[1]{\textsf{#1}}
+\newcommand*{\Cls}[1]{%
+   \index{#1@\textsf{#1}}\textsf{#1}}
+
+\newcommand*\latexno[1]{\index{LaTeX@\LaTeX!\zdash#1}}
+
+% 値
+%\def\val#1{\mbox{$\langle$\null{##1}\null$\rangle$}}% variable
+\DeclareRobustCommand \val[1]{%
+  \mbox{$\langle$}%
+    \nobreak#1\nobreak
+  \mbox{$\rangle$}%
+}
+
+\let \va = \val
+
+% 引数
+\newcommand\param[1]{%
+   \texttt{\@charlb}%
+      \val{#1}%
+   \texttt{\@charrb}%
+}
+% 任意引数
+\newcommand\opt[1]{%
+   \texttt{[}%
+      \val{#1}%
+   \texttt{]}%
+}
+
+\newcommand*\otfKakomi[4][]{%
+   \C{#2#1}&#3&#4&%
+   \@tempcnta = #3\relax
+   \ifnum #4 < 10 
+      \@tempcntb = #4\relax \advance \@tempcntb \@ne
+   \else 
+      \@tempcntb = 10
+   \fi
+   \@whilenum \@tempcnta < \@tempcntb \do{%
+      \csname#2\endcsname#1{\number\@tempcnta}%
+      \advance \@tempcnta \@ne
+   }\\
+}
+\newcounter{otfligline}
+\newcounter{otfligrow}
+\setcounter{otfligrow}{2}
+\newcommand*\otfLig[1]{%
+   \texttt{#1}&\ajLig{#1}&\hbox{\tate\ajLig{#1}}%
+   \stepcounter{otfligline}%
+   \ifnum\c@otfligline = \c@otfligrow
+     \setcounter{otfligline}{0} \\ 
+   \else 
+     &
+   \fi
+}
+\def\@otf@lig@table{%
+   \stepcounter{otfligline}%
+   \ifnum\c@otfligline = \c@otfligrow
+     \setcounter{otfligline}{0} \\ 
+   \else 
+     &
+   \fi
+}
+\newcommand*\otfLigS[1]{%
+   \texttt{#1}&\ajLig{#1}%
+   \@otf@lig@table
+}
+
+\def\maketildeletter{\catcode`\~=12\relax}
+\def\maketildeother{\catcode`\~=\active\relax}
+
+
+\newenvironment{theglossary}{%
+    \if@twocolumn
+      \onecolumn\@restonecolfalse
+    \else
+      \clearpage\@restonecoltrue
+    \fi
+    \columnseprule.4pt \columnsep 2zw
+    \ifx\multicols\@undefined
+      \twocolumn[\@makeschapterhead{\glossaryname}%
+      \addcontentsline{toc}{chapter}{\glossaryname}%
+      ]%
+    \else
+      \ifdim\textwidth<\fullwidth
+        \setlength{\evensidemargin}{\oddsidemargin}
+        \setlength{\textwidth}{\fullwidth}
+        \setlength{\linewidth}{\fullwidth}
+        \begin{multicols}{3}[\chapter*{\glossaryname}%
+        \addcontentsline{toc}{chapter}{\glossaryname}%
+        ]%
+      \else
+        \begin{multicols}{2}[\chapter*{\glossaryname}%
+        \addcontentsline{toc}{chapter}{\glossaryname}%
+        ]%
+      \fi
+    \fi
+    \@mkboth{\glossaryname}{}%
+    \plainifnotempty % \thispagestyle{plain}
+    \parindent\z@
+    \parskip\z@ \@plus .3\p@\relax
+    \let\item\@idxitem
+    \raggedright
+    \footnotesize\narrowbaselines
+  }{
+    \ifx\multicols\@undefined
+      \if@restonecol\onecolumn\fi
+    \else
+      \end{multicols}
+    \fi
+    \clearpage
+  }%
+
+\def\hoge#1{%
+  \@tempcnta = \z@
+  \@whilenum \@tempcnta < #1 \do{%
+    あ\advance \@tempcnta \@ne%
+  }%
+}
+
+\def\ehoge#1{%
+  \@tempcnta = \z@
+  \@whilenum \@tempcnta < #1 \do{%
+    The quick brown fox jumps over the lazy dog.\advance \@tempcnta \@ne%
+  }%
+}
+
+\newcommand*\otfAj[1]{%
+   \texttt{\BS aj#1}&\csname aj#1\endcsname
+   \stepcounter{otfligline}%
+   \ifnum\c@otfligline = \c@otfligrow
+     \setcounter{otfligline}{0} \\ 
+   \else 
+     &
+   \fi
+}
+
+\newcommand*\otfAjt[1]{%
+   \texttt{\BS aj#1}&
+   \hbox{\tate\csname aj#1\endcsname}%
+   \stepcounter{otfligline}%
+   \ifnum\c@otfligline = \c@otfligrow
+     \setcounter{otfligline}{0} \\ 
+   \else 
+     &
+   \fi
+}
+
+%\newcommand*\usage{%
+%  \@ifstar{\@usage@env}{\@usage@cmd}%
+%}
+%
+%\def\@usage@env#1#2{%
+%  \index{環境!#1@\texttt{#1}}%
+%  \glossary{#1かんきよう@\texttt{#1}環境}%
+%  \noindent\texttt{\BS begin\@charlb#1\@charrb}\\
+%  \val{#2}\\
+%  \noindent\texttt{\BS end\@charlb#1\@charrb}%
+%}
+%
+%\def\@usage@cmd#1{%
+%  \noindent\C{#1}%
+%}
+\let \usage@fontsize = \small
+\lstnewenvironment{usage}
+  {\begingroup
+  \def\<##1>{\mbox{$\langle$\null{\mcfamily##1}\null$\rangle$}}%
+   \usage@fontsize
+   \lstset{frameshape={RYR}{nny}{ynn}{RYR},%
+     mathescape,%
+     language=TeX,%
+     commentstyle={\gtfamily\bfseries},%
+%     backgroundcolor={\color[cmyk]{0,0,0,.2}},%
+%     fillcolor={\color[cmyk]{0,0,0,0}},%
+%     rulesepcolor={\color[cmyk]{0,0,0,0}},%
+   }%
+  }{%
+  \endgroup}
+
+%\def\val#1{\mbox{$\langle$\null{##1}\null$\rangle$}}% variable
+
+
+\newcommand* \chaplab[1]{\label{chap:#1}}%     章のラベル
+\newcommand* \chapref[1]{第~\ref{chap:#1}~章}% 章の参照
+\newcommand* \seclab[1]{\label{sec:#1}}%       節のラベル
+\newcommand* \secref[1]{\ref{sec:#1}~節}%      節の参照
+\newcommand* \figlab[1]{\label{fig:#1}}%       図のラベル
+\newcommand* \figref[1]{図~\ref{fig:#1}}%      図の参照
+\newcommand* \tablab[1]{\label{tab:#1}}%       表のラベル
+\newcommand* \tabref[1]{表~\ref{tab:#1}}%     表の参照
+\newcommand* \equlab[1]{\label{equ:#1}}%       式のラベル
+\newcommand* \equref[1]{式~\ref{equ:#1}}%     式の参照
+\newcommand* \applab[1]{\label{app:#1}}%       付録のラベル
+\newcommand* \appref[1]{付録~\ref{app:#1}}%    付録の参照
+
+\let \inoutfontsize    = \small
+\let \inoutcaptionsize = \footnotesize
+
+%\lstdefinelanguage{MyTeX}{TeX}{%}
+% Listings style def
+\lstset{%
+ language={TeX},
+ basicstyle={\inoutfontsize      \ttfamily},%
+ identifierstyle={\inoutfontsize \ttfamily},%
+ commentstyle={\inoutfontsize    \ttfamily},%
+ keywordstyle={\inoutfontsize    \ttfamily},%
+ ndkeywordstyle={\inoutfontsize  \ttfamily},%
+ stringstyle={\inoutfontsize     \ttfamily},
+ frameshape={yyy}{nnn}{nnn}{nyn},
+ breaklines=false,
+ columns=[l]{fullflexible},%
+ xrightmargin=1zw,%
+ xleftmargin=1zw,%
+ lineskip=-.1em,%
+}
+
+\long\def\lst@makecaption#1#2{{\small
+  \vskip \abovecaptionskip
+  \sbox\@tempboxa{#1\relax #2}%
+  \ifdim \wd\@tempboxa <\hsize \centering \fi
+  #1\relax #2\par \nopagebreak
+  \vskip .5\belowcaptionskip
+  \nopagebreak
+}}
+
+
+\def \incaptionname  {用例}
+\def \outcaptionname {出力例}
+\def \@outcaption{%
+  \centerline{\hbox{\inoutcaptionsize \outcaptionname~\themyexample}}}
+\newlength{\outbelowrulewidth}
+\newcounter{myexample}[chapter]
+\newcommand*\exaref[1]{\incaptionname~{\ref{exa:#1}}}
+\def\themyexample{\thechapter.\@arabic\c@myexample}
+
+% 出力例下部の罫線
+\def\@outbelowrule{%
+    \par \nopagebreak \vskip -\belowcaptionskip 
+    \outbelowrulewidth=\linewidth
+    \advance \outbelowrulewidth 6pt%
+    \advance \outbelowrulewidth 2pt%
+    \noindent\makebox[0pt][l]{%
+      \hbox{\hskip-4.3pt%
+            \rule{.4pt}{3.4pt}%
+            \rule{\outbelowrulewidth}{.4pt}%
+            \rule{.4pt}{3.4pt}}%
+    }%
+    \par \nopagebreak \vskip .5\belowcaptionskip
+}
+
+% 出力例上部の罫線
+\def\@outoverrule{%
+  \par \nopagebreak \vskip \abovecaptionskip
+  \hrule 
+}
+
+% 出力例のスタイル
+\def\@out@only@style{%
+  \list{}{%
+    \itemsep       = \z@
+    \itemindent    = \z@
+    \labelsep      = \z@
+    \labelwidth    = \z@
+    \listparindent = \z@
+    \parsep        = \z@
+    \parskip       = \z@
+    \topsep 	   = \z@
+    \leftmargin    = 1zw\relax
+    \rightmargin   = \leftmargin}%
+     \item \relax \small
+}
+\let \end@out@only@style = \endlist
+
+\newenvironment{showwhitespaces}{\begingroup
+  \lstset{showspaces=true,showtabs=true,tab=\rightarrowfill}}%
+  {\endgroup}
+
+\newenvironment{inonly}%
+  {\VerbatimEnvironment
+   \begin{VerbatimOut}{\jobname.exa}}%
+  {\end{VerbatimOut}%
+  \refstepcounter{myexample}%
+  \begingroup
+    \def\<##1>{\mbox{$\langle$\null{\mcfamily##1}\null$\rangle$}}%
+    \let \@makecaption = \lst@makecaption
+    \lstinputlisting[title={{\inoutcaptionsize \incaptionname~\themyexample}}]{\jobname.exa}\relax%
+  \endgroup
+  }
+
+\def\abstractname{概要}
+\newbox\@abstractbox
+
+\def\out@abstract{%
+ \def\abstract{%
+   \global \setbox \@abstractbox \hbox \bgroup
+   \begin{minipage}[b]{.95\linewidth}%
+     \footnotesize \parindent 1zw
+     \begin{center}%
+       {\sffamily \abstractname}\par\vskip.5em%
+     \end{center}%
+     \list{}{%
+       \listparindent = \parindent
+       \itemindent    = \listparindent
+       \rightmargin   = \leftmargin}%
+     \item\relax
+ }%
+ \def\endabstract{\endlist\end{minipage}\egroup}%        
+}
+% inout 
+\newenvironment{inout}
+  {\inonly
+  }{%
+  \endinonly 
+  \begingroup
+     \@out@only@style
+     \out@abstract
+     \input{\jobname.exa}%
+     \end@out@only@style
+     \@outbelowrule
+%     \@outcaption
+   \endgroup
+  }
+
+% outonly 
+\newenvironment{outonly}
+  {\begingroup 
+     \@out@only@style
+     \out@abstract
+  }{%
+     \end@out@only@style
+     \@outbelowrule
+%     \@outcaption
+   \endgroup}
+
+% outonly*
+\newenvironment{outonly*}
+  {\begingroup
+     \@outoverrule
+     \@out@only@style
+     \out@abstract
+  }{%
+    \end@out@only@style
+     \@outbelowrule
+%     \@outcaption
+   \endgroup}
+
+% intext
+\lstnewenvironment{intext}
+  {\begingroup
+   \def\<##1>{\mbox{$\langle$\null{\mcfamily##1}\null$\rangle$}}%
+   \lstset{language=TeX,frameshape={yny}{nnn}{nnn}{yny}}%
+  }{\endgroup
+  } 
+
+% for jousrc 
+%\let\InText    = \intext
+%\let\endInText = \endintext
+% for jousrc 
+%\let\InOut     = \inout
+%\let\endInOut  = \endinout
+
+\def\@targetpagenum{0}
+\def\targetpagenum#1{\def\@targetpagenum{#1}}
+\def\checkpagenum{%
+  \AtEndDocument{%
+    \@tempcnta = \c@page
+    \advance \@tempcnta \m@ne
+    \ifnum \@tempcnta = \@targetpagenum
+      \typeout{キタコレ：\@arabic\@tempcnta}%
+    \else 
+      \typeout{プギャー：\@arabic\@tempcnta}%
+    \fi
+  }%
+}
+
+\newcommand{\figcaption}[1]{\def\@captype{figure}\caption{#1}}
+\newcommand{\tblcaption}[1]{\def\@captype{table}\caption{#1}}
+
+%\newenvironment{nofloatfigure}{%
+%  \let \caption = \figcaption
+%  }{%
+%
+%}
+
+\newcommand*{\option}[1]{\textsl{#1}}
+\newcommand*{\Option}[1]{%
+  \index{#1@\textsl{#1}（オプション）}%
+  \textsl{#1}%
+}
+\def\optionlist#1{\@tempcnta=\z@ \@tempcntb=\z@
+ \@for\member:=#1\do{\advance\@tempcnta\@ne}%
+ \@for\member:=#1\do{\advance\@tempcntb\@ne
+   \ifnum\@tempcntb<\@tempcnta
+         \textsl{\member},\space
+ \else
+  \ifnum\@tempcntb=\@tempcnta
+    \textsl{\member}%
+  \fi
+\fi}%
+}
+\def\Optionlist#1{\@tempcnta=\z@ \@tempcntb=\z@
+ \@for\member:=#1\do{\advance\@tempcnta\@ne}%
+ \@for\member:=#1\do{\advance\@tempcntb\@ne
+   \ifnum\@tempcntb<\@tempcnta
+   \index{\member @\textsl{\member}（オプション）}%
+   \textsl{\member},\space
+    \else
+      \ifnum\@tempcntb=\@tempcnta
+   \index{\member @\textsl{\member}（オプション）}%
+   \textsl{\member}%
+   \fi
+ \fi}%
+}
+
+\newcommand*\@zdash{\char\jis"213D\kern-.5zw%"
+   \char\jis"213D\kern-.5zw\char\jis"213D\relax}
+
+\DeclareRobustCommand*\zdash{%
+  {\@zdash}%
+}
+
+\newcommand*\zindind[2]{\index{#1!\zdash#2}}
+\newcommand*\indindz[2]{\index{#1!#2\zdash}}
+
+\newcommand*{\str}[1]{{\reset@font \ttfamily \mdseries \string#1}}
+
+\def\Hito#1#2{#1#2氏}
+\def\Person#1#2{#1 #2氏}
+\let \person = \Person
+\let\hito\Hito
+\def\Dviout{dviout\xspace}
+\def\GS{GhostScript\xspace}
+%\let \Prog = \W
+\let \Z = \W
+\let \type \underline
+
+\newcommand*{\qu}[1]{`#1'}
+
+\let \mynameuse = \@nameuse
+
+\newcommand*\twoargs[2]{\texttt{\@charlb}\val{#1}\str,\val{#2}\texttt{\@charrb}}
+\newcommand*\threeargs[3]{\texttt{\@charlb}\val{#1}\str,\val{#2}%
+  \str,\val{#3}\texttt{\@charrb}}
+
+% 波括弧を使いたい
+\let \lb = \@charlb
+\let \rb = \@charrb
+
+% booktabs
+\let \TR = \toprule
+\let \MR = \midrule
+\let \BR = \bottomrule
+\let \Th = \relax
+
+% なんか知らんけど応急処置 for array 環境
+\newenvironment{monoarray}{%
+  \let \CT@cell@color \@empty
+%  \let \CT@row@color  \@empty
+}{}
+
+\@ifundefined{bou}{%
+
+\newif\if@rotsw
+
+\def\boutenchar{\char\euc"A1A2}
+\def\bou#1{\ifvmode\leavevmode\fi\@bou#1\end}
+\def\@bou#1{%
+  \ifx#1\end \let\next=\relax
+  \else
+    \iftdir\if@rotsw
+      \hbox to\z@{\vbox to\z@{\boxmaxdepth\maxdimen
+        \vss\moveleft-0.2zw\hbox{\boutenchar}\nointerlineskip
+        \hbox{\char\euc"A1A1}}\hss}\nobreak#1\relax
+    \else
+      \hbox to\z@{\vbox to\z@{\boxmaxdepth\maxdimen
+        \vss\moveleft0.2zw\hbox{\yoko\boutenchar}\nointerlineskip
+        \hbox{\char\euc"A1A1}}\hss}\nobreak#1\relax
+    \fi\else
+      \hbox to\z@{\vbox to\z@{%
+        \vss\moveleft-0.2zw\hbox{\yoko\boutenchar}\nointerlineskip
+        \hbox{\char\euc"A1A1}}\hss}\nobreak#1\relax
+    \fi
+    \let\next=\@bou
+  \fi\next}
+}\relax
+
+% パッケージを使ったフォントのサンプルを outonly で出力
+\newcommand*\fontsmpl[3]{%
+\begingroup
+  \def\rmdefault{#1}\def\sfdefault{#2}\def\ttdefault{#3}%
+\begin{outonly}
+\noindent\textrm{The quick brown fox jumps over a lazy dog}.\\
+\textsf{The quick brown fox jumps over a lazy dog}.\\
+\texttt{The quick brown fox jumps over a lazy dog}.
+\end{outonly}\endgroup}
+
+\newcommand*\fontsmplone[4]{%
+  \begingroup
+    \begin{outonly}%
+      {\usefont{#1}{#2}{#3}{#4}\selectfont
+       The quick brown fox jumps over a lazy dog.}%
+    \end{outonly}%
+  \endgroup
+}
+
+\newcommand*\bibi[1]{%
+  \index{#1@\texttt{#1} (\BibTeX)}\texttt{#1}%
+}
+\newcommand*\bubu[1]{%
+  \index{#1@\texttt{#1} (\BibTeX)}\texttt{#1}%
+}
+
+\newcommand*{\demowidth}[1]{%
+   \rule{0.3pt}{1.3ex}\rule{#1}{0.3pt}\rule{0.3pt}{1.3ex}}
+
+\newcommand*{\yo}[1]{「#1」}
+\newcommand*{\qq}[1]{``#1''}
+
+\let \key \keytop
+
+\newcommand*{\xy}[2]{\string({\itshape#1}\texttt,{\itshape#2}\string)}
+
+\newcommand*{\win}[1]{{%
+   \fboxsep  = \z@ \relax
+   \fboxrule = \z@ \relax
+   \colorbox[cmyk]{0,0,0,\gray@ii}{\textsf{[#1]}}%
+}}
+
+\newcommand*{\bst}[1]{\textsf{#1}}
+\newcommand*{\Bst}[1]{\index{#1@\bst{#1}}\bst{#1}}%
+
+\newcommand*{\Exten}{\@ifstar \@sExten \@Exten}
+\newcommand*{\@sExten}[1]{%
+  \index{#1@\texttt{\protect\hspace*{-1ex}.#1} (拡張子)}}
+
+\newcommand{\dos}[1]{%
+   \colorbox{black}{\color{white}{%
+   \small \reset@font \ttfamily #1\hfil}}}
+
+\let \prog \relax
+%\let \Prog \relax
+\def\Prog{\@ifnextchar[{\@Prog}{}}%]
+\def\@Prog[#1]#2{\index{#1@#2}#2}
+
+\newcommand*\unixos         {Unix系OS\xspace}
+\makeatother
+
+\newcounter{mycnt}
+
+\newcommand*\mada[1]{\par\noindent\textcolor{red}{追記:#1}\par}
+
+\endinput
+

@@ -1,0 +1,65 @@
+\makeatletter
+\DeclareRobustCommand*\XeTeX     {\leavevmode
+  \setbox0=\hbox{X\lower.5ex\hbox{\kern-.15em\reflectbox{E}}%
+  \kern-.1667em \TeX}\box0\xspace
+}
+\DeclareRobustCommand*\XeLaTeX   {\leavevmode
+  \setbox0=\hbox{X\lower.5ex\hbox{\kern-.15em\reflectbox{E}}%
+  \kern-.0833em \LaTeX}\box0\xspace
+}
+
+\DeclareRobustCommand*\Xy        {\leavevmode
+   \hbox{\kern-.1em X\kern-.3em\lower.4ex\hbox{Y\kern-.15em}}%
+}
+
+\DeclareRobustCommand*\Xypic     {\mbox{\Xy-pic}\xspace}
+\DeclareRobustCommand*\PIC       {PIC\xspace}
+\DeclareRobustCommand*\Tpic      {{\reset@font\textsc{Tpic}}\xspace}
+
+\DeclareRobustCommand*\JLaTeXe   {\leavevmode
+   \lower.5ex\hbox{\rm J}\kern-.1em\LaTeXe\xspace
+}
+
+\DeclareRobustCommand*\XyMTeX    {\leavevmode
+   X\kern-.3em\smash{\raise.5ex\hbox{$\m@th\Upsilon$}}%
+   \kern-.3em{M}\kern-0.1em\TeX \xspace
+}
+\DeclareRobustCommand*\eTeX      {\mbox{$\m@th\varepsilon$-\TeX}\xspace}
+\DeclareRobustCommand*\eLaTeX    {\mbox{$\m@th\varepsilon$-\LaTeX}\xspace}
+
+\DeclareRobustCommand*\epTeX     {\mbox{$\m@th\varepsilon$-\pTeX}\xspace}
+\DeclareRobustCommand*\epLaTeX   {\mbox{$\m@th\varepsilon$-\pLaTeX}\xspace}
+
+\DeclareRobustCommand*\upTeX     {\mbox{u\pTeX}}
+\DeclareRobustCommand*\upLaTeX   {\mbox{u\pLaTeX}}
+
+\DeclareRobustCommand*\PDFeLaTeX {pdf\eLaTeX}
+\DeclareRobustCommand*\PDFeTeX   {pdf\eTeX}
+
+\DeclareRobustCommand*\NTS       {\leavevmode
+   \hbox{$\cal N\kern-0.35em\lower0.5ex\hbox{$\cal T$}\kern-0.2em S$}\xspace
+}
+\DeclareRobustCommand*\AmSTeX    {\mbox{\AmS\TeX}\xspace}
+\DeclareRobustCommand*\AmSLaTeX  {\mbox{\AmS\LaTeX}\xspace}
+\DeclareRobustCommand*\AmSFonts  {\mbox{\AmS Fonts}\xspace}
+
+\DeclareRobustCommand*\Dvipdfm   {Dvipdfm\xspace}
+\DeclareRobustCommand*\Dvipdfmx  {Dvipdfm{\rmfamily\itshape x}\xspace}
+
+\DeclareRobustCommand*\YaTeX    {Ya\TeX\xspace}
+
+\newcommand*\PS       {PostScript\xspace}
+\newcommand*\BB       {BoundingBox\xspace}
+\newcommand*\OSXWS          {MacOS~X~WorkShop\xspace}
+\newcommand*\OmniGraffle    {OmniGraffle\xspace}
+\newcommand*\OpenOffice     {OpenOffice.org\xspace}
+\newcommand*\TeXShop        {\TeX Shop\xspace}
+\newcommand*\PDFTeX         {pdf\TeX \xspace}
+\newcommand*\PDFLaTeX       {pdf\LaTeX \xspace}
+\newcommand*\Context        {Con{\TeX}t\xspace}
+\newcommand*\texinfo        {Texinfo\xspace}
+\newcommand*\txfonts        {\texttt{TX}\textsf{Fonts}\xspace}
+\newcommand*\pxfonts        {\texttt{PX}\textsf{Fonts}\xspace}
+
+\makeatother
+\endinput

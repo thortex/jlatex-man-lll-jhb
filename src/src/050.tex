@@ -1,0 +1,985 @@
+%#!platex -kanji=utf8 hb.tex
+%\chapter{文書の装飾（色付け・枠囲み）}
+\chapter{文字の装飾と箱の操作}
+% これはただのダミーテキスト．
+% 文字コードを判定するための意味のない文字列．
+% これくらい記述すれば大丈夫かな．
+% Emacs のくせに生意気な．
+% Emacs の分際で自動判別とか．
+% Mac OS X のテキストエディッタの文字コード自動判別はうまくいかないぞ．
+
+\section{罫線}
+
+\subsection{長さと幅を指定して罫線を引く}
+
+箱とは違うのですが\W{罫線}をここで紹介しておきます．
+\begin{usage}
+\rule[$\<上げ下げの値>$]{$\<幅>$}{$\<高さ>$}
+\end{usage}
+%\begin{Syntax}
+%\C{rule}\opa{上げ率}\pa{幅}\pa{高さ}
+%\end{Syntax}
+ \cmd{rule}命令は使いものになります．見えない罫線を
+引く事もできます．例えば幅が0\,ptでも高さのある
+罫線，高さが0\,ptでも幅のある罫線が使えますから，
+こんな使い方もできるわけです．枠の見える
+状態での例を見てください．
+\begin{inout}
+\newcommand*\RULE[2]{%
+  \rule{0pt}{#1}\rule{#2}{0pt}}
+未来 \fbox{\RULE{3zw}{4zw}}
+函館 \fbox{\RULE{3zw}{2zw}}
+\end{inout}
+
+箱とは違うのですが\W{下線}も紹介しておきます．
+下線は \cmd{underline}を使います．
+\begin{usage}
+\underline{$\<下線を引く要素>$} 
+\end{usage}
+%\begin{Syntax}
+%\C{underline}\pa{要素}
+%\end{Syntax}
+ \cmd{underline}の中に箱を入れる事もできますし，
+何を入れても構いません．
+\begin{inout}
+\underline{\fbox{枠付きの箱}の下線}
+はこのようにしますし，もちろん
+\underline{下線}も表示できます．
+\end{inout}
+
+\subsection{指定した幅を記号で埋める}
+
+\cmd{hfil}や \cmd{hfill}は空白を挿入するグルーでした．そうではなく，与え
+られた領域を程よく文字列や要素で埋めてくれる込め物もあると便利です．目次
+でも使われているのがお分かりになるでしょう．これらを{\W{リーダ}}と呼び
+ます．{\LaTeX}であらかじめ定義されているリーダは\tabref{leaders}となりま
+す．
+
+\qu{\str{fill}}ですから無限に伸びます．
+\begin{table}[htbp]
+\begin{center}
+\caption{主なリーダ}\tablab{leaders}
+\begin{tabular}{lp{10zw}}
+\TR
+\Th{命令} & \Th{出力例} \\
+\MR
+\C{dotfill}	    & \dotfill\\
+\C{hrulefill}     & \hrulefill\\
+\C{leftarrowfill} & \leftarrowfill\\
+\C{rightarrowfill}& \rightarrowfill\\
+\C{downbracefill} & \downbracefill\\
+\C{upbracefill}   & \upbracefill\\
+\BR
+\end{tabular}
+\end{center}
+\end{table}
+\cmd{dotfill}と \cmd{hrulefill}は\Fl{ltplain.dtx}で，
+それ以外は\Fl{fontdef.dtx}にて定義されています．
+段落中で使うと段の終わりまで伸びます．
+\begin{inout}
+\makebox[5zw][l]{未\dotfill 来}\\
+\hrulefill\\
+北海\leftarrowfill 道と\\
+北方領土\rightarrowfill\par
+\end{inout}
+これらのリーダは \C{leaders}という命令によって
+定義されています．自分でこのような命令を定義した
+いときは \C{leaders}，\C{cleaders}，\C{xleaders}
+の三つが使えます．
+例えば領域を\yo{未来}で埋めるような命令ならば
+次のようになります．
+\begin{inout}
+\newcommand{\hogefill}{\leavevmode
+\leaders\hbox{未来}\hfill\kern0pt}
+\hogefill\par
+そう\hogefill だよ．\par
+\end{inout}
+
+
+
+\subsection{下線}
+
+\begin{usage}
+\usepackage{ulem}
+\uline{$\<下線>$}% 下線
+\uuline{$\<二重下線>$}% 二重下線
+\uwave{$\<下波線>$}% 下波線
+\sout{$\<スクラッチアウト>$}% スクラッチアウト
+\xout{$\<クロスアウト>$}% クロスアウト
+\end{usage}
+
+
+\begin{inout}
+\normalem
+Please Read \emph{\TeX book} and 
+\ULforem
+\emph{\MF book}.
+\end{inout}
+
+
+% HOGE
+\begin{inout}
+ \uline{hoge is hoge}
+ \xout{hoge is hoge}
+ \sout{hoge is hoge}
+???????????????????????
+\uline{下線}% 下線
+\uuline{二重下線}% 二重下線
+\uwave{下波線}% 下波線
+\sout{スクラッチアウト}% スクラッチアウト（取り消し線）
+\xout{Japanese texts}% HOGE????
+\xout{クロスアウト}% クロスアウト（////の追加）
+\end{inout}
+
+\subsection{空白ではないグルー}
+
+
+
+\section{枠}
+
+{\LaTeX}の標準では \C{fbox}と \C{framebox}命令が使えます．
+\indindz{枠}{2重の}%
+\begin{inout}
+\fbox{これは枠付きの箱} \\
+\framebox[10zw][c]{日本太郎}\\
+\fbox{\fbox{2重枠の箱}} \\
+{\fboxrule=1pt\fbox{枠の太い箱}}\\
+{\fboxsep=0pt\fbox{文字と枠がぴったり
+な箱}}
+\end{inout}
+
+
+\subsection{丸囲み (\protect\MARU{0})}
+\begin{usage}
+\usepackage{okumacro}
+\MARU{$\<丸囲みする文字>$}
+\end{usage}
+
+\begin{inout}
+この場合，手順\MARU{3}に戻る事も考えられるが手順\MARU{4}が省略
+できないため，HOGE
+\end{inout}
+
+
+\subsection{キートップを示す}
+\begin{usage}
+\usepackage{okumacro}
+\keytop{$\<キー>$}
+\end{usage}
+
+\begin{inout}
+ \keytop{X}, \return, \upkey, \downkey, \rightkey, \leftkey
+\end{inout}
+
+\subsection{fancybox}
+\Person{Timothy}{Zandt}による\Sty{fancybox}を使ってみると
+枠付きの箱を出しやすいでしょう．枠付きの箱に文字列を入れる
+ための命令として \C{shadowbox}，\C{doublebox}，
+\C{ovalbox}，\C{Ovalbox}の四つがあります．
+\begin{inout}
+\shadowbox{影付きの箱} \\
+\doublebox{2重の枠 \\
+\ovalbox{辺が丸い箱} \\
+\Ovalbox{太くて辺が丸い箱}}
+\end{inout}
+
+\subsection{ベタ書きを枠で囲む fancyvrb}
+
+\subsection{改ページを許して文章を枠で囲む eclbkbox}
+
+\subsection{改ページを許さない}
+
+\sty{fancybox}を使うと\Env{Sbox}環境というものが使えて，
+これは環境内のものを箱\pp{レジスタ}である \C{TheSbox}に
+保存します．このようにして保存した箱を \C{fbox}などで
+囲みます．例えば\env{minipage}を枠で囲む\env{fminipage}
+環境を作成するのであれば次のようにします．
+
+\begin{intext}
+\newenvironment{fminipage}%
+  {\begin{Sbox}\begin{minipage}}%
+  {\end{minipage}\end{Sbox}\fbox{\TheSbox}}
+\end{intext}
+
+
+\begin{inout}
+\newenvironment{fminipage}%
+  {\begin{Sbox}\begin{minipage}}%
+  {\end{minipage}\end{Sbox}%
+   \fbox{\TheSbox}}
+\begin{fminipage}{.8\linewidth}
+fancyboxパッケージを用いているため，この環境の中のテキストは枠で囲まれる事になります．
+\end{fminipage}
+\end{inout}
+
+数式環境などを枠で囲もうと思うとき，数式番号も
+含めて枠の中に入れるのはちょっと面倒かもしれません．
+\cmd{fbox}などの命令を使うとそこから数式を組み立てる
+モードではなく文章を組み立てるモードになりますので，
+もう1度数式環境を書きます．
+\begin{inout}
+\( y = f(x) + \fbox{\(C\)}\) 
+\begin{equation}
+ \fbox{\(y = f(x)\)}
+\end{equation}
+\end{inout}
+
+番号付きの数式を文章幅いっぱいに枠で囲むには
+\begin{quote}
+ (\cmd{linewidth} \pp{文章幅} $-2$\cmd{fboxrule} $-2$\cmd{fboxsep})
+\end{quote}
+を計算します．これには\Sty{calc}パッケージが使えます．
+\begin{inout}
+\usepackage{calc,fancybox} 
+\fbox{\parbox{(\linewidth -2\fboxrule -2\fboxsep)}{
+\begin{equation} 
+   y=f(x) 
+\end{equation}}}
+\end{inout}
+
+\env{eqnarray}環境は枠で囲もうと思うと\sty{fancybox}の
+場合は\Env{Beqnarray}が用意されていますので，こちらの
+環境を \cmd{fbox}などで囲みます．
+\begin{inout}
+\fbox{\begin{Beqnarray}
+ y & = & f(x)\\
+   & = & 1/x
+\end{Beqnarray}} 
+\end{inout}
+
+\env{table}環境や\env{figure}環境などで見出しも
+含まれる要素は \C{Sbox} で一度保存したものを枠で
+囲むようにします．こうすると
+\begin{inout}
+\usepackage{calc,fancybox}% プリアンブルで
+\newenvironment{ftable}[1][htbp]%
+  {\begin{table}[#1]
+   \begin{Sbox}\begin{minipage}{%
+  (\linewidth-2\fboxrule-2\fboxsep)}}%
+  {\end{minipage}\end{Sbox}\fbox{\TheSbox}\end{table}%
+} 
+\begin{ftable}
+\begin{center}
+  \caption{\protect\LaTeX の歴史}\tablab{fancy}
+  \begin{tabular}{ccc}
+ \LaTeX\,2.09& \LaTeXe& \LaTeX\,3\\
+ \end{tabular} 
+\end{center}
+\end{ftable}
+\end{inout}
+
+のように\env{ftable}や\env{ffigure}のような環境が定義できます．この出力
+例が\tabref{fancy}となります．
+
+\sty{fancybox}では\env{center}環境のように行揃えを
+行う環境があります．これを枠で囲むには%
+\zindind{左揃え}{を枠で囲む}%
+\zindind{右揃え}{を枠で囲む}%
+\zindind{中央揃え}{を枠で囲む}%
+\Env{Bcenter}，\Env{Bflushleft}，\Env{Bflushright}
+環境を使います．
+\begin{inout}
+\fbox{\begin{Bcenter}
+ここは \\ 中央揃えで \\ 
+  枠付きです．
+\end{Bcenter}}
+\end{inout}
+\begin{inout}
+\fbox{\begin{Bflushleft}
+ここは \\ 左揃えで \\ 
+  枠付きです．
+\end{Bflushleft}}
+\end{inout}
+\begin{inout}
+\fbox{\begin{Bflushright}
+ここは \\ 右揃えで \\ 
+ 枠付きになります．
+\end{Bflushright}}   
+\end{inout}
+\env{minipage}環境の中で行揃えの命令を使う事も
+考えられますが，その場合は横幅を指定しないといけ
+ないので，これらの環境は便利でしょう．
+箇条書き環境も同様に\env{minipage}の中に入れて \cmd{fbox}で
+囲む事も考えられますが，\sty{fancybox}では
+\Env{Bitemize}，\Env{Benumerate}，\Env{Bdescription}の
+三つがすでに定義されているので，これらの環境を
+枠で囲みます．
+\begin{inout}
+\fbox{\begin{Benumerate}
+ \item HOGE
+ \item HOGE
+ \item HOGE
+ \item HOGE
+\end{Benumerate}}
+\end{inout}
+
+HOGE
+% ダブルクラッチ
+HOGE
+
+\C{verb}命令を枠で囲むときは \C{VerbBox}命令を
+使います．
+\begin{inout}
+\VerbBox{\fbox}{
+\verb|\VerbBox{\fbox}{\verb+\+}|}
+\end{inout}
+
+\Env{verbatim}環境を枠で囲む場合はやはり先に
+\env{Sbox}環境で囲んで \cmd{TheSbox}を枠で
+囲むようにします．この場合\Env{fverbatim}環境を
+定義したほうが便利でしょう．ただし，
+この場合 \C{VerbatimEnvironment}命令と\Env{Verbatim}環境を
+併せて使わないとエラーになります．
+\begin{inout}
+\newenvironment{fverbatim}[1]%
+ {\VerbatimEnvironment 
+ \begin{Sbox} \begin{minipage}{#1}%
+ \begin{Verbatim}}{\end{Verbatim}%
+  \end{minipage}\end{Sbox}%
+  \fbox{\TheSbox}}
+\begin{fverbatim}{.8\linewidth}
+このべた書き環境は枠で囲まれて
+出力されます．
+\end{fverbatim}
+\end{inout}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{カラー}
+
+{\TeX/\LaTeX}では白と黒の2色しか理解できません．
+他の色を表現しようと思えば\Sty{color}パッケージなど
+の力を借りて\W{デバイス}ドライバに全てを任せる
+事になります．ですから色はドライバに依存しますし，プリンタが
+モノクロプリンタならばどうがんばってもグレースケール
+のページしか出力できません．
+
+色には{\W{色相}}・{\W{明度}}・{\W{彩度}}
+の三つの要素があります．色相とは青や緑などの波長の種類，
+明度はその波長の明るさ，彩度は黒色の少なさを表します．
+%色相については\kutiref{sikiso}を，明度と彩度
+%の相関については\kutiref{meisai}を参照してください．
+
+\subsection{要素に色を付ける}
+{\LaTeX}は白と黒の2色しか理解できません．ですから
+そのほかの色を付ける場合はデバイスドライバに
+全てを任せます．グレースケールでも同様です．
+色を付けるためには\sty{graphics}パッケージと同封
+されている\Person{David}{Carlisle}が作成した
+\Sty{color}パッケージを使います．\sty{color}を
+使うにはまず\sty{graphicx}と同じように使用する
+デバイスドライバを指定します．{dvipdfmx}
+などを使っているときは次のようにします．
+
+\begin{intext}
+\usepackage[dvipdfmx]{color} 
+\end{intext}
+
+パッケージオプションとして
+次のようなものがあります．
+\begin{description}
+ \item[\Option{usenames}] \sty{color}パッケージで
+  定義されている色の名前を全て使えるようにします．
+%\option{usenames}で使用できる色名は\kutiref{color}
+%の通りです．
+ \item[\Option{dvipsnames}] {dvips}で
+使用できる色を名前を指定して使えるようにする．
+\end{description}
+
+%\begin{Prob}
+以下のファイル\fl{colortest.tex}をタイプセットし，さらに dvipdfmx によ
+り PDF に変換し，その出力結果を吟味してください．
+
+
+\begin{intext}
+%#!F=hoge; platex $F.tex && dvipdfmx $F && open $F.pdf
+\documentclass[10pt,dvipdfmx,papersize]{jsarticle}
+\usepackage{type1ec,multicol}
+\usepackage{color}
+\pagestyle{empty}
+\begin{document}
+\renewcommand \DefineNamedColor[4]{%
+   \textcolor[#3]{#4}{\rule{2em}{1em}}\space{#2}\\}
+\parindent=0pt 
+\begin{multicols}{3}
+   \input{dvipsnam.def}
+\end{multicols}
+\end{document}
+\end{intext}
+
+実際にご自分が持っている（カラー/モノクロ）のプリンタで
+上記のファイルを印刷してください．さらに印刷したものと
+ディスプレイでプレビューしているファイル\fl{colortest.pdf}
+を見比べてください．カラーで出力した方は一度モノクロでも
+印刷してみてください．
+
+もしも，差があるようであれば，どのような差があるのか頭の
+中で整理してください．
+
+色の指定には四つあります．
+\begin{description}
+ \item[\str{rgb}] Red，Green，Blueの3色を
+ 混ぜ合わせて\emph{加法混色}で色を指定します．
+ それぞれの色は0から1のあいだで指定します．
+ \item[\str{cmyk}] Cyan，Magenta，Yellow，Blackの4色を
+ 混ぜ合わせて\emph{減法混色}で色を指定します．これも0から1のあいだで
+ 指定します．
+ \item[\str{gray}] グレースケールで0から1のあいだで濃さを決めます．
+ \item[\str{named}] あらかじめ定義された名前を使う事を
+ 意味します．
+\end{description}
+
+新規に色の名前を定義するときは \cmd{definecolor}を
+使います．
+\begin{usage}
+\definecolor{$\<名前>$}{$\<種類>$}{$\<値>$}
+\end{usage}
+%\begin{Syntax}
+%\C{definecolor}\pa{名前}\pa{種類}\pa{値}
+%\end{Syntax}
+\val{色空間}には上記の四つが選択できます．RGB, CMYK, グレースケール (gray)
+例えば以下のように定義します．
+
+\begin{intext}
+\definecolor{MyGray}{gray}{0.85}
+\definecolor{MyRed}{rgb}{0.3,0,0}
+\definecolor{MyYellow}{cmyk}{}
+\end{intext}
+
+
+文字列の色は \cmd{textcolor}を使って色を指定します．\indindz{色}{文字の}
+\begin{usage}
+\textcolor{$\<色の名前>$}
+\textcolor[$\<色空間>$]{$\<値>$}{$\<文字列>$}
+\end{usage}
+%\begin{Syntax}
+%\C{textcolor}\pa{色} \\
+%\C{textcolor}\opa{種類}\pa{値}\pa{文字列}
+%\end{Syntax}
+
+ある範囲中の要素には \cmd{color}命令で指定します．
+\begin{usage}
+\color{$\<色の名前>$}
+\color{$\<色空間>$}{$\<値>$}
+\end{usage}
+
+%\begin{Syntax}
+%\C{color}\pa{色}  \\
+%\C{color}\opa{種類}\pa{値}
+%\end{Syntax}
+
+\begin{inout}
+\textcolor{Gray}{この文字は灰色}\\
+\textcolor[rgb]{1,0,0}{赤らしく}\\
+{\color{Gray}{\fbox{枠も文字も灰色
+です．}}}
+\end{inout}
+
+
+
+ページの背景色を指定するときは \cmd{pagecolor}命令を使います．
+\zindind{ページ}{の背景色}\indindz{色}{ページの}%
+\begin{usage}
+\pagecolor{$\<色の名前>$} 
+\pagecolor{$\<色空間>$}{$\<値>$} 
+\end{usage}
+
+%\begin{Syntax}
+%\C{pagecolor}\pa{色}\\
+%\C{pagecolor}\opa{種類}\pa{値}
+%\end{Syntax}
+これは命令を使ったそのページからずっと色の
+指定が有効ですので，1ページだけの色を変更したい
+ときはページの切り替わるだろう部分で色を
+元々の色に戻します．
+
+\indindz{箱}{枠付きの}%
+枠付きの箱の背景を指定できる \cmd{colorbox}命令があります．
+%\begin{Syntax}
+%\C{colorbox}\pa{色}\pa{文字列}\\
+%\C{colorbox}\opa{種類}\pa{値}\pa{文字列}
+%\end{Syntax}
+\begin{usage}
+\colorbox{$\<色の名前>$} 
+\colorbox{$\<色空間>$}{$\<値>$} 
+\end{usage}
+\begin{inout}
+\colorbox{red}{背景が赤になる}\\
+\colorbox[gray]{.8}{背景は灰色}\\
+\colorbox{black}{\color{white}%
+  背景が黒で文字は白}
+\end{inout}
+\zindind{枠}{の色}%
+さらに枠の色とその背景の色を指定できる \C{fcolorbox}
+もあります．
+
+\begin{usage}
+\fcolorbox{$\<枠の色>$}{$\<背景色>$}{$\<文字列>$}
+\fcolorbox[$\<色空間>$]{$\<枠の色の値>$}[$\<色空間>$]{$\<背景色の値>$}{$\<文字列>$}
+\end{usage}
+
+%\begin{Syntax}
+%\C{fcolorbox}\pa{枠の色}\pa{背景色}\pa{文字列}\\
+%\C{fcolorbox}\opa{種類}\pa{枠の色の値}%
+%  \pa{背景色の値}\pa{文字列}
+%\end{Syntax}
+\C{fcolorbox}では \cmd{fbox}と同じように \C{fboxrule}
+と \C{fboxsep}を調整できます．
+\begin{inout}
+\fcolorbox{red}{blue}
+  {枠が赤で背景が青}\\
+\fcolorbox[gray]{.5}{.8}
+  {枠も背景も灰色}\\
+{\fboxrule=2.4pt\fcolorbox{blue}
+  {red}{枠の線幅の調節}}
+\end{inout}
+
+
+
+
+
+\section{影}
+
+\subsection{影付き文字}
+
+\begin{inout}
+\usepackage{graphicx,color}
+ \makebox[0pt][l]{% 影付き
+   \hskip .1em\lower \Cdp\hbox{%
+      \textcolor[cmyk]{0,0,0,.2}{\LaTeX}}}\LaTeX
+\end{inout}
+
+
+\subsection{水面反射}
+
+\begin{inout}
+\usepackage{graphicx,color}
+ \makebox[0pt][l]{% 鏡面反射
+   \lower \Cdp\hbox{\scalebox{1}[-1]{%
+      \textcolor[cmyk]{0,0,0,.2}{鏡面反射}}}}鏡面反射
+\end{inout}
+
+\begin{inout}
+\usepackage{graphicx,color}
+ \newcommand*\kagemoji[1]{\makebox[0pt][l]{%
+   \hskip.1em\lower\Cdp\hbox{%
+   \textcolor[cmyk]{0,0,0,.2}{#1}}}#1}
+ \newcommand*\suimenmoji[1]{\makebox[0pt][l]{%
+   \lower \Cdp\hbox{\scalebox{1}[-1]{%
+   \textcolor[cmyk]{0,0,0,.2}{#1}}}}#1}
+% ここからサンプル
+\kagemoji{好き好き\LaTeXe 初級編} 
+\suimenmoji{Donald E.~Knuth}
+\suimenmoji{Leslie Lamport}
+\end{inout}
+
+
+
+
+
+
+
+
+
+
+
+\section{文字に装飾を行う}
+
+\subsection{\protect\kenten{圏点}を振る}
+
+\subsection{\protect\ruby{振り仮名}{フリガナ}を振る（ルビを付ける）}
+
+\begin{usage}
+\usepackage{okumacro}
+\ruby{$\<振られる文字>$}{$\<ふりがな>$}
+\end{usage}
+
+\begin{inout}
+本書では\ruby{\LaTeX}{ラテック}
+\ruby{憂鬱}{ゆううつ}
+\ruby{諸行無常}{ショギョウムジョウ}
+\end{inout}
+
+\subsection{\protect\kintou{5zw}{均等割}}
+
+均等割付け
+
+\begin{usage}
+\usepackage{okumacro} 
+\kintou{$\<幅>$}{$\<文字列>$}
+\end{usage}
+
+\begin{inout}
+\begin{description}
+ % この一個所を変更するだけで一括で割幅を変更可能
+ \newcommand\Item[1]{\item[\kintou{4zw}{#1}]}
+ \Item{日時} 2008年3月19日〜3月31日
+ \Item{開催場所} 北海道函館市亀田中野町
+ \Item{連絡先} 090-1234-5678
+\end{description}
+\end{inout}
+
+
+\subsection{数値にコンマなどの区切り文字を追加する}
+
+\begin{usage}
+\usepackage{numcomma} 
+\appendComma{$\<数値>$}
+\end{usage}
+
+\begin{inout}
+ \begin{center}
+ \numDelim{\thinspace}
+ \begin{tabular}{|c|c|c|}
+  \hline\relax
+  \appendComma{1234567890} & \appendComma{1234567890}&
+  \appendComma{1234567890}\\
+  \hline
+ \end{tabular}
+ \end{center}
+ \defaultNumDelim
+% \noNumDelim
+ \begin{center}
+ \begin{tabular}{|c|c|c|}
+  \hline\relax
+  \appendComma{1234567890} & \appendComma{1234567890}&
+  \appendComma{123456.7890}\\
+  \hline
+ \end{tabular}
+ \end{center}
+\end{inout}
+
+\subsection{お遊び}
+
+\begin{inout}
+\usepackage{color,graphicx,ifthen}
+\newcounter{mycnt} 
+\setlength\unitlength{.5pt}
+\begin{picture}(0,0)
+  \setcounter{mycnt}{0}%
+  \whiledo{\value{mycnt}<360}{%
+    \put(\themycnt,0){\makebox(0,0)[c]{%
+      \rotatebox{\themycnt}{\color[cmyk]{0,0,0,.\themycnt}A}}}%
+    \addtocounter{mycnt}{15}%
+  }
+\end{picture}
+\end{inout}
+
+
+%\usepackage{pifont}
+\begin{dangerous}
+\item sa;djslsf 
+\item kjsfajds;fjl
+\end{dangerous}
+
+\begin{FRAME}
+ ksdajdks;lajdskfj
+\end{FRAME}
+
+\begin{screen}
+jkalfjdkfj;dsajfksjf;
+ 
+\end{screen}
+
+\begin{EXAMPLE}
+;skljsd;kajf;dsf 
+\end{EXAMPLE}
+
+\section{その他}
+
+\subsection{日付}
+
+\begin{usage}
+\today
+\西暦 
+\和暦
+\year
+\month
+\day
+\end{usage}
+
+{\LaTeX}のプログラムを実行した段階で，その原稿をタ
+イプセットした日付を保存しています．\C{hour} と \C{minute}
+は\sty{jclasses}/\sty{jsclasses}でのみ使えます．
+%\begin{Syntax}
+%\begin{tabular}{*6l}
+%\C{today}&\pp{\Z{日付}} & \C{month}&\pp{\Z{月}} & \C{hour}  &\pp{\Z{時}}\\
+%\C{year} &\pp{\Z{年}}   & \C{day}  &\pp{\Z{日}} & \C{minute}&\pp{\Z{分}}\\
+%\end{tabular}
+%\end{Syntax}
+
+\index{西暦}%
+\index{和暦}%
+使用しているクラスファイルによって出力が違います．\cls{jarticle}において
+は \C{西暦}や，\C{和暦}という命令を使って \cmd{today} の西暦表示と和暦表
+示を変更できます．\hito{奥村}{晴彦}の
+\cls{jsclasses}で標準は西暦になっており，アスキーの
+\cls{jclasses}では和暦が標準です\pp{個人的には天皇
+制の名残のような和暦を使うのは好ましくないと感じ
+ていますし，ビジネス文書でわざわざ和暦を使っても
+世界に置いてけぼりを食らうだけだと思っています，
+個人的に}．欧文のクラスファイルではその言語の標準
+的な表示方法で出力されます．\index{年月日}\index{日付!\zdash の表示}
+\cmd{today} 以外は \C{number} 等のカウンタの値を表示するコマンドを
+必要とします\footnote{\C{two@digits} 命令を用いると
+`2006/04/15'のように，ゼロが補われるようになります．}．
+\begin{inout}
+今日は\number\year 年\number\month
+月\number\day 日です．略して\today.
+\end{inout}
+
+\subsection{\LaTeX のロゴを出力する}
+\begin{usage}
+\TeX     $\text{(\TeX)}$
+\LaTeX   $\text{(\LaTeX)}$
+\LaTeXe  $\text{(\LaTeXe)}$
+\end{usage}
+
+\hito{奥村}{晴彦}の\Cls{jsclasses}ではこれらに加えて
+次のロゴが用意されています．
+
+\begin{usage}
+\pTeX     $\text{(\pTeX)}$
+\pLaTeX   $\text{(\pLaTeX)}$
+\pLaTeXe  $\text{(\pLaTeXe)}$
+\end{usage}
+
+\begin{inout}
+「実は僕も{\TeX}使っています．」\\
+「え？{\LaTeX}じゃないんですか？」\\
+「いやぁ，僕は{\TeX pert}だからさ．
+ {\LaTeXe}も使ってませんよ．」\\
+「ということは{\pTeX}は使うんですね？」
+\end{inout}
+
+\section{箱の操作}
+まずは{\LaTeX}で用意されている{\W{箱}}について説明します．
+これらは\Fl{ltboxes.dtx}で定義されています．{\LaTeX}における箱とい
+うのは文章や段落，数式や図表などの要素を格納する領域のようなものです．
+{\LaTeX}の箱には\W{高さ}と\W{幅}と\W{深さ}の3種類の長さを
+持っています．さらに箱のどの点を基準にするかという\W{基準点}と
+いう座標も持ち合わせています．
+
+\subsection{枠のない箱}
+{\LaTeX}ではなんとも簡単に複数の要素を
+一つの箱に収める事ができます．
+\begin{usage}
+\makebox[$\<幅>$][$\<位置指定>$]{$\<要素>$}
+\end{usage}
+%\begin{Syntax}
+%\C{makebox}\opa{幅}\opa{位置}\pa{要素}
+%\end{Syntax}
+
+\cmd{makebox}では箱の幅と箱の中の要素の\indindz{幅}{箱の}%
+位置を指定できます．箱の幅よりも要素の幅が狭いときに
+箱の左側に配置\qu{\str l}，中央に配置する\qu{\str c}，
+右側に配置する\qu{\str r}，最後に要素を均一に配置する
+\qu{\str s}の四つを使う事ができます．
+\begin{inout}
+\makebox[3zw][l]{未来}と
+\makebox[3zw][c]{函館}と
+\makebox[5zw][r]{北海道}と
+\makebox[5zw][s]{G o o d !}です．
+\end{inout}
+要素の幅分の箱を作りたければ \cmd{mbox}を使います．
+\begin{usage}
+\mbox{$\<要素>$}
+\end{usage}
+%\begin{Syntax}
+%\C{mbox}\pa{要素}
+%\end{Syntax}
+引数を省略すると要素分の幅を確保し \cmd{makebox}を
+使うよりも効率が良いです．
+\begin{inout}
+\hspace*{\fill} 単なる予想ですが，
+この箱の中では恐らく\mbox{改行が
+起こりません．} 
+\end{inout}
+
+\subsection{枠のある箱}
+
+
+複数の要素を一つの塊として扱うようにするのが
+{\LaTeX}における箱の役割のようなものです．
+箱には枠を付ける事もできます．
+\begin{usage}
+\framebox[$\<幅>$][$\<位置指定>$]{$\<要素>$}
+\end{usage}
+%\begin{Syntax}
+%\C{framebox}\opa{幅}\opa{位置}\pa{要素}
+%\end{Syntax}
+ \cmd{framebox}も \cmd{makebox}とほぼ同じですが\zindind{罫線}{の太さ}%
+罫線の太さ \C{fboxrule}と罫線と要素の
+間隔 \C{fboxsep}の二つの長さを設定できます．
+ \cmd{fboxrule}は罫線の太さを， \cmd{fboxsep}は\zindind{枠}{の太さ}%
+枠と要素との距離を長さで指定します．\zindind{枠}{と文字の間隔}%
+\begin{inout}
+\framebox[3zw][l]{未来}と
+{\fboxrule=3pt\framebox[3zw][c]{函
+館}}と\framebox[5zw][r]{北海道}と
+\framebox[5zw][s]{G o o d !}です．
+\end{inout}
+ \cmd{makebox}と同じように引数を省略すると要素分の
+幅を確保する \cmd{fbox}が使えます．
+%\begin{Syntax}
+%\C{fbox}\pa{要素}
+%\end{Syntax}
+
+\begin{usage}
+\fbox{$\<要素>$} 
+\end{usage}
+
+\begin{inout}
+これは{\fboxsep=0pt\fbox{ぴったり
+です}}．こちらは{\fboxrule=.8pt
+\fbox{若干太い}}．
+\end{inout}
+
+\subsection{広範囲な箱}\indindz{箱}{広範囲な}%
+
+指定した箱の大きさで段落を組む \C{parbox}
+命令もあります．標準では字下げがされません\indindz{字下げ}{箱の中での}%
+ので必要があれば \cmd{parindent}に長さを代入
+してください．
+\begin{usage}
+\parbox[$\<位置指定>$][$\<高さ>$][$\<要素の位置>$]{$\<幅>$}{$\<要素>$}
+\end{usage}
+%\begin{Syntax}
+%\C{parbox}\opa{位置}\opa{高さ}\opa{要素の位置}\pa{幅}%
+%\pa{文字列}
+%\end{Syntax}
+\cmd{parbox}で作成された箱の基準をどこにするのかを
+\val{位置}で指定します．位置には上部\qu{\str t}，
+中央\qu{\str c}，下部\qu{\str b}の三つが使えます．
+標準では中央になります．
+\begin{inout}
+\parbox{13zw}{段落が終わる命令\par
+を使っても改行されますが\par
+標準では字下げされません．}
+\end{inout}
+\begin{inout}
+\parbox[c]{4zw}{箱が中央に．}\ldots
+\parbox[t][3zw][c]{4zw}{文字が中央，
+上が基準}\ldots 
+\parbox[b][3zw][t]{4zw}{文字が下に，
+下が基準}\ldots
+\end{inout}
+\zindind{ページ}{のような箱}ページのような箱を組む\env{minipage}環境もあります．
+\begin{usage}
+\begin{minipage}[$\<位置指定>$]{$\<幅>$}
+$\<段落要素>$ 
+\end{minipage} 
+\end{usage}
+%\begin{Syntax}
+%\verb|\begin{minipage}|\opa{位置}\pa{幅}\\
+%ページ内容\\
+%\verb|\end{minipage}|
+%\end{Syntax}
+\Env{minipage}環境では段落が組まれますし，
+脚注の出力も可能です．%
+\index{脚注!minipage環境での@\texttt{minipage}環境での\zdash}%
+\begin{inout}
+この環境は~
+\begin{minipage}[t]{7zw}
+ページを組みあげるので脚注%
+\footnote{脚注です．}
+もページの中に出力されます．
+\end{minipage} 
+~となります．
+\end{inout}
+
+\subsection{箱の保存と使用}\zindind{箱}{の保存}\zindind{箱}{の再利用}%%
+ある要素を箱の中に保存し，それを再利用できれば
+エネルギー消費を減らす事ができます．
+\begin{usage}
+\newsavebox{$\<綴り>$}
+\end{usage}
+箱を保存するためには保存する場所の確保を \cmd{newsavebox}で
+行います．{\LaTeX}が使っ
+ても良い箱は数が限られているのであらかじめ
+いくつくらい使うのかを宣言してあげます．
+宣言するときはバックスラッシュを先頭に付けます．
+箱の中に要素を保存するときは \cmd{savebox}か \cmd{sbox}命令を使います．
+%\begin{Syntax}
+%\C{savebox}\pa{綴り}\opa{幅}\opa{要素の位置}\pa{要素}\\
+%\C{sbox}\pa{綴り}\pa{要素}
+%\end{Syntax}
+\begin{usage}
+\savebox{$\<綴り>$}[$\<幅>$][$\<要素の位置>$]{$\<要素>$}
+\sbox{$\<綴り>$}{$\<要素>$}
+\end{usage}
+箱の幅や要素の位置を指定するときは \cmd{savebox}
+を使います．もちろん幅を指定しないと要素の位置は
+指定できません．
+上記の命令のほかにも\Env{lrbox}環境があります．
+行に収まるくらいの要素を\env{lrbox}環境の中に
+記述すると\val{綴り}の箱に代入します．
+\begin{usage}
+\begin{lrbox}{$\<綴り>$}
+$\<段落要素>$ 
+\end{lrbox}
+\end{usage}
+%\begin{Syntax}
+%\verb|\begin{lrbox}|\pa{綴り}\\
+%\val{要素}\\
+%\verb|\end{lrbox}|
+%\end{Syntax}
+
+これまでの命令では箱を用意してその中に要素を保\zindind{箱}{の用意}%
+存するだけですので，保存した箱を \C{usebox}命令で使います．
+\begin{usage}
+\usebox{$\<綴り>$} 
+\end{usage}
+%\begin{Syntax}
+%\C{usebox}\pa{綴り}
+%\end{Syntax}
+\cmd{usebox}命令を使うと\val{綴り}の箱に
+保存されている要素を複数回再利用できます．
+\begin{inout}
+\newsavebox{\mybox} 
+\savebox{\mybox}{\LaTeXe から \LaTeX\,3 へ}
+\usebox{\mybox}, \usebox{\mybox}.\\
+\usebox{\mybox}, \usebox{\mybox}.\\
+\sbox{\mybox}{}  \usebox{\mybox}
+\end{inout}
+{\LaTeX}の作業領域は限られていますので \C{setbox}命令で\val{綴り}の箱を
+使い終わったら空にします．
+
+
+\subsection{箱の上げ下げ}\zindind{箱}{の上げ下げ}%
+ある要素を箱の中に入れて，さらに上げ下げを
+同時に行う \C{raisebox}命令もあります．
+\begin{usage}
+\raisebox{$\<上げ下げ>$}[$\<高さ>$][$\<深さ>$]{$\<要素>$}
+\end{usage}
+%\begin{Syntax}
+%\C{raisebox}\pa{上げ下げ}\opa{高さ}\opa{深さ}\pa{要素}
+%\end{Syntax}
+\cmd{raisebox}命令の中には文字列や他の箱も
+挿入できます．
+\begin{inout}
+それで，\raisebox{1zw}{あれ}は
+\raisebox{-1zw}{これ}で，
+\raisebox{1.5zw}{\fbox{枠付きの箱}}だ．
+\end{inout}
+
+
+
+
+

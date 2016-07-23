@@ -1,0 +1,174 @@
+\subsection{\Y{txfonts}/\Y{pxfonts}での拡張}
+\newcommand*\torpxfonts{\sty{txfonts}/\sty{pxfonts}\xspace}
+\begin{usage}
+\usepackage{amsmath,amssymb}% 先に読み込みます
+\usepackage[T1]{fontenc}
+\usepackage{pxfonts}
+\end{usage}
+
+\begin{table}[htbp]
+\centering
+ \caption{\torpxfonts で拡張された2項演算子}
+ \tablab{app:txfonts:BinOpe}
+ \begin{tabular}{*{3}{c@{\thickspace\thinspace}l}}
+   \hline
+ \M{medcirc}       &  \M{nplus}     & \M{sqcapplus}\\
+ \M{medbullet}     &  \M{boxast}    & \M{rhd}\\
+ \M{invamp}        &  \M{boxbslash} & \M{lhd}\\
+ \M{circledwedge}  &  \M{boxbar}    & \M{unrhd}\\
+ \M{circledvee}    &  \M{boxslash}  & \M{unlhd}\\
+ \M{circledbar}    &  \M{Wr}        &  \\
+ \M{circledbslash} &  \M{sqcupplus} &  \\
+   \hline
+ \end{tabular}
+\end{table}
+%
+\begin{table}[htbp]
+ \centering
+  \indindz{記号}{数学}%
+ \caption{\torpxfonts で拡張された数学記号}
+ \tablab{app:txfonts:OrdSym}
+ \begin{tabular}{*{3}{c@{\thickspace\thinspace}l}}
+   \hline
+ \M{alphaup}   &\M{nuup}      &\M{omegaup}\\
+ \M{betaup}    &\M{xiup}      &\M{Diamond}\\
+ \M{gammaup}   &\M{piup}      &\M{Diamonddot}\\
+ \M{deltaup}   &\M{varpiup}   &\M{Diamondblack}\\
+ \M{epsilonup} &\M{rhoup}     &\M{lambdaslash}\\
+ \M{varepsilonup}&\M{varrhoup}&\M{lambdabar}\\
+ \M{zetaup}    &\M{sigmaup}   &\M{varclubsuit}\\
+ \M{etaup}     &\M{varsigmaup}&\M{vardiamondsuit}\\
+ \M{thetaup}   &\M{tauup}     &\M{varheartsuit}\\
+ \M{varthetaup}&\M{upsilonup} &\M{varspadesuit}\\
+ \M{iotaup}    &\M{phiup}     &\M{Top}\\
+ \M{kappaup}   &\M{varphiup}  &\M{Bot}\\
+ \M{lambdaup}  &\M{chiup}     &\\
+ \M{muup}      &\M{psiup}     &\\
+   \hline  
+ \end{tabular}
+\end{table}
+%
+\begin{table}[htbp]
+ \centering
+ \caption{\torpxfonts で拡張された大型演算子}
+ \tablab{app:txfonts:LargeOpe}
+  \begin{tabularx}{\linewidth}{l@{\hskip1em}X@{\thinspace}l@{\hskip1em}X}
+   \hline
+  \M{bignplus} & \M{varprod}\\
+  \M{bigsqcupplus} & \M{bigsqcapplus}\\
+  \M{bigsqcup} & \M{bigsqcap}\\
+  \M{iint} & \M{iiint}\\[2pt]
+  \M{iiiint} & \M{idotsint}\\[2pt]
+  \M{oiint} & \M{oiiint}\\[2pt]
+  \M{ointclockwise} & \M{ointctrclockwise}\\[3pt]
+  \M{oiintclockwise} & \M{oiintctrclockwise}\\[10pt]
+  \M{oiiintclockwise} & \M{oiiintctrclockwise}\\[10pt]
+  \M{varointclockwise}   & \M{varointctrclockwise}\\[5pt]
+  \M{varoiintclockwise}  & \M{varoiintctrclockwise}\\[9pt]
+  \M{varoiiintclockwise} & \M{varoiiintctrclockwise}\\[10pt]
+  \M{fint}  & \M{sqint}\\[8pt]
+  \M{sqiintop} & \M{sqiiintop}\\[10pt]
+     \hline
+ \end{tabularx}
+\end{table}
+%
+\begin{longtable}{*{2}{c@{\thickspace\thinspace}l}}
+\caption{\torpxfonts で拡張された2項関係子}\\%
+%\tablab{app:txfonts:Bin:Rel}}
+  \hline
+  \endfirsthead
+  \hline
+  \multicolumn{4}{c}{前ページからの続きです}\\
+  \endhead
+  \multicolumn{4}{c}{次ページへ続きます}\\
+  \hline
+  \endfoot
+  \hline
+  \endlastfoot
+ %
+ \M{mappedfrom} & \M{longmappedfrom}\\
+ \M{Mappedfrom} & \M{Mapsto}\\
+ \M{Longmappedfrom} &\M{Longmapsto}\\
+ \M{mmappedfrom} & \M{mmapsto}\\
+ \M{longmmappedfrom} & \M{longmmapsto}\\
+ \M{Mmappedfrom} & \M{Mmapsto}\\
+ \M{Longmmappedfrom} & \M{Longmmapsto}\\
+ \M{varparallel}&\M{varparallelinv}\\
+ \M{nvarparallel}&\M{nvarparallelinv}\\
+ \M{colonapprox}&\M{colonsim}\\
+ \M{Colonapprox}&\M{Colonsim}\\
+ \M{doteq}&\\
+ \M{multimapinv}& \M{multimapboth}\\
+ \M{multimapdot}&\M{multimapdotinv}\\
+ \M{multimapdotbothA} & \M{multimapdotbothB}\\
+ \M{multimapdotboth}&\M{VDash}\\
+ \M{VvDash}&\M{cong}\\
+ \M{preceqq}&\M{succeqq}\\
+ \M{nprecsim} & \M{nsuccsim}\\
+ \M{nlesssim} & \M{ngtrsim}\\
+ \M{nlessapprox} & \M{ngtrapprox}\\
+ \M{npreccurlyeq} & \M{nsucccurlyeq}\\
+ %
+ \M{ngtrless} & \M{nlessgtr}\\
+ \M{nbumpeq} & \M{nBumpeq}\\
+ \M{nbacksim} & \M{nbacksimeq}\\
+ \M{ne} & \M{nasymp}\\
+ \M{nequiv} & \M{nsim}\\
+ \M{napprox} & \\
+ \M{nsubset} & \M{nsupset}\\
+ \M{nll} & \M{ngg}\\
+ %
+ \M{nthickapprox} & \M{napproxeq}\\
+ \M{nprecapprox} & \M{nsuccapprox}\\
+ \M{npreceqq} & \M{nsucceqq}\\
+ \M{nsimeq} \\
+ \M{notin} & \M{notni} \\
+ \M{nSubset} & \M{nSupset}\\
+ \M{nsqsubseteq} & \M{nsqsupseteq}\\
+ \M{coloneqq} & \M{eqqcolon}\\
+ \M{coloneq} & \M{eqcolon}\\
+ \M{Coloneqq} & \M{Eqqcolon}\\
+ \M{Coloneq} & \M{Eqcolon}\\
+ \M{strictif} & \M{strictfi}\\
+ \M{strictiff} & \\
+ \M{circledless} & \M{circledgtr}\\
+ \M{lJoin} &\M{rJoin} \\
+ %
+ \M{Join} & \M{openJoin}\\
+ \M{lrtimes} & \M{opentimes}\\
+ \M{nsqsubset} & \M{nsqsupset}\\
+ \M{dashleftarrow} & \M{dashrightarrow}\\
+ \M{dashleftrightarrow} & \M{leftsquigarrow}\\
+ \M{ntwoheadleftarrow} & \M{ntwoheadrightarrow}\\
+ \M{Nearrow} & \M{Searrow}\\
+ \M{Nwarrow} & \M{Swarrow}\\
+ \M{Perp} \\
+ \M{leadstoext} & \M{leadsto}\\
+ %
+ \M{boxleft} & \M{boxright}\\
+ \M{boxdotleft} & \M{boxdotright}\\
+ \M{Diamondleft} & \M{Diamondright}\\
+ \M{Diamonddotleft} & \M{Diamonddotright}\\
+ \M{boxLeft} & \M{boxRight}\\
+ \M{boxdotLeft} & \M{boxdotRight}\\
+ \M{DiamondLeft} & \M{DiamondRight}\\
+ \M{DiamonddotLeft} & \M{DiamonddotRight}\\
+ \M{circleleft} & \M{circleright}\\
+ \M{circleddotleft} & \M{circleddotright}\\
+ %
+ \M{multimapbothvert} & \M{multimapdotbothvert}\\
+ \M{multimapdotbothAvert} & \M{multimapdotbothBvert}\\
+\end{longtable}
+%
+\begin{table}[htbp]
+ \centering
+  \indindz{記号}{区切り}%
+ \caption{\torpxfonts で拡張された区切り記号}
+ \tablab{app:txfonts:delimi}
+ \begin{tabular}{*{4}{c@{\thickspace\thinspace}l}}
+   \hline
+ \M{llbracket} & \M{rrbracket} & \M{lbag} & \M{rbag}\\
+     \hline
+ \end{tabular}
+\end{table}
+%

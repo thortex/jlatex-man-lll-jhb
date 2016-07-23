@@ -1,0 +1,76 @@
+%#!platex -kanji=utf8 hb.tex
+\chapter{エラーと警告}
+% これはただのダミーテキスト．
+% 文字コードを判定するための意味のない文字列．
+% これくらい記述すれば大丈夫かな．
+% 付録のくせに生意気な．
+% 付録の分際で．
+
+\newcommand*\errorshow[1]{\par\noindent#1}
+\newcommand*\warnshow[1]{\par\noindent#1}
+
+\section{エラー}
+
+・A--Zで整列
+
+\section{警告}
+
+・A--Zで整列
+
+\subsection{相互参照に関わる\LaTeX の警告}
+\zindind{相互参照}{に関わる警告}%
+コマンドプロンプトやシェルで表示される\dos{LaTeX Warning:}
+の後に以下に示すような警告が表示されていると，
+相互参照に関する問題が解消されていない事を示します．
+\index{エラー!Label `key' multiply defined@\texttt{Label `key' multiply defined}}
+\index{Label `key' multiply defined@\texttt{Label `key' multiply defined}}
+\par\dos{Label `key' multiply defined\hfil}
+というのは \cmd{label}命令で同じラベル名を持つラベルを定義している
+という事です．ラベルの重複がありますので，該当する
+ラベルに別の名前を付けます．
+
+\index{エラー!Reference `key' on page n undefined@\texttt{Reference `key' on page n undefined}}
+\index{Reference `key' on page n undefined@\texttt{Reference `key' on page n undefined}}
+\par\dos{Reference `key' on page n undefined\hfil}
+という警告が表示されたのならばラベル名が定義されていない
+事になります．
+
+\index{エラー!Label(s) may have 
+changed. Return to get cross-ferecenses right.@\texttt{Label(s) may have changed. Return to get cross-ferecenses right.}}
+\index{Label(s) may have changed. Return to get cross-ferecenses right.@\texttt{Label(s) may have changed. Return to get cross-ferecenses right.}}
+\par\dos{Label(s) may have 
+changed. Return to get cross-ferecenses right.\hfil} 
+が表示されたらラベルの値が変更されたという事なので，
+もう1度タイプセットをします．この作業は1度で終わらない
+事もあるのでメッセージが表示されなくなるまでタイプセット
+を繰り返す事もあります．
+
+ラベルに関する問題はラベルの参照する名前などのスペルミスなど
+も考えられます．
+
+
+%\begin{metacomment}
+% 以下のマークアップによる利点を説明するようなレベルにまで初級編は発展できないと思うので，コメントとする．
+%\end{metacomment}
+
+
+
+%\section{\TeX エラー}
+%\section{\TeX 警告}
+%\section{\LaTeX エラー}
+%\section{\LaTeX 警告}
+%\section{\pTeX エラー}
+%\section{\pLaTeX エラー}
+%\section{各種パッケージのエラー・警告}
+
+\section{dvidpfm/dvipdfmx}
+
+\index{エラー!Unable to open file.pdf@\texttt{Unable to open} \Va{file}{pdf}}%
+\index{Unable to open file.pdf@\texttt{Unable to open} \Va{file}{pdf}}%
+\zindind{PDF}{ファイル変換時のエラー}
+PDFファイルを\Prog{Adobe Reader}や\Prog{Acrobat Reader}など
+で閲覧しているときに\Dvipdfmx によるDVIファイルの変換を行うと
+% \dos{Unable to open output.pdf}
+というメッセージを表示してエラーになります．
+{1度開いているPDFファイルを閉じてから}，
+再度変換するようにします．
